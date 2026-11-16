@@ -1,0 +1,17 @@
+﻿# Build and temporary artifacts
+.artifacts/
+**/bin/
+**/obj/
+**/out/
+**/node_modules/
+*.user
+*.suo
+.vs/
+.vscode/
+*.env
+*.pfx
+*.snk
+
+# Private local documentation
+readme_local.md
+VNEXT Internship 2026 CRM BRD SRS.pdf
