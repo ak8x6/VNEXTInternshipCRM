@@ -99,7 +99,7 @@ flowchart TB
 | Milestone | Scope                                                                          | Status        | Git Tag                    |
 | :-------- | :----------------------------------------------------------------------------- | :------------ | :------------------------- |
 | **M0**    | **Engineering Readiness, Solution & CLI Pipeline**                             | **Completed** | `m0-engineering-readiness` |
-| **M1**    | **Dataverse Relational Schema, Choices & Alternate Keys**                      | Pending       | `m1-data-foundation`       |
+| **M1**    | **Dataverse Relational Schema, Choices & Alternate Keys**                      | **Completed** | `m1-data-foundation`       |
 | **M2**    | **Model-Driven App, 13 Views, 4 Charts, 2 Dashboards & RBAC**                  | Pending       | `m2-model-driven-crm`      |
 | **M3**    | **C# Custom APIs (`EXT10`–`12`), Guard Plug-ins (`PL01`–`03`) & Concurrency**  | Pending       | `m3-transactional-crm`     |
 | **M4**    | **Read-Only `DealHealthPanel` PCF & Hosted 2-Screen Code App**                 | Pending       | `m4-pcf-codeapp`           |
@@ -111,7 +111,7 @@ flowchart TB
 ### Milestone Deliverable Checklists
 
 - [x] **M0 — Engineering Readiness:** Publisher `vn`, unmanaged/managed solution `VNEXTInternshipCRM`, 5 policy environment variables (`vn_ApprovalAmount`, `vn_ApprovalDiscount`, `vn_MaxDiscount`, `vn_StaleDays`, `vn_EscalationDays`), PAC CLI unpack pipeline, and architecture documentation.
-- [ ] **M1 — Data Foundation:** 5 custom tables (`vn_lead`, `vn_opportunity`, `vn_product`, `vn_opportunityline`, `vn_approvalrequest`), native `account`/`contact`/`task` extensions, 3 active Alternate Keys, `Restrict` relationship cascades, explicit Money precision, and annotated ERD.
+- [x] **M1 — Data Foundation:** 5 custom tables (`vn_lead`, `vn_opportunity`, `vn_product`, `vn_opportunityline`, `vn_approvalrequest`), native `account`/`contact`/`task` extensions, 3 active Alternate Keys, `Restrict` relationship cascades, explicit Money precision, and annotated ERD.
 - [ ] **M2 — Model-Driven CRM & Security:** `Sales A` and `Sales B` Business Units, `Sales Rep` / `Sales Manager` / `Sales Administrator` security roles, `DM14` auditing governance, 8 forms, 13 system views, 4 charts, 2 six-slot dashboards, Opportunity BPF, and command bar dialog wiring.
 - [ ] **M3 — Transactional C# Extensibility:** Signed `.NET Framework 4.6.2` plug-in assembly implementing `EXT10`, `EXT11`, `EXT12`, `PL01`–`PL03` guards, `RowVersion` + `vn_commandsequence` concurrency latch, and `Scoped Internal Writer` impersonation.
 - [ ] **M4 — Rich UI & Hosted Code App:** Deployed `DealHealthPanel` PCF control (`PCF01`) and hosted two-screen Sales Rep Workbench Code App (`CA01` Today / `CA02` Qualify).
@@ -125,7 +125,8 @@ flowchart TB
 ```text
 VNEXTInternshipCRM/
 ├── docs/                           # Architecture diagrams, ERD, and milestone verification docs
-│   └── M0_Engineering_Readiness.md
+│   ├── M0_Engineering_Readiness.md
+│   └── M1_Data_Foundation.md
 ├── scripts/                        # PAC CLI export, unpack, pack, and solution-checker scripts
 │   └── sync-solution.ps1
 ├── solutions/

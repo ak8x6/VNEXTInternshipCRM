@@ -77,7 +77,27 @@
         </Address>
       </Addresses>
     </Publisher>
-    <RootComponents />
-    <MissingDependencies />
+    <RootComponents>
+      <RootComponent type="1" schemaName="account" behavior="1" />
+      <RootComponent type="1" schemaName="contact" behavior="1" />
+      <RootComponent type="1" schemaName="phonecall" behavior="1" />
+      <RootComponent type="1" schemaName="systemuser" behavior="1" />
+      <RootComponent type="1" schemaName="task" behavior="1" />
+      <RootComponent type="1" schemaName="vn_approvalrequest" behavior="0" />
+      <RootComponent type="1" schemaName="vn_lead" behavior="0" />
+      <RootComponent type="1" schemaName="vn_opportunity" behavior="0" />
+      <RootComponent type="1" schemaName="vn_opportunityline" behavior="0" />
+      <RootComponent type="1" schemaName="vn_product" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3573.1)" />
+        <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="vn_opportunitysalesprocess" displayName="Opportunity Sales Process" solution="Active" />
+        <Dependent type="1" schemaName="vn_opportunity" displayName="Opportunity" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
