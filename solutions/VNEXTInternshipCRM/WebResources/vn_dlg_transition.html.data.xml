@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{42e88045-31e4-f111-84ea-002248db522e}</WebResourceId>
+  <Name>vn_dlg_transition.html</Name>
+  <DisplayName>Transition Opportunity Dialog</DisplayName>
+  <Description>Transition Opportunity dialog shell for EXT11 inputs and stage transition modes.</Description>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/vn_dlg_transitionhtml42E88045-31E4-F111-84EA-002248DB522E</FileName>
+</WebResource>

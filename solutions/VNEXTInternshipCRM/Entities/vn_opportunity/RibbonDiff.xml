@@ -1,14 +1,171 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <CustomActions />
+  <CustomActions>
+    <CustomAction Id="vn.vn_opportunity.Form.AdvanceStage.CustomAction" Location="Mscrm.Form.vn_opportunity.MainTab.Save.Controls._children" Sequence="33">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunity.Form.AdvanceStage.Button" Command="vn.vn_opportunity.Form.AdvanceStage.Command" LabelText="$LocLabels:vn.vn_opportunity.Form.AdvanceStage.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunity.Form.AdvanceStage.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunity.Form.AdvanceStage.ToolTipDescription" TemplateAlias="o1" Sequence="33" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="vn.vn_opportunity.Form.CancelApproval.CustomAction" Location="Mscrm.Form.vn_opportunity.MainTab.Save.Controls._children" Sequence="37">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunity.Form.CancelApproval.Button" Command="vn.vn_opportunity.Form.CancelApproval.Command" LabelText="$LocLabels:vn.vn_opportunity.Form.CancelApproval.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunity.Form.CancelApproval.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunity.Form.CancelApproval.ToolTipDescription" TemplateAlias="o1" Sequence="37" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="vn.vn_opportunity.Form.CloseAsLost.CustomAction" Location="Mscrm.Form.vn_opportunity.MainTab.Save.Controls._children" Sequence="35">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunity.Form.CloseAsLost.Button" Command="vn.vn_opportunity.Form.CloseAsLost.Command" LabelText="$LocLabels:vn.vn_opportunity.Form.CloseAsLost.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunity.Form.CloseAsLost.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunity.Form.CloseAsLost.ToolTipDescription" TemplateAlias="o1" Sequence="35" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="vn.vn_opportunity.Form.CloseAsWon.CustomAction" Location="Mscrm.Form.vn_opportunity.MainTab.Save.Controls._children" Sequence="34">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunity.Form.CloseAsWon.Button" Command="vn.vn_opportunity.Form.CloseAsWon.Command" LabelText="$LocLabels:vn.vn_opportunity.Form.CloseAsWon.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunity.Form.CloseAsWon.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunity.Form.CloseAsWon.ToolTipDescription" TemplateAlias="o1" Sequence="34" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="vn.vn_opportunity.Form.NewRecord.Hide" Location="Mscrm.Form.vn_opportunity.NewRecord" />
+    <CustomAction Id="vn.vn_opportunity.Form.SubmitApproval.CustomAction" Location="Mscrm.Form.vn_opportunity.MainTab.Save.Controls._children" Sequence="36">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunity.Form.SubmitApproval.Button" Command="vn.vn_opportunity.Form.SubmitApproval.Command" LabelText="$LocLabels:vn.vn_opportunity.Form.SubmitApproval.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunity.Form.SubmitApproval.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunity.Form.SubmitApproval.ToolTipDescription" TemplateAlias="o1" Sequence="36" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="vn.vn_opportunity.HomepageGrid.NewRecord.Hide" Location="Mscrm.HomepageGrid.vn_opportunity.NewRecord" />
+    <HideCustomAction HideActionId="vn.vn_opportunity.SubGrid.AddExistingStandard.Hide" Location="Mscrm.SubGrid.vn_opportunity.AddExistingStandard" />
+    <HideCustomAction HideActionId="vn.vn_opportunity.SubGrid.AddNewStandard.Hide" Location="Mscrm.SubGrid.vn_opportunity.AddNewStandard" />
+  </CustomActions>
   <Templates>
     <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
   </Templates>
-  <CommandDefinitions />
+  <CommandDefinitions>
+    <CommandDefinition Id="vn.vn_opportunity.Form.AdvanceStage.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openTransitionDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Advance" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_opportunity.Form.CancelApproval.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openApprovalDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Cancel" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_opportunity.Form.CloseAsLost.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openTransitionDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Lost" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_opportunity.Form.CloseAsWon.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openTransitionDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Won" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_opportunity.Form.SubmitApproval.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openApprovalDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Submit" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
   <RuleDefinitions>
     <TabDisplayRules />
     <DisplayRules />
     <EnableRules />
   </RuleDefinitions>
-  <LocLabels />
+  <LocLabels>
+    <LocLabel Id="vn.vn_opportunity.Form.AdvanceStage.LabelText">
+      <Titles>
+        <Title description="Advance Stage" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.AdvanceStage.ToolTipDescription">
+      <Titles>
+        <Title description="Sequentially advance opportunity to next adjacent sales stage. Prepared for Milestone 3: Requires server Custom API EXT11 (vn_TransitionOpportunity)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.AdvanceStage.ToolTipTitle">
+      <Titles>
+        <Title description="Advance Stage" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CancelApproval.LabelText">
+      <Titles>
+        <Title description="Cancel Approval" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CancelApproval.ToolTipDescription">
+      <Titles>
+        <Title description="Cancel current pending approval request (Sales Administrator only). Prepared for Milestone 5: Requires server Custom API EXT13 (vn_ManageDealApproval) and WF04 Approvals integration." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CancelApproval.ToolTipTitle">
+      <Titles>
+        <Title description="Cancel Approval" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsLost.LabelText">
+      <Titles>
+        <Title description="Close as Lost" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsLost.ToolTipDescription">
+      <Titles>
+        <Title description="Close deal as Lost with loss reason, actual close date, and comments. Prepared for Milestone 3: Requires server Custom API EXT11 (vn_TransitionOpportunity)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsLost.ToolTipTitle">
+      <Titles>
+        <Title description="Close as Lost" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsWon.LabelText">
+      <Titles>
+        <Title description="Close as Won" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsWon.ToolTipDescription">
+      <Titles>
+        <Title description="Close deal as Won with actual close date and comments. Prepared for Milestone 3: Requires server Custom API EXT11 (vn_TransitionOpportunity)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.CloseAsWon.ToolTipTitle">
+      <Titles>
+        <Title description="Close as Won" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.SubmitApproval.LabelText">
+      <Titles>
+        <Title description="Submit Approval" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.SubmitApproval.ToolTipDescription">
+      <Titles>
+        <Title description="Submit deal for management approval when Total &gt;= $50,000 or Max Discount &gt; 10%. Prepared for Milestone 5: Requires server Custom API EXT13 (vn_ManageDealApproval) and WF04 Approvals integration." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunity.Form.SubmitApproval.ToolTipTitle">
+      <Titles>
+        <Title description="Submit Approval" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
 </RibbonDiffXml>

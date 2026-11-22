@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>vn_VNEXTSalesCRMSiteMap</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="7.0.0.0">
+    <Area Id="Area_Sales" Title="VNEXT Sales CRM" ShowGroups="true" IntroducedVersion="7.0.0.0">
+      <Titles>
+        <Title LCID="1033" Title="VNEXT Sales CRM" />
+      </Titles>
+      <Group Id="Group_Dashboards" Title="Dashboards" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Dashboards" />
+        </Titles>
+        <SubArea Id="SubArea_RepWorkspace" Title="Rep Workspace" DefaultDashboard="{fe113b41-17e4-f111-84ea-002248db522e}" Url="/workplace/home_dashboards.aspx?dashboardId={fe113b41-17e4-f111-84ea-002248db522e}" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Rep Workspace" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="SubArea_ManagerOverview" Title="Manager Overview" DefaultDashboard="{870d87b2-17e4-f111-84ea-002248db522e}" Url="/workplace/home_dashboards.aspx?dashboardId={870d87b2-17e4-f111-84ea-002248db522e}" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Manager Overview" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="Group_Sales" Title="Sales" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Sales" />
+        </Titles>
+        <SubArea Id="SubArea_Leads" Entity="vn_lead" Title="Leads" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Leads" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="SubArea_Opportunities" Entity="vn_opportunity" Title="Opportunities" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Opportunities" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="Group_Customers" Title="Customers" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Customers" />
+        </Titles>
+        <SubArea Id="SubArea_Accounts" Entity="account" Title="Accounts" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Accounts" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="SubArea_Contacts" Entity="contact" Title="Contacts" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Contacts" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="Group_Work" Title="Work" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Work" />
+        </Titles>
+        <SubArea Id="SubArea_Activities" Entity="activitypointer" Title="Activities" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Activities" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="SubArea_Tasks" Entity="task" Title="Tasks" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Tasks" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="SubArea_PhoneCalls" Entity="phonecall" Title="Phone Calls" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Phone Calls" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="Group_Catalog" Title="Catalog" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Catalog" />
+        </Titles>
+        <SubArea Id="SubArea_Products" Entity="vn_product" Title="Products" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Products" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="Group_Governance" Title="Governance" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Governance" />
+        </Titles>
+        <SubArea Id="SubArea_ApprovalRequests" Entity="vn_approvalrequest" Title="Approval Requests" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Approval Requests" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="VNEXT Sales CRM" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

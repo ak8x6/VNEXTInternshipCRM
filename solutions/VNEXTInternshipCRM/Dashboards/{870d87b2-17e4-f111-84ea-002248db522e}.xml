@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Manager Overview" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Manager Overview 6-component standard system dashboard" languagecode="1033" />
+  </Descriptions>
+  <FormId>{870d87b2-17e4-f111-84ea-002248db522e}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{20d26af3-c3f0-473f-a499-54dd90ec0f02}" locklevel="0" name="Tab_ManagerOverview">
+            <labels>
+              <label description="Manager Overview" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="111" id="{3cc42eb4-fb79-41cb-ad74-03978aaa7a02}" locklevel="0" labelwidth="115" name="Section_ManagerOverview">
+                    <labels>
+                      <label description="Manager Overview Components" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef101}" auto="false">
+                          <labels>
+                            <label description="Team Pipeline" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot1" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef102}" auto="false">
+                          <labels>
+                            <label description="Team At-risk Deals" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot2" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{587128E4-8FE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{587128E4-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef103}" auto="false">
+                          <labels>
+                            <label description="Pending Deal Approvals" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot3" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_approvalrequest</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{E3879C59-93E3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{E3879C59-93E3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef104}" auto="false">
+                          <labels>
+                            <label description="Closed Deals This Quarter" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot4" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{188EDD9E-90E3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{188EDD9E-90E3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef105}" auto="false">
+                          <labels>
+                            <label description="Pipeline by Owner" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot5" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{66EBCC6A-16E4-F111-84EA-002248DB522E}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{e0114d8b-f5c9-41b2-9b59-07ff839ef106}" auto="false">
+                          <labels>
+                            <label description="Closed Deal Outcomes" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot6" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{188EDD9E-90E3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{188EDD9E-90E3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{0F2769AA-16E4-F111-84EA-002248DB522E}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

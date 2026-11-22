@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{188edd9e-90e3-f111-84ea-002248db522e}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="vn_name" select="1" icon="1" preview="1">
+        <row name="result" id="vn_opportunityid">
+          <cell name="vn_name" width="200" />
+          <cell name="vn_account" width="150" />
+          <cell name="ownerid" width="150" />
+          <cell name="vn_stage" width="100" />
+          <cell name="statuscode" width="125" />
+          <cell name="vn_total" width="125" />
+          <cell name="vn_closedamount" width="125" />
+          <cell name="vn_actualclosedate" width="125" />
+          <cell name="vn_lossreason" width="150" />
+          <cell name="vn_probability" width="100" />
+          <cell name="vn_expectedclosedate" width="125" />
+          <cell name="vn_nextfollowupdate" width="150" />
+          <cell name="vn_lastprogresson" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="vn_opportunity">
+          <attribute name="vn_opportunityid" />
+          <attribute name="vn_name" />
+          <attribute name="vn_account" />
+          <attribute name="ownerid" />
+          <attribute name="vn_stage" />
+          <attribute name="statuscode" />
+          <attribute name="vn_total" />
+          <attribute name="vn_closedamount" />
+          <attribute name="vn_actualclosedate" />
+          <attribute name="vn_lossreason" />
+          <attribute name="vn_probability" />
+          <attribute name="vn_expectedclosedate" />
+          <attribute name="vn_nextfollowupdate" />
+          <attribute name="vn_lastprogresson" />
+          <order attribute="vn_actualclosedate" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+            <condition attribute="vn_actualclosedate" operator="this-fiscal-period" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Closed Deals This Quarter" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Closed Deals This Quarter (V09)" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

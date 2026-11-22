@@ -1,14 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <CustomActions />
+  <CustomActions>
+    <CustomAction Id="vn.vn_lead.Form.Disqualify.CustomAction" Location="Mscrm.Form.vn_lead.MainTab.Save.Controls._children" Sequence="35">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_lead.Form.Disqualify.Button" Command="vn.vn_lead.Form.Disqualify.Command" LabelText="$LocLabels:vn.vn_lead.Form.Disqualify.LabelText" ToolTipTitle="$LocLabels:vn.vn_lead.Form.Disqualify.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_lead.Form.Disqualify.ToolTipDescription" TemplateAlias="o1" Sequence="35" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="vn.vn_lead.Form.MarkContacted.CustomAction" Location="Mscrm.Form.vn_lead.MainTab.Save.Controls._children" Sequence="33">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_lead.Form.MarkContacted.Button" Command="vn.vn_lead.Form.MarkContacted.Command" LabelText="$LocLabels:vn.vn_lead.Form.MarkContacted.LabelText" ToolTipTitle="$LocLabels:vn.vn_lead.Form.MarkContacted.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_lead.Form.MarkContacted.ToolTipDescription" TemplateAlias="o1" Sequence="33" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="vn.vn_lead.Form.QualifyLead.CustomAction" Location="Mscrm.Form.vn_lead.MainTab.Save.Controls._children" Sequence="37">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_lead.Form.QualifyLead.Button" Command="vn.vn_lead.Form.QualifyLead.Command" LabelText="$LocLabels:vn.vn_lead.Form.QualifyLead.LabelText" ToolTipTitle="$LocLabels:vn.vn_lead.Form.QualifyLead.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_lead.Form.QualifyLead.ToolTipDescription" TemplateAlias="o1" Sequence="37" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
   <Templates>
     <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
   </Templates>
-  <CommandDefinitions />
+  <CommandDefinitions>
+    <CommandDefinition Id="vn.vn_lead.Form.Disqualify.Command">
+      <EnableRules>
+        <EnableRule Id="vn.vn_lead.Form.ExistingRecord.EnableRule" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="vn.vn_lead.Form.ExistingRecord.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openDisqualifyDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_lead.Form.MarkContacted.Command">
+      <EnableRules>
+        <EnableRule Id="vn.vn_lead.Form.ExistingRecord.EnableRule" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="vn.vn_lead.Form.ExistingRecord.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.markLeadContacted" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_lead.Form.QualifyLead.Command">
+      <EnableRules>
+        <EnableRule Id="vn.vn_lead.Form.ExistingRecord.EnableRule" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="vn.vn_lead.Form.ExistingRecord.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openQualifyDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
   <RuleDefinitions>
     <TabDisplayRules />
-    <DisplayRules />
-    <EnableRules />
+    <DisplayRules>
+      <DisplayRule Id="vn.vn_lead.Form.ExistingRecord.DisplayRule">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="vn.vn_lead.Form.ExistingRecord.EnableRule">
+        <FormStateRule State="Create" InvertResult="true" />
+      </EnableRule>
+    </EnableRules>
   </RuleDefinitions>
-  <LocLabels />
+  <LocLabels>
+    <LocLabel Id="vn.vn_lead.Form.Disqualify.LabelText">
+      <Titles>
+        <Title description="Disqualify" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.Disqualify.ToolTipDescription">
+      <Titles>
+        <Title description="Disqualify lead with disqualification reason." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.Disqualify.ToolTipTitle">
+      <Titles>
+        <Title description="Disqualify" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.MarkContacted.LabelText">
+      <Titles>
+        <Title description="Mark Contacted" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.MarkContacted.ToolTipDescription">
+      <Titles>
+        <Title description="Mark lead status as Contacted." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.MarkContacted.ToolTipTitle">
+      <Titles>
+        <Title description="Mark Contacted" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.QualifyLead.LabelText">
+      <Titles>
+        <Title description="Qualify Lead" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.QualifyLead.ToolTipDescription">
+      <Titles>
+        <Title description="Qualify lead and create Opportunity, Account, and Contact. Prepared for Milestone 3: Requires server Custom API EXT10 (vn_QualifyLead)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_lead.Form.QualifyLead.ToolTipTitle">
+      <Titles>
+        <Title description="Qualify Lead" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
 </RibbonDiffXml>

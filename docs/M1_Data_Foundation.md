@@ -294,6 +294,9 @@ Live inspection of `EntityDefinitions` and `RegardingObjectId` / `PartyList` met
 
 ### 7.1 Seeded Synthetic Records (`@example.com`, Safe Seed Boundary Respected)
 
+> [!NOTE]
+> For the complete, live inventory of all records currently in Dataverse (including all 7 leads, 4 contacts, 3 accounts, 3 products, activities, and test personas), see the dedicated master inventory in [DATA_INVENTORY.md](DATA_INVENTORY.md).
+
 | Table | Record GUID | Primary Name / Identifier | Key Seeded Values |
 | :--- | :--- | :--- | :--- |
 | `account` | `726bdaff-81e2-f111-84ea-002248db522e` | **Cedar Manufacturing** | `vn_accounttype = 100000000` (Prospect), `vn_industry = 100000000` (Manufacturing), Zurich, Switzerland, Primary Contact = Karim Haddad |

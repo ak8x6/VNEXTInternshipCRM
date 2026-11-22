@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{b8840bdc-dd2f-49ce-80e4-03f3c8b863c5}" Name="Opportunity Sales Process" Description="Opportunity Sales Process per UX11" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/OpportunitySalesProcess-B8840BDC-DD2F-49CE-80E4-03F3C8B863C5.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>4</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <processorder>1</processorder>
+  <processroleassignment>&lt;DisplayConditions&gt;&lt;Everyone /&gt;&lt;/DisplayConditions&gt;</processroleassignment>
+  <RunAs>1</RunAs>
+  <UniqueName>vn_opportunitysalesprocess</UniqueName>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>vn_opportunity</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Opportunity Sales Process" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="Opportunity Sales Process per UX11" />
+  </Descriptions>
+  <labels>
+    <steplabels id="{0a384b78-1d2f-493b-9b3d-b7dd0cef7369}">
+      <label languagecode="1033" description="Qualify" />
+    </steplabels>
+    <steplabels id="{c4a075e8-ee62-4406-9d4e-c5e394f11dec}">
+      <label languagecode="1033" description="Business Need" />
+    </steplabels>
+    <steplabels id="{b2ba28bf-7ae1-4935-9b3a-107f6af94313}">
+      <label languagecode="1033" description="Decision Maker" />
+    </steplabels>
+    <steplabels id="{c9b32077-e9e4-4402-a6d4-2e43406f2ca4}">
+      <label languagecode="1033" description="Primary Contact" />
+    </steplabels>
+    <steplabels id="{f2b53b88-5583-41ae-95da-fb9a8e619c70}">
+      <label languagecode="1033" description="Next Step" />
+    </steplabels>
+    <steplabels id="{057a571b-9759-424b-8da2-7f539bdf8313}">
+      <label languagecode="1033" description="Next Follow-up Date" />
+    </steplabels>
+    <steplabels id="{517c39ca-5d1b-42e5-ba32-4990b4358bf9}">
+      <label languagecode="1033" description="Develop" />
+    </steplabels>
+    <steplabels id="{3d6ddaba-b08c-4a6f-ad6a-dbcb2035352f}">
+      <label languagecode="1033" description="Business Need" />
+    </steplabels>
+    <steplabels id="{66d1fc3c-5573-4e7e-96a0-d4a3f4fa65de}">
+      <label languagecode="1033" description="Decision Maker" />
+    </steplabels>
+    <steplabels id="{ccf57fe3-7de6-47d1-8b7d-1d5c41e2c562}">
+      <label languagecode="1033" description="Proposal Summary" />
+    </steplabels>
+    <steplabels id="{52c0e744-cb02-4ee8-b018-d0830fbfe7e6}">
+      <label languagecode="1033" description="Next Step" />
+    </steplabels>
+    <steplabels id="{8cc3a2e7-70c5-4c8a-bc7a-90efa996e46c}">
+      <label languagecode="1033" description="Propose" />
+    </steplabels>
+    <steplabels id="{e80f0e72-6848-41a6-aacd-748275da35bb}">
+      <label languagecode="1033" description="Proposal Summary" />
+    </steplabels>
+    <steplabels id="{d0ad7d8c-8fcc-4cdb-9965-0648a081b2ca}">
+      <label languagecode="1033" description="Total" />
+    </steplabels>
+    <steplabels id="{0933e59c-2757-4e06-a60e-09aa73c46a0e}">
+      <label languagecode="1033" description="Expected Close Date" />
+    </steplabels>
+    <steplabels id="{f0e3ff06-5fea-4af5-bb7f-5e0e603c8092}">
+      <label languagecode="1033" description="Next Step" />
+    </steplabels>
+    <steplabels id="{2d71ef5f-16b5-4f7c-a6c1-3fd7bd97f81c}">
+      <label languagecode="1033" description="Close" />
+    </steplabels>
+    <steplabels id="{2929d88f-9e5c-48ee-ac16-1d9cb6f538ef}">
+      <label languagecode="1033" description="Expected Close Date" />
+    </steplabels>
+    <steplabels id="{59876fbf-8af3-4c2c-8372-4b2b3d628dd9}">
+      <label languagecode="1033" description="Next Step" />
+    </steplabels>
+    <steplabels id="{7b73ca07-e476-4f8e-a4ac-b54328bf2768}">
+      <label languagecode="1033" description="Current Approval" />
+    </steplabels>
+    <steplabels id="{f7d70d7f-76e2-47f8-9203-cb44e6db05d3}">
+      <label languagecode="1033" description="Actual Close Date" />
+    </steplabels>
+    <steplabels id="{df449e34-3178-4678-ac0e-2066460a606e}">
+      <label languagecode="1033" description="Close Comments" />
+    </steplabels>
+  </labels>
+</Workflow>

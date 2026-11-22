@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>vn_VNEXTSalesCRM</UniqueName>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="26" id="{00000000-0000-0000-00aa-000010001002}" />
+    <AppModuleComponent type="26" id="{00000000-0000-0000-00aa-000010001004}" />
+    <AppModuleComponent type="26" id="{3078172f-8ce3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{531cfb8f-8de3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{68030493-8ee3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{334a547e-8fe3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{4deef998-8fe3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{587128e4-8fe3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{188edd9e-90e3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{1ce8a1fa-90e3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{a1cfad5b-91e3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{e3879c59-93e3-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="26" id="{6b106368-d8fa-472c-bdbf-0bcdfd3d1937}" />
+    <AppModuleComponent type="26" id="{5724f63d-e160-428a-a7a0-be1ff6cb2da4}" />
+    <AppModuleComponent type="29" id="{b8840bdc-dd2f-49ce-80e4-03f3c8b863c5}" />
+    <AppModuleComponent type="59" id="{14718470-15e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="59" id="{01b39907-16e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="59" id="{66ebcc6a-16e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="59" id="{0f2769aa-16e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="60" id="{fe113b41-17e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="60" id="{870d87b2-17e4-f111-84ea-002248db522e}" />
+    <AppModuleComponent type="60" id="{724a983e-672d-45be-9ce5-14552aa74196}" />
+    <AppModuleComponent type="60" id="{a91390a5-99bb-4d10-9eee-3a5c87f841f1}" />
+    <AppModuleComponent type="60" id="{f6e73237-ac3e-448a-b410-72cfd0f894a5}" />
+    <AppModuleComponent type="60" id="{10751038-a6ec-4b9f-b02c-a8827f5e771f}" />
+    <AppModuleComponent type="60" id="{1088c49c-4044-4e74-b626-bfc034c5e4ac}" />
+    <AppModuleComponent type="60" id="{16654191-19ad-48ca-9e46-c4b4fbdad76f}" />
+    <AppModuleComponent type="60" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}" />
+    <AppModuleComponent type="60" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" />
+    <AppModuleComponent type="60" id="{c48397d7-a290-4710-a468-fabe7c76772e}" />
+    <AppModuleComponent type="62" schemaName="vn_VNEXTSalesCRMSiteMap" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{07b59a79-87e3-f111-84ea-002248db522e}" />
+    <Role id="{455ed134-87e3-f111-84ea-002248db522e}" />
+    <Role id="{a0bf376b-85e3-f111-84ea-002248db522e}" />
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="VNEXT Sales CRM" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="VNEXT Sales CRM Model-Driven Application" languagecode="1033" />
+  </Descriptions>
+</AppModule>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Approval Dialog</title>
+    <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-hover: #106ebe;
+            --danger: #d13438;
+            --danger-hover: #a80000;
+            --bg: #faf9f8;
+            --card-bg: #ffffff;
+            --text-main: #323130;
+            --text-secondary: #605e5c;
+            --border: #edebe9;
+            --border-hover: #c8c6c4;
+            --warning-bg: #fff4ce;
+            --warning-border: #fed9cc;
+            --warning-text: #794300;
+            --info-bg: #eff6fc;
+            --info-border: #c7e0f4;
+            --info-text: #004578;
+            --success-bg: #dff6dd;
+            --success-text: #107c41;
+            --disabled-bg: #f3f2f1;
+            --disabled-text: #a19f9d;
+            --error: #a80000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-badge {
+            font-size: 11px;
+            background: var(--info-bg);
+            color: var(--info-text);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--info-border);
+            font-family: Consolas, monospace;
+        }
+
+        /* Mode Selector Tabs (Submit / Cancel matching EXT13 §7.4 only) */
+        .mode-nav {
+            display: flex;
+            gap: 4px;
+            background: #edebe9;
+            padding: 3px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .mode-tab {
+            flex: 1;
+            text-align: center;
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+        }
+
+        .mode-tab:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .mode-tab.active {
+            background: var(--card-bg);
+            color: var(--primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .mode-tab.active.tab-cancel {
+            color: var(--danger);
+        }
+
+        .dialog-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .required-star {
+            color: var(--error);
+            margin-left: 2px;
+        }
+
+        input[type="text"], textarea {
+            padding: 7px 10px;
+            border: 1px solid var(--border-hover);
+            border-radius: 2px;
+            font-size: 13px;
+            color: var(--text-main);
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.4;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        .threshold-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .threshold-card {
+            background: #f8fbfd;
+            border: 1px solid #c7e0f4;
+            border-radius: 4px;
+            padding: 10px 12px;
+        }
+
+        .threshold-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .threshold-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 2px 0;
+        }
+
+        .threshold-status {
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        .status-triggered {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            border: 1px solid var(--warning-border);
+        }
+
+        .status-normal {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .guid-display-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f3f2f1;
+            padding: 6px 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            color: #323130;
+        }
+
+        .guid-display-box span {
+            flex: 1;
+            user-select: all;
+            word-break: break-all;
+        }
+
+        .role-notice {
+            background: #fdf3f2;
+            border: 1px solid #fed9cc;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            color: #a80000;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            margin-top: 6px;
+            color: var(--text-main);
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Milestone Banner */
+        .milestone-banner {
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--warning-text);
+            font-size: 13px;
+        }
+
+        .banner-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .banner-content strong {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .dialog-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 2px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: #ffffff;
+            border-color: var(--danger);
+        }
+
+        .btn:disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            border-color: var(--border);
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-color: var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f2f1;
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dialog-header">
+        <div class="header-title">
+            <span>Deal Approval Action</span>
+        </div>
+        <div id="recordContextBadge" class="context-badge" style="display: none;">
+            Opp ID: <span id="oppIdDisplay"></span>
+        </div>
+    </div>
+
+    <!-- Mode Selector Navigation (Submit / Cancel matching EXT13 §7.4 only; no ApproverId picker, no client Approve/Reject) -->
+    <div class="mode-nav" role="tablist">
+        <button type="button" class="mode-tab active" id="tabSubmit" onclick="switchMode('Submit')">Submit Approval</button>
+        <button type="button" class="mode-tab tab-cancel" id="tabCancel" onclick="switchMode('Cancel')">Cancel Approval</button>
+    </div>
+
+    <div class="dialog-body">
+
+        <!-- ==================== MODE 1: SUBMIT ==================== -->
+        <div id="panelSubmit" class="section-card">
+            <div class="section-title">Submit Deal for Approval (EXT13 §7.4)</div>
+            <div class="hint" style="margin-bottom: 12px;">
+                Permitted for business users on Open Opportunities in Propose (100000002) or Close (100000003) stages when Total &ge; 50,000 or Max Discount &gt; 10%. Approver is resolved server-side from the saved Opportunity owner's native Manager (systemuser.parentsystemuserid) at Submit (R-01).
+            </div>
+
+            <!-- Approval Threshold Evaluation Cards -->
+            <div class="threshold-grid">
+                <div class="threshold-card">
+                    <div class="threshold-label" id="lblTotalThreshold">Deal Total (Threshold: &ge; 50,000)</div>
+                    <div class="threshold-value" id="valTotal">USD 0.00</div>
+                    <span class="threshold-status status-normal" id="statusTotal">Below Threshold</span>
+                </div>
+                <div class="threshold-card">
+                    <div class="threshold-label">Max Discount (Threshold: &gt; 10%)</div>
+                    <div class="threshold-value" id="valDiscount">0.00%</div>
+                    <span class="threshold-status status-normal" id="statusDiscount">Below Threshold</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="submitComments">Submission Comments / Business Justification</label>
+                <textarea id="submitComments" placeholder="Optional business justification for deal pricing, terms, or margin variance..."></textarea>
+                <span class="hint">Optional comments forwarded with the approval request payload.</span>
+            </div>
+        </div>
+
+        <!-- ==================== MODE 2: CANCEL ==================== -->
+        <div id="panelCancel" class="section-card" style="display: none;">
+            <div class="section-title" style="color: var(--danger);">Cancel Approval Request (EXT13 §7.4)</div>
+
+            <div class="role-notice">
+                <span>⚠️</span>
+                <span><strong>Role Requirement:</strong> Cancellation is restricted to Sales Administrators only on an active Pending approval request.</span>
+            </div>
+
+            <!-- Current Approval Request ID and True Status -->
+            <div class="form-group">
+                <label>Current Approval Request ID (GUID)</label>
+                <div class="guid-display-box" style="background: #fff0f0; border-color: #fed9cc;">
+                    <span id="pendingApprovalGuidDisplay" style="color: var(--danger);">No approval request linked</span>
+                </div>
+                <span class="hint" id="approvalStatusHint">The active vn_approvalrequest record linked to this Opportunity.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="cancelReason">Cancellation Reason</label>
+                <textarea id="cancelReason" placeholder="Explain why this approval request is being withdrawn or cancelled..."></textarea>
+                <span class="hint">Optional cancellation audit reason.</span>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="confirmCancelCheckbox" />
+                    <span>I confirm cancellation of this pending approval request under Sales Administrator authority.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ==================== MILESTONE BANNER ==================== -->
+        <div class="milestone-banner">
+            <span class="banner-icon">ℹ️</span>
+            <div class="banner-content">
+                <strong>Milestone Status</strong>
+                <p>Prepared for Milestone 5: Requires server Custom API EXT13 (vn_ManageDealApproval) and WF04 Approvals integration.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Dialog Footer -->
+    <div class="dialog-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnCommit" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_ManageDealApproval and WF04 in M5">Submit for Approval</button>
+    </div>
+
+    <script>
+        var currentContext = {
+            opportunityId: "",
+            rowVersion: "",
+            operationMode: "Submit",
+            currentApprovalId: "",
+            stage: 100000000,
+            total: 0,
+            maxDiscount: 0
+        };
+
+        var baseCurrencyCode = "USD";
+
+        window.addEventListener("DOMContentLoaded", function () {
+            parseQueryParams();
+            applyContextToUI();
+            if (currentContext.opportunityId) {
+                loadOpportunityDetails(currentContext.opportunityId);
+            }
+        });
+
+        // Parse query params passed by Xrm.Navigation.navigateTo
+        function parseQueryParams() {
+            try {
+                var search = window.location.search;
+                var params = new URLSearchParams(search);
+                var dataParam = params.get("data");
+                if (dataParam) {
+                    var dataObj = JSON.parse(dataParam);
+                    if (dataObj.opportunityId) {
+                        currentContext.opportunityId = dataObj.opportunityId;
+                    }
+                    if (dataObj.rowVersion) {
+                        currentContext.rowVersion = dataObj.rowVersion;
+                    }
+                    if (dataObj.operationMode) {
+                        currentContext.operationMode = dataObj.operationMode;
+                    }
+                    if (dataObj.currentApprovalId) {
+                        currentContext.currentApprovalId = dataObj.currentApprovalId;
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not parse navigation parameters:", e);
+            }
+        }
+
+        function applyContextToUI() {
+            if (currentContext.opportunityId) {
+                document.getElementById("oppIdDisplay").innerText = currentContext.opportunityId.substring(0, 8) + "...";
+                document.getElementById("recordContextBadge").style.display = "inline-block";
+            }
+
+            if (currentContext.currentApprovalId) {
+                document.getElementById("pendingApprovalGuidDisplay").innerText = currentContext.currentApprovalId + " (Loading status...)";
+            }
+
+            var initMode = (currentContext.operationMode === "Cancel") ? "Cancel" : "Submit";
+            switchMode(initMode);
+        }
+
+        function switchMode(mode) {
+            currentContext.operationMode = mode;
+
+            document.getElementById("tabSubmit").classList.toggle("active", mode === "Submit");
+            document.getElementById("tabCancel").classList.toggle("active", mode === "Cancel");
+
+            document.getElementById("panelSubmit").style.display = (mode === "Submit") ? "block" : "none";
+            document.getElementById("panelCancel").style.display = (mode === "Cancel") ? "block" : "none";
+
+            var btnCommit = document.getElementById("btnCommit");
+            if (mode === "Submit") {
+                btnCommit.innerText = "Submit for Approval";
+                btnCommit.className = "btn btn-primary";
+            } else {
+                btnCommit.innerText = "Cancel Approval Request";
+                btnCommit.className = "btn btn-danger";
+            }
+        }
+
+        // Map DM09 choice vn_result codes to user-facing status labels
+        function getApprovalStatusText(resultCode) {
+            switch (resultCode) {
+                case 100000000:
+                    return "Pending";
+                case 100000001:
+                    return "Approved";
+                case 100000002:
+                    return "Rejected";
+                case 100000003:
+                    return "Superseded";
+                case 100000005:
+                    return "Cancelled";
+                default:
+                    return (resultCode !== undefined && resultCode !== null) ? ("Status " + resultCode) : "Unknown";
+            }
+        }
+
+        // Resolve client base URL via GetGlobalContext().getClientUrl()
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl();
+                }
+            }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl();
+            }
+            return "";
+        }
+
+        // Perform read-only GET requests using standard same-origin fetch()
+        function fetchOData(relativeEndpoint) {
+            var baseUrl = getClientUrl();
+            var cleanEndpoint = relativeEndpoint.replace(/^\//, "");
+            var url = (baseUrl ? baseUrl.replace(/\/$/, "") : "") + "/api/data/v9.2/" + cleanEndpoint;
+
+            return fetch(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "OData-MaxVersion": "4.0",
+                    "OData-Version": "4.0",
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then(function (response) {
+                if (!response.ok) {
+                    return response.json().then(
+                        function (err) {
+                            var msg = (err && err.error && err.error.message) ? err.error.message : ("HTTP " + response.status);
+                            throw new Error(msg);
+                        },
+                        function () {
+                            throw new Error("HTTP " + response.status + ": " + response.statusText);
+                        }
+                    );
+                }
+                return response.json();
+            });
+        }
+
+        // Query Opportunity metrics and currency via Dataverse Web API
+        function loadOpportunityDetails(oppId) {
+            if (!oppId) return;
+
+            var cleanId = oppId.replace(/[{}]/g, "");
+            var query = "vn_opportunities(" + cleanId + ")?$select=vn_stage,vn_total,vn_maxdiscount,_vn_currentapproval_value&$expand=transactioncurrencyid($select=isocurrencycode)";
+
+            fetchOData(query).then(
+                function (opp) {
+                    currentContext.total = opp.vn_total || 0;
+                    currentContext.maxDiscount = opp.vn_maxdiscount || 0;
+                    currentContext.stage = opp.vn_stage;
+
+                    if (opp.transactioncurrencyid && opp.transactioncurrencyid.isocurrencycode) {
+                        baseCurrencyCode = opp.transactioncurrencyid.isocurrencycode;
+                    }
+
+                    var linkedApprovalId = currentContext.currentApprovalId || opp._vn_currentapproval_value;
+                    if (linkedApprovalId) {
+                        currentContext.currentApprovalId = linkedApprovalId.replace(/[{}]/g, "");
+                        loadApprovalRequestDetails(currentContext.currentApprovalId);
+                    } else {
+                        document.getElementById("pendingApprovalGuidDisplay").innerText = "No approval request linked";
+                        document.getElementById("approvalStatusHint").innerText = "No active or historical approval request is linked to this Opportunity.";
+                    }
+
+                    updateThresholdDisplay(currentContext.total, currentContext.maxDiscount);
+                },
+                function (err) {
+                    console.warn("Error loading opportunity details:", err);
+                }
+            );
+        }
+
+        // Query vn_approvalrequest to inspect its actual vn_result (Pending / Approved / Rejected / etc.)
+        function loadApprovalRequestDetails(approvalId) {
+            if (!approvalId) return;
+
+            var cleanApprId = approvalId.replace(/[{}]/g, "");
+            var query = "vn_approvalrequests(" + cleanApprId + ")?$select=vn_approvalrequestid,vn_result";
+
+            fetchOData(query).then(
+                function (appr) {
+                    var statusText = getApprovalStatusText(appr.vn_result);
+                    var guidDisplay = document.getElementById("pendingApprovalGuidDisplay");
+                    var hintEl = document.getElementById("approvalStatusHint");
+
+                    guidDisplay.innerText = cleanApprId + " (" + statusText + ")";
+                    if (appr.vn_result === 100000000) { // Pending
+                        guidDisplay.style.color = "var(--primary)";
+                        hintEl.innerText = "Active approval request is Pending manager decision.";
+                    } else if (appr.vn_result === 100000001) { // Approved
+                        guidDisplay.style.color = "var(--success-text)";
+                        hintEl.innerText = "Prior approval request is Approved.";
+                    } else if (appr.vn_result === 100000002) { // Rejected
+                        guidDisplay.style.color = "var(--danger)";
+                        hintEl.innerText = "Prior approval request was Rejected (R-02: requires resubmission upon changes).";
+                    } else if (appr.vn_result === 100000003) { // Superseded
+                        guidDisplay.style.color = "var(--text-secondary)";
+                        hintEl.innerText = "Prior approval request was Superseded by subsequent line changes (BR19).";
+                    } else if (appr.vn_result === 100000005) { // Cancelled
+                        guidDisplay.style.color = "var(--text-secondary)";
+                        hintEl.innerText = "Prior approval request was Cancelled.";
+                    } else {
+                        guidDisplay.style.color = "var(--text-main)";
+                        hintEl.innerText = "Approval request status code: " + appr.vn_result;
+                    }
+                },
+                function (err) {
+                    console.warn("Error inspecting approval request:", err);
+                    document.getElementById("pendingApprovalGuidDisplay").innerText = cleanApprId;
+                    document.getElementById("approvalStatusHint").innerText = "Linked approval request ID: " + cleanApprId + " (Status details unresolvable via API).";
+                }
+            );
+        }
+
+        function updateThresholdDisplay(total, discount) {
+            var totalEl = document.getElementById("valTotal");
+            var discEl = document.getElementById("valDiscount");
+            var statusTotal = document.getElementById("statusTotal");
+            var statusDisc = document.getElementById("statusDiscount");
+            var lblTotal = document.getElementById("lblTotalThreshold");
+
+            if (lblTotal) {
+                lblTotal.innerText = "Deal Total (Threshold: \u2265 " + baseCurrencyCode + " 50,000)";
+            }
+
+            totalEl.innerText = baseCurrencyCode + " " + Number(total).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            discEl.innerText = Number(discount).toFixed(2) + "%";
+
+            if (total >= 50000) {
+                statusTotal.innerText = "Threshold Exceeded (Triggered)";
+                statusTotal.className = "threshold-status status-triggered";
+            } else {
+                statusTotal.innerText = "Below Threshold";
+                statusTotal.className = "threshold-status status-normal";
+            }
+
+            if (discount > 10) {
+                statusDisc.innerText = "Threshold Exceeded (Triggered)";
+                statusDisc.className = "threshold-status status-triggered";
+            } else {
+                statusDisc.innerText = "Below Threshold";
+                statusDisc.className = "threshold-status status-normal";
+            }
+        }
+
+        function closeDialog() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

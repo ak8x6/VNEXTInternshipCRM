@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Rep Workspace" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Rep Workspace 6-component standard system dashboard" languagecode="1033" />
+  </Descriptions>
+  <FormId>{fe113b41-17e4-f111-84ea-002248db522e}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{10d26af3-c3f0-473f-a499-54dd90ec0f01}" locklevel="0" name="Tab_RepWorkspace">
+            <labels>
+              <label description="Rep Workspace" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="111" id="{2cc42eb4-fb79-41cb-ad74-03978aaa7a01}" locklevel="0" labelwidth="115" name="Section_RepWorkspace">
+                    <labels>
+                      <label description="Rep Workspace Components" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef001}" auto="false">
+                          <labels>
+                            <label description="My Leads Due" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot1" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_lead</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{531CFB8F-8DE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{531CFB8F-8DE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef002}" auto="false">
+                          <labels>
+                            <label description="My Activities Due Today" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot2" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>activitypointer</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{1CE8A1FA-90E3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{1CE8A1FA-90E3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef003}" auto="false">
+                          <labels>
+                            <label description="My Overdue Activities" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot3" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>activitypointer</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{A1CFAD5B-91E3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{A1CFAD5B-91E3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef004}" auto="false">
+                          <labels>
+                            <label description="My Open Opportunities" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot4" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{334A547E-8FE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{334A547E-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef005}" auto="false">
+                          <labels>
+                            <label description="Leads by Source" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot5" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_lead</TargetEntityType>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{3078172F-8CE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{3078172F-8CE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{14718470-15E4-F111-84EA-002248DB522E}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell colspan="1" rowspan="12" showlabel="true" id="{f0114d8b-f5c9-41b2-9b59-07ff839ef006}" auto="false">
+                          <labels>
+                            <label description="Pipeline by Stage" languagecode="1033" />
+                          </labels>
+                          <control id="Component_Slot6" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>vn_opportunity</TargetEntityType>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <RecordsPerPage>10</RecordsPerPage>
+                              <ViewId>{334A547E-8FE3-F111-84EA-002248DB522E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{334A547E-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{01B39907-16E4-F111-84EA-002248DB522E}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

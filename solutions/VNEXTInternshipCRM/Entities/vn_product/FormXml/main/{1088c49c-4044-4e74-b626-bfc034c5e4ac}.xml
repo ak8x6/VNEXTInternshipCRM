@@ -5,29 +5,78 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="true" showImage="false" maxWidth="1920">
       <tabs>
-        <tab verticallayout="true" id="{55BCA249-7C97-4FC3-88DC-0CE70E1468E7}" IsUserDefined="1">
+        <tab verticallayout="true" id="{1088c49c-4044-4e74-b626-bfc034c5e001}" IsUserDefined="1" name="General" expanded="true" locklevel="0">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{95F4FDC8-A2BA-4D78-A5B8-3BA4B3001C14}">
+                <section name="Product_Catalog_Details" showlabel="true" showbar="false" locklevel="0" id="{1088c49c-4044-4e74-b626-bfc034c5e010}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Product Catalog Details" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{F0AD824E-E9AB-4E7E-925D-0E261F34EBCE}">
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e011}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Product Name" languagecode="1033" />
                         </labels>
-                        <control id="vn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="vn_name" />
+                        <control id="vn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="vn_name" disabled="false" />
                       </cell>
                     </row>
-                    <row></row>
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e012}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="SKU" languagecode="1033" />
+                        </labels>
+                        <control id="vn_sku" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="vn_sku" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e013}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Unit Price" languagecode="1033" />
+                        </labels>
+                        <control id="vn_unitprice" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="vn_unitprice" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e014}" showlabel="true" locklevel="1">
+                        <labels>
+                          <label description="Currency" languagecode="1033" />
+                        </labels>
+                        <control id="transactioncurrencyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="transactioncurrencyid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e015}" showlabel="true" locklevel="0" rowspan="3" auto="true">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="vn_description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="vn_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e016}" showlabel="true" locklevel="1">
+                        <labels>
+                          <label description="Created On" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1088c49c-4044-4e74-b626-bfc034c5e017}" showlabel="true" locklevel="1">
+                        <labels>
+                          <label description="Modified On" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="true" />
+                      </cell>
+                    </row>
                   </rows>
                 </section>
               </sections>
@@ -35,6 +84,34 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{1088c49c-4044-4e74-b626-bfc034c5e080}" celllabelposition="Top" columns="11" labelwidth="115">
+        <rows>
+          <row>
+            <cell id="{1088c49c-4044-4e74-b626-bfc034c5e081}" showlabel="true" locklevel="1">
+              <labels>
+                <label description="Status" languagecode="1033" />
+              </labels>
+              <control id="header_statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="true" />
+            </cell>
+            <cell id="{1088c49c-4044-4e74-b626-bfc034c5e082}" showlabel="true" locklevel="1">
+              <labels>
+                <label description="Status Reason" languagecode="1033" />
+              </labels>
+              <control id="header_statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <formLibraries>
+        <Library name="vn_crm_common.js" libraryUniqueId="{dbc7d0ad-e473-42b8-9ff1-71c268f155f5}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="VNEXTCRM.onProductLoad" libraryName="vn_crm_common.js" handlerUniqueId="{cf86a419-de62-4a5e-b6e9-c44685c66481}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualify Lead Dialog</title>
+    <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-hover: #106ebe;
+            --bg: #faf9f8;
+            --card-bg: #ffffff;
+            --text-main: #323130;
+            --text-secondary: #605e5c;
+            --border: #edebe9;
+            --border-hover: #c8c6c4;
+            --warning-bg: #fff4ce;
+            --warning-border: #fed9cc;
+            --warning-text: #794300;
+            --info-bg: #eff6fc;
+            --info-border: #c7e0f4;
+            --info-text: #004578;
+            --disabled-bg: #f3f2f1;
+            --disabled-text: #a19f9d;
+            --error: #a80000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-badge {
+            font-size: 11px;
+            background: var(--info-bg);
+            color: var(--info-text);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--info-border);
+            font-family: Consolas, monospace;
+        }
+
+        .dialog-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .required-star {
+            color: var(--error);
+            margin-left: 2px;
+        }
+
+        input[type="text"], input[type="date"], select {
+            padding: 7px 10px;
+            border: 1px solid var(--border-hover);
+            border-radius: 2px;
+            font-size: 13px;
+            color: var(--text-main);
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        input:disabled, select:disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            cursor: not-allowed;
+            border-color: var(--border);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Radio Selector */
+        .path-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .path-option:hover {
+            border-color: var(--primary);
+            background-color: #fcfcfc;
+        }
+
+        .path-option.selected {
+            border-color: var(--primary);
+            background-color: #f3f9fe;
+        }
+
+        .path-option input[type="radio"] {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .path-content {
+            flex: 1;
+        }
+
+        .path-label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .path-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .path-details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            margin-top: 4px;
+            color: var(--text-main);
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        /* Milestone Banner */
+        .milestone-banner {
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--warning-text);
+            font-size: 13px;
+        }
+
+        .banner-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .banner-content strong {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .dialog-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 2px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-primary:disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            border-color: var(--border);
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-color: var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f2f1;
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dialog-header">
+        <div class="header-title">
+            <span>Qualify Lead</span>
+        </div>
+        <div id="recordContextBadge" class="context-badge" style="display: none;">
+            Lead ID: <span id="leadIdDisplay"></span>
+        </div>
+    </div>
+
+    <div class="dialog-body">
+        <!-- Section 1: Opportunity Header Info -->
+        <div class="section-card">
+            <div class="section-title">1. Opportunity Details (EXT10 §7.1)</div>
+            
+            <div class="form-group">
+                <label for="oppName">Opportunity Name<span class="required-star">*</span></label>
+                <input type="text" id="oppName" placeholder="e.g., Cloud Modernization Pilot - Acme Corp" autocomplete="off" />
+                <span class="hint">Required name for the resulting Opportunity pipeline deal.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="closeDate">Estimated Close Date (Date Only)<span class="required-star">*</span></label>
+                <input type="date" id="closeDate" />
+                <span class="hint">Target close date must be on or after UTC Today.</span>
+            </div>
+        </div>
+
+        <!-- Section 2: Customer Resolution Path -->
+        <div class="section-card">
+            <div class="section-title">2. Customer Resolution Path (EXT10 §7.1)</div>
+            <div class="hint" style="margin-bottom: 10px;">Select one of 3 explicit customer association options. Selecting a Contact without an Account is strictly disallowed.</div>
+
+            <!-- Path 1: Existing Account + Matching Contact -->
+            <div class="path-option" id="cardPath1" onclick="selectPath('path1')">
+                <input type="radio" name="customerPath" id="path1" value="1" checked onchange="onPathChanged()" />
+                <div class="path-content">
+                    <label for="path1" class="path-label">1. Reuse existing active Account + matching active Contact</label>
+                    <div class="path-desc">Both Account and Contact records already exist and are linked.</div>
+                    
+                    <div class="path-details" id="path1Details">
+                        <div class="form-group">
+                            <label for="accountSelectPath1">Existing Active Account<span class="required-star">*</span></label>
+                            <select id="accountSelectPath1" onchange="onAccountChangedPath1()">
+                                <option value="">-- Select Active Account --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSelectPath1">Matching Active Contact<span class="required-star">*</span></label>
+                            <select id="contactSelectPath1" disabled>
+                                <option value="">-- Select Account first --</option>
+                            </select>
+                            <span class="hint">Contact is locked until an Account is selected.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Path 2: Existing Account + New Contact -->
+            <div class="path-option" id="cardPath2" onclick="selectPath('path2')">
+                <input type="radio" name="customerPath" id="path2" value="2" onchange="onPathChanged()" />
+                <div class="path-content">
+                    <label for="path2" class="path-label">2. Reuse existing active Account + create new Contact</label>
+                    <div class="path-desc">Reuse existing company Account, but create and associate a new Contact from Lead data.</div>
+                    
+                    <div class="path-details" id="path2Details" style="display: none;">
+                        <div class="form-group">
+                            <label for="accountSelectPath2">Existing Active Account<span class="required-star">*</span></label>
+                            <select id="accountSelectPath2">
+                                <option value="">-- Select Active Account --</option>
+                            </select>
+                        </div>
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="confirmNewContact" />
+                            <span>I confirm creating a new Contact under this Account from Lead contact information.</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Path 3: Create both new Account and new Contact -->
+            <div class="path-option" id="cardPath3" onclick="selectPath('path3')">
+                <input type="radio" name="customerPath" id="path3" value="3" onchange="onPathChanged()" />
+                <div class="path-content">
+                    <label for="path3" class="path-label">3. Create both new Account and new Contact</label>
+                    <div class="path-desc">Neither record exists. Create both new Account and new Contact atomically.</div>
+                    
+                    <div class="path-details" id="path3Details" style="display: none;">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="confirmBothNew" />
+                            <span>I confirm creating both a new Account and a new Contact from Lead company & contact details.</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Milestone 2 Status Banner -->
+        <div class="milestone-banner">
+            <span class="banner-icon">ℹ️</span>
+            <div class="banner-content">
+                <strong>Milestone 2 Status</strong>
+                <p>Prepared for Milestone 3: Requires server Custom API EXT10 (vn_QualifyLead) to commit qualification atomically.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="dialog-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnQualify" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_QualifyLead in M3">Qualify</button>
+    </div>
+
+    <script>
+        var parsedContext = {
+            recordId: "",
+            rowVersion: ""
+        };
+
+        // Initialize Dialog
+        window.addEventListener("DOMContentLoaded", function () {
+            initDateConstraint();
+            parseQueryParams();
+            loadAccounts();
+            onPathChanged();
+        });
+
+        // Set Estimated Close Date minimum to UTC Today
+        function initDateConstraint() {
+            var today = new Date();
+            var utcYear = today.getUTCFullYear();
+            var utcMonth = String(today.getUTCMonth() + 1).padStart(2, '0');
+            var utcDay = String(today.getUTCDate()).padStart(2, '0');
+            var minDateStr = utcYear + "-" + utcMonth + "-" + utcDay;
+            
+            var closeDateInput = document.getElementById("closeDate");
+            closeDateInput.min = minDateStr;
+            closeDateInput.value = minDateStr;
+        }
+
+        // Parse query string data parameter passed by Xrm.Navigation.navigateTo
+        function parseQueryParams() {
+            try {
+                var search = window.location.search;
+                var params = new URLSearchParams(search);
+                var dataParam = params.get("data");
+                if (dataParam) {
+                    var dataObj = JSON.parse(dataParam);
+                    if (dataObj.recordId) {
+                        parsedContext.recordId = dataObj.recordId;
+                        document.getElementById("leadIdDisplay").innerText = dataObj.recordId.substring(0, 8) + "...";
+                        document.getElementById("recordContextBadge").style.display = "inline-block";
+                    }
+                    if (dataObj.rowVersion) {
+                        parsedContext.rowVersion = dataObj.rowVersion;
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not parse navigation parameters:", e);
+            }
+        }
+
+        // Customer Path Selection
+        function selectPath(pathKey) {
+            document.getElementById(pathKey).checked = true;
+            onPathChanged();
+        }
+
+        function onPathChanged() {
+            var p1 = document.getElementById("path1").checked;
+            var p2 = document.getElementById("path2").checked;
+            var p3 = document.getElementById("path3").checked;
+
+            document.getElementById("cardPath1").classList.toggle("selected", p1);
+            document.getElementById("cardPath2").classList.toggle("selected", p2);
+            document.getElementById("cardPath3").classList.toggle("selected", p3);
+
+            document.getElementById("path1Details").style.display = p1 ? "flex" : "none";
+            document.getElementById("path2Details").style.display = p2 ? "flex" : "none";
+            document.getElementById("path3Details").style.display = p3 ? "flex" : "none";
+        }
+
+        // Resolve client base URL via GetGlobalContext().getClientUrl()
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl();
+                }
+            }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl();
+            }
+            return "";
+        }
+
+        // Perform read-only GET requests using standard same-origin fetch()
+        function fetchOData(relativeEndpoint) {
+            var baseUrl = getClientUrl();
+            var cleanEndpoint = relativeEndpoint.replace(/^\//, "");
+            var url = (baseUrl ? baseUrl.replace(/\/$/, "") : "") + "/api/data/v9.2/" + cleanEndpoint;
+
+            return fetch(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "OData-MaxVersion": "4.0",
+                    "OData-Version": "4.0",
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then(function (response) {
+                if (!response.ok) {
+                    return response.json().then(
+                        function (err) {
+                            var msg = (err && err.error && err.error.message) ? err.error.message : ("HTTP " + response.status);
+                            throw new Error(msg);
+                        },
+                        function () {
+                            throw new Error("HTTP " + response.status + ": " + response.statusText);
+                        }
+                    );
+                }
+                return response.json();
+            });
+        }
+
+        // Populate active accounts (statecode eq 0) via Dataverse Web API
+        function loadAccounts() {
+            fetchOData("accounts?$select=accountid,name&$filter=statecode eq 0&$orderby=name asc&$top=100").then(
+                function (results) {
+                    var accounts = results.value || [];
+                    var sel1 = document.getElementById("accountSelectPath1");
+                    var sel2 = document.getElementById("accountSelectPath2");
+                    
+                    sel1.innerHTML = '<option value="">-- Select Active Account --</option>';
+                    sel2.innerHTML = '<option value="">-- Select Active Account --</option>';
+
+                    accounts.forEach(function (acc) {
+                        var opt1 = document.createElement("option");
+                        opt1.value = acc.accountid;
+                        opt1.text = acc.name;
+                        sel1.appendChild(opt1);
+
+                        var opt2 = document.createElement("option");
+                        opt2.value = acc.accountid;
+                        opt2.text = acc.name;
+                        sel2.appendChild(opt2);
+                    });
+                },
+                function (error) {
+                    console.warn("Account load error:", error);
+                }
+            );
+        }
+
+        // Account change in Path 1 filters active contacts (_parentcustomerid_value eq <accountid>)
+        function onAccountChangedPath1() {
+            var accId = document.getElementById("accountSelectPath1").value;
+            var contactSel = document.getElementById("contactSelectPath1");
+            contactSel.innerHTML = '<option value="">-- Select Matching Active Contact --</option>';
+
+            if (!accId) {
+                contactSel.disabled = true;
+                contactSel.innerHTML = '<option value="">-- Select Account first --</option>';
+                return;
+            }
+
+            contactSel.disabled = true;
+            var cleanAccId = accId.replace(/[{}]/g, "");
+            var query = "contacts?$select=contactid,fullname&$filter=statecode eq 0 and _parentcustomerid_value eq " + cleanAccId + "&$orderby=fullname asc";
+
+            fetchOData(query).then(
+                function (results) {
+                    var contacts = results.value || [];
+                    if (contacts.length === 0) {
+                        contactSel.innerHTML = '<option value="">-- No active contacts found for this account --</option>';
+                    } else {
+                        contactSel.innerHTML = '<option value="">-- Select Matching Active Contact --</option>';
+                        contacts.forEach(function (c) {
+                            var opt = document.createElement("option");
+                            opt.value = c.contactid;
+                            opt.text = c.fullname;
+                            contactSel.appendChild(opt);
+                        });
+                        contactSel.disabled = false;
+                    }
+                },
+                function (error) {
+                    console.warn("Contact load error:", error);
+                    contactSel.disabled = false;
+                }
+            );
+        }
+
+        function closeDialog() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

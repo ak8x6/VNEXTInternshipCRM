@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26111.138" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26111.138" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26111.00138">
+<ImportExportXml version="9.2.26112.144" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26112.144" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26112.00144">
   <SolutionManifest>
     <UniqueName>VNEXTInternshipCRM</UniqueName>
     <LocalizedNames>
@@ -79,6 +79,7 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="1" schemaName="account" behavior="1" />
+      <RootComponent type="1" schemaName="activitypointer" behavior="1" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
       <RootComponent type="1" schemaName="phonecall" behavior="1" />
       <RootComponent type="1" schemaName="systemuser" behavior="1" />
@@ -87,16 +88,98 @@
       <RootComponent type="1" schemaName="vn_lead" behavior="0" />
       <RootComponent type="1" schemaName="vn_opportunity" behavior="0" />
       <RootComponent type="1" schemaName="vn_opportunityline" behavior="0" />
+      <RootComponent type="1" schemaName="vn_opportunitysalesprocess" behavior="0" />
       <RootComponent type="1" schemaName="vn_product" behavior="0" />
+      <RootComponent type="20" id="{07b59a79-87e3-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="20" id="{455ed134-87e3-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="20" id="{a0bf376b-85e3-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="29" id="{98705fdd-c4ee-4c02-b91d-41f196f33f8a}" behavior="0" />
+      <RootComponent type="29" id="{b8840bdc-dd2f-49ce-80e4-03f3c8b863c5}" behavior="0" />
+      <RootComponent type="29" id="{e410aef6-e8e8-4a59-8869-40eb47d8f874}" behavior="0" />
+      <RootComponent type="60" id="{870d87b2-17e4-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="60" id="{fe113b41-17e4-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="61" schemaName="vn_crm_common.js" behavior="0" />
+      <RootComponent type="61" schemaName="vn_dlg_approval.html" behavior="0" />
+      <RootComponent type="61" schemaName="vn_dlg_line.html" behavior="0" />
+      <RootComponent type="61" schemaName="vn_dlg_qualify.html" behavior="0" />
+      <RootComponent type="61" schemaName="vn_dlg_transition.html" behavior="0" />
+      <RootComponent type="62" schemaName="vn_VNEXTSalesCRMSiteMap" behavior="0" />
+      <RootComponent type="80" schemaName="vn_VNEXTSalesCRM" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="activitypointer" displayName="ActivityPointer" parentSchemaName="" solution="EmailDescriptionBlobStore_XRM (1.8)" />
+        <Dependent type="1" schemaName="activitypointer" displayName="ActivityPointer" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3573.1)" />
         <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="vn_opportunitysalesprocess" displayName="Opportunity Sales Process" solution="Active" />
-        <Dependent type="1" schemaName="vn_opportunity" displayName="Opportunity" />
+        <Required type="2" schemaName="emailaddress1" displayName="emailaddress1" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="emailaddress1" displayName="emailaddress1" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="mobilephone" displayName="mobilephone" parentSchemaName="contact" solution="System (5.0)" />
+        <Dependent type="2" schemaName="mobilephone" displayName="mobilephone" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="name" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="name" displayName="name" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="ownerid" displayName="ownerid" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="ownerid" displayName="ownerid" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="primarycontactid" displayName="primarycontactid" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="primarycontactid" displayName="primarycontactid" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="regardingobjectid" displayName="regardingobjectid" parentSchemaName="phonecall" solution="System (5.0)" />
+        <Dependent type="2" schemaName="regardingobjectid" displayName="regardingobjectid" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="statecode" displayName="statecode" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="statecode" displayName="statecode" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="statuscode" displayName="statuscode" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="statuscode" displayName="statuscode" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="telephone1" displayName="telephone1" parentSchemaName="account" solution="System (5.0)" />
+        <Dependent type="2" schemaName="telephone1" displayName="telephone1" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="60" displayName="Task" parentDisplayName="Task" solution="msdynce_Activities (9.0.1.2033)" id="{16654191-19ad-48ca-9e46-c4b4fbdad76f}">
+          <package appName="msdynce_Activities" version="9.0.26104.261016001">msdynce_EnableUCIByDefault (9.0.26104.261016001)</package>
+        </Required>
+        <Dependent type="60" displayName="Task" parentDisplayName="Task" id="{16654191-19ad-48ca-9e46-c4b4fbdad76f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="60" displayName="Contact" parentDisplayName="Contact" solution="msdynce_AppCommon (9.0.4.0066)" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}">
+          <package appName="msdynce_AppCommon" version="9.0.26112.10001">msdynce_AppCommonAnchor (9.0.26112.10001)</package>
+        </Required>
+        <Dependent type="60" displayName="Contact" parentDisplayName="Contact" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="60" displayName="Account" parentDisplayName="Account" solution="msdynce_AppCommon (9.0.4.0066)" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}">
+          <package appName="msdynce_AppCommon" version="9.0.26112.10001">msdynce_AppCommonAnchor (9.0.26112.10001)</package>
+        </Required>
+        <Dependent type="60" displayName="Account" parentDisplayName="Account" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="60" displayName="Phone Call" parentDisplayName="Phone Call" solution="msdynce_Activities (9.0.1.2033)" id="{a91390a5-99bb-4d10-9eee-3a5c87f841f1}">
+          <package appName="msdynce_Activities" version="9.0.26104.261016001">msdynce_EnableUCIByDefault (9.0.26104.261016001)</package>
+        </Required>
+        <Dependent type="60" displayName="Phone Call" parentDisplayName="Phone Call" id="{a91390a5-99bb-4d10-9eee-3a5c87f841f1}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="vn_VNEXTSalesCRM" displayName="VNEXT Sales CRM" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

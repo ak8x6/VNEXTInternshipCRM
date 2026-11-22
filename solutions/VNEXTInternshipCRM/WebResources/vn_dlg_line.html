@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Line Add/Remove Dialog</title>
+    <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-hover: #106ebe;
+            --danger: #d13438;
+            --danger-hover: #a80000;
+            --bg: #faf9f8;
+            --card-bg: #ffffff;
+            --text-main: #323130;
+            --text-secondary: #605e5c;
+            --border: #edebe9;
+            --border-hover: #c8c6c4;
+            --warning-bg: #fff4ce;
+            --warning-border: #fed9cc;
+            --warning-text: #794300;
+            --info-bg: #eff6fc;
+            --info-border: #c7e0f4;
+            --info-text: #004578;
+            --disabled-bg: #f3f2f1;
+            --disabled-text: #a19f9d;
+            --error: #a80000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-badge {
+            font-size: 11px;
+            background: var(--info-bg);
+            color: var(--info-text);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--info-border);
+            font-family: Consolas, monospace;
+        }
+
+        /* Mode Selector Tabs (Add / Remove only - strictly no Edit/Replace) */
+        .mode-nav {
+            display: flex;
+            gap: 4px;
+            background: #edebe9;
+            padding: 3px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .mode-tab {
+            flex: 1;
+            text-align: center;
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+        }
+
+        .mode-tab:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .mode-tab.active {
+            background: var(--card-bg);
+            color: var(--primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .mode-tab.active.tab-remove {
+            color: var(--danger);
+        }
+
+        .dialog-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .required-star {
+            color: var(--error);
+            margin-left: 2px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            padding: 7px 10px;
+            border: 1px solid var(--border-hover);
+            border-radius: 2px;
+            font-size: 13px;
+            color: var(--text-main);
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        input:disabled, select:disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            cursor: not-allowed;
+            border-color: var(--border);
+        }
+
+        .guid-display-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f3f2f1;
+            padding: 6px 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            color: #323130;
+        }
+
+        .guid-display-box span {
+            flex: 1;
+            user-select: all;
+            word-break: break-all;
+        }
+
+        .guid-regen-btn {
+            font-size: 11px;
+            padding: 2px 6px;
+            background: #ffffff;
+            border: 1px solid var(--border-hover);
+            border-radius: 2px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .guid-regen-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .calc-preview-card {
+            background: #f8fbfd;
+            border: 1px solid #c7e0f4;
+            border-radius: 4px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 8px;
+        }
+
+        .calc-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .calc-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .calc-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        .calc-value.highlight {
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            margin-top: 6px;
+            color: var(--text-main);
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Milestone Banner */
+        .milestone-banner {
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--warning-text);
+            font-size: 13px;
+        }
+
+        .banner-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .banner-content strong {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .dialog-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 2px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: #ffffff;
+            border-color: var(--danger);
+        }
+
+        .btn:disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            border-color: var(--border);
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-color: var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f2f1;
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dialog-header">
+        <div class="header-title">
+            <span id="dialogTitle">Opportunity Product Line</span>
+        </div>
+        <div id="recordContextBadge" class="context-badge" style="display: none;">
+            Opp ID: <span id="oppIdDisplay"></span>
+        </div>
+    </div>
+
+    <!-- Mode Selector Navigation (Add / Remove only - matching EXT12 §7.3, strictly no Edit/Replace) -->
+    <div class="mode-nav" role="tablist">
+        <button type="button" class="mode-tab active" id="tabAdd" onclick="switchMode('Add')">Add Line</button>
+        <button type="button" class="mode-tab tab-remove" id="tabRemove" onclick="switchMode('Remove')">Remove Line</button>
+    </div>
+
+    <div class="dialog-body">
+
+        <!-- ==================== MODE 1: ADD LINE ==================== -->
+        <div id="panelAdd" class="section-card">
+            <div class="section-title">Add Opportunity Line (EXT12 §7.3)</div>
+
+            <!-- Client-Generated Line GUID -->
+            <div class="form-group">
+                <label>Client-Generated Line ID (GUID)<span class="required-star">*</span></label>
+                <div class="guid-display-box">
+                    <span id="clientLineGuid"></span>
+                    <button type="button" class="guid-regen-btn" onclick="generateAndDisplayLineId()" title="Regenerate GUID">Regen</button>
+                </div>
+                <span class="hint">Stable client-side LineId generated prior to dispatch for idempotency.</span>
+            </div>
+
+            <!-- Active Product Selector -->
+            <div class="form-group">
+                <label for="productSelect">Active Product<span class="required-star">*</span></label>
+                <select id="productSelect" onchange="onProductSelected()">
+                    <option value="">-- Select Active Product --</option>
+                </select>
+                <span class="hint" id="productDetailHint">Select an active catalog product to populate pricing.</span>
+            </div>
+
+            <div class="form-row">
+                <!-- Quantity: default 1.000, >0 to 10,000, max 3 decimals -->
+                <div class="form-group">
+                    <label for="inputQuantity">Quantity<span class="required-star">*</span></label>
+                    <input type="number" id="inputQuantity" value="1.000" min="0.001" max="10000" step="0.001" oninput="recalcPreview()" />
+                    <span class="hint">Range &gt; 0 to 10,000 (max 3 decimals).</span>
+                </div>
+
+                <!-- Discount %: default 0.00, 0-30%, max 2 decimals -->
+                <div class="form-group">
+                    <label for="inputDiscount">Discount %<span class="required-star">*</span></label>
+                    <input type="number" id="inputDiscount" value="0.00" min="0" max="30" step="0.01" oninput="recalcPreview()" />
+                    <span class="hint">Range 0.00% to 30.00% (max 2 decimals).</span>
+                </div>
+            </div>
+
+            <!-- Financial Calculation Preview Card -->
+            <div class="form-group" style="margin-top: 14px;">
+                <label style="font-size: 12px; color: var(--text-secondary); font-weight: 600;">
+                    Indicative Preview Only — Server arithmetic (BR17) is authoritative upon commit.
+                </label>
+                <div class="calc-preview-card" style="margin-top: 4px;">
+                    <div class="calc-col">
+                        <span class="calc-label">Unit Price (4 dec)</span>
+                        <span class="calc-value" id="previewUnitPrice">USD 0.0000</span>
+                    </div>
+                    <div class="calc-col">
+                        <span class="calc-label">Gross Total</span>
+                        <span class="calc-value" id="previewGross">USD 0.00</span>
+                    </div>
+                    <div class="calc-col">
+                        <span class="calc-label">Discount Amt</span>
+                        <span class="calc-value" id="previewDiscountAmt">USD 0.00</span>
+                    </div>
+                    <div class="calc-col">
+                        <span class="calc-label">Line Total</span>
+                        <span class="calc-value highlight" id="previewNet">USD 0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MODE 2: REMOVE LINE ==================== -->
+        <div id="panelRemove" class="section-card" style="display: none;">
+            <div class="section-title" style="color: var(--danger);">Remove Opportunity Line (EXT12 §7.3)</div>
+            <div class="hint" style="margin-bottom: 12px;">Delete an existing persisted product line from the parent Opportunity.</div>
+
+            <!-- Select Existing Line (if not prepopulated) -->
+            <div class="form-group" id="linePickerGroup">
+                <label for="existingLineSelect">Select Line to Remove<span class="required-star">*</span></label>
+                <select id="existingLineSelect" onchange="onExistingLineSelected()">
+                    <option value="">-- Select Persisted Line --</option>
+                </select>
+                <span class="hint">Active product lines currently associated with this Opportunity.</span>
+            </div>
+
+            <!-- Display Persisted Line GUID -->
+            <div class="form-group">
+                <label>Persisted Line GUID<span class="required-star">*</span></label>
+                <div class="guid-display-box" style="background: #fff0f0; border-color: #fed9cc;">
+                    <span id="persistedLineGuidDisplay" style="color: var(--danger);">No line selected</span>
+                </div>
+                <span class="hint">The target vn_opportunitylineid record to be removed.</span>
+            </div>
+
+            <!-- Parent Opportunity Confirmation -->
+            <div class="form-group" style="margin-top: 14px;">
+                <label>Parent Opportunity Confirmation<span class="required-star">*</span></label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="confirmRemoveCheckbox" />
+                    <span>I confirm permanent removal of this product line from parent Opportunity (<span id="oppConfirmId"></span>).</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ==================== MILESTONE BANNER ==================== -->
+        <div class="milestone-banner">
+            <span class="banner-icon">ℹ️</span>
+            <div class="banner-content">
+                <strong>Milestone Status</strong>
+                <p>Prepared for Milestone 3: Requires server Custom API EXT12 (vn_EditOpportunityLine).</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Dialog Footer -->
+    <div class="dialog-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnCommit" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_EditOpportunityLine in M3">Add Line</button>
+    </div>
+
+    <script>
+        var currentContext = {
+            opportunityId: "",
+            rowVersion: "",
+            operationMode: "Add",
+            lineId: "",
+            generatedLineId: ""
+        };
+
+        var loadedProducts = [];
+        var loadedLines = [];
+        var selectedProductPrice = 0.0000;
+        var baseCurrencyCode = "USD";
+
+        window.addEventListener("DOMContentLoaded", function () {
+            parseQueryParams();
+            generateAndDisplayLineId();
+            applyContextToUI();
+            loadActiveProducts();
+            if (currentContext.opportunityId) {
+                loadExistingLines(currentContext.opportunityId);
+            }
+        });
+
+        // Generate stable client-side LineId GUID (RFC 4122 v4)
+        function generateGuid() {
+            if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+                return crypto.randomUUID();
+            }
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function generateAndDisplayLineId() {
+            currentContext.generatedLineId = generateGuid();
+            var el = document.getElementById("clientLineGuid");
+            if (el) el.innerText = currentContext.generatedLineId;
+        }
+
+        // Parse query params passed by Xrm.Navigation.navigateTo
+        function parseQueryParams() {
+            try {
+                var search = window.location.search;
+                var params = new URLSearchParams(search);
+                var dataParam = params.get("data");
+                if (dataParam) {
+                    var dataObj = JSON.parse(dataParam);
+                    if (dataObj.opportunityId) {
+                        currentContext.opportunityId = dataObj.opportunityId;
+                    }
+                    if (dataObj.rowVersion) {
+                        currentContext.rowVersion = dataObj.rowVersion;
+                    }
+                    if (dataObj.operationMode) {
+                        currentContext.operationMode = dataObj.operationMode;
+                    }
+                    if (dataObj.lineId) {
+                        currentContext.lineId = dataObj.lineId;
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not parse navigation parameters:", e);
+            }
+        }
+
+        function applyContextToUI() {
+            if (currentContext.opportunityId) {
+                document.getElementById("oppIdDisplay").innerText = currentContext.opportunityId.substring(0, 8) + "...";
+                document.getElementById("oppConfirmId").innerText = currentContext.opportunityId;
+                document.getElementById("recordContextBadge").style.display = "inline-block";
+            } else {
+                document.getElementById("oppConfirmId").innerText = "Current Opportunity";
+            }
+
+            if (currentContext.lineId) {
+                document.getElementById("persistedLineGuidDisplay").innerText = currentContext.lineId;
+            }
+
+            // Set initial mode (strictly Add or Remove)
+            var initMode = (currentContext.operationMode === "Remove") ? "Remove" : "Add";
+            switchMode(initMode);
+        }
+
+        // Mode Switching
+        function switchMode(mode) {
+            currentContext.operationMode = mode;
+
+            document.getElementById("tabAdd").classList.toggle("active", mode === "Add");
+            document.getElementById("tabRemove").classList.toggle("active", mode === "Remove");
+
+            document.getElementById("panelAdd").style.display = (mode === "Add") ? "block" : "none";
+            document.getElementById("panelRemove").style.display = (mode === "Remove") ? "block" : "none";
+
+            var btnCommit = document.getElementById("btnCommit");
+            if (mode === "Add") {
+                btnCommit.innerText = "Add Line";
+                btnCommit.className = "btn btn-primary";
+            } else {
+                btnCommit.innerText = "Remove Line";
+                btnCommit.className = "btn btn-danger";
+            }
+        }
+
+        // Resolve client base URL via GetGlobalContext().getClientUrl()
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl();
+                }
+            }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl();
+            }
+            return "";
+        }
+
+        // Perform read-only GET requests using standard same-origin fetch()
+        function fetchOData(relativeEndpoint) {
+            var baseUrl = getClientUrl();
+            var cleanEndpoint = relativeEndpoint.replace(/^\//, "");
+            var url = (baseUrl ? baseUrl.replace(/\/$/, "") : "") + "/api/data/v9.2/" + cleanEndpoint;
+
+            return fetch(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "OData-MaxVersion": "4.0",
+                    "OData-Version": "4.0",
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then(function (response) {
+                if (!response.ok) {
+                    return response.json().then(
+                        function (err) {
+                            var msg = (err && err.error && err.error.message) ? err.error.message : ("HTTP " + response.status);
+                            throw new Error(msg);
+                        },
+                        function () {
+                            throw new Error("HTTP " + response.status + ": " + response.statusText);
+                        }
+                    );
+                }
+                return response.json();
+            });
+        }
+
+        // Load active products via Dataverse Web API with transactioncurrencyid expand
+        function loadActiveProducts() {
+            var query = "vn_products?$select=vn_productid,vn_name,vn_sku,vn_unitprice&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=statecode eq 0&$orderby=vn_name asc&$top=100";
+            fetchOData(query).then(
+                function (results) {
+                    loadedProducts = results.value || [];
+                    var sel = document.getElementById("productSelect");
+                    sel.innerHTML = '<option value="">-- Select Active Product --</option>';
+
+                    loadedProducts.forEach(function (p) {
+                        var opt = document.createElement("option");
+                        opt.value = p.vn_productid;
+                        var curr = (p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) ? p.transactioncurrencyid.isocurrencycode : baseCurrencyCode;
+                        if (p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) {
+                            baseCurrencyCode = p.transactioncurrencyid.isocurrencycode;
+                        }
+                        var unitPrice = (p.vn_unitprice !== undefined && p.vn_unitprice !== null) ? Number(p.vn_unitprice) : 0;
+                        var formattedPrice = unitPrice.toFixed(4);
+                        opt.text = p.vn_name + (p.vn_sku ? (" (" + p.vn_sku + ")") : "") + " - " + curr + " " + formattedPrice;
+                        opt.dataset.price = unitPrice;
+                        opt.dataset.sku = p.vn_sku || "";
+                        opt.dataset.currency = curr;
+                        sel.appendChild(opt);
+                    });
+                },
+                function (err) {
+                    console.warn("Product load error:", err);
+                }
+            );
+        }
+
+        function onProductSelected() {
+            var sel = document.getElementById("productSelect");
+            var selectedOpt = sel.options[sel.selectedIndex];
+            if (selectedOpt && selectedOpt.value) {
+                selectedProductPrice = parseFloat(selectedOpt.dataset.price) || 0;
+                var sku = selectedOpt.dataset.sku || "N/A";
+                var curr = selectedOpt.dataset.currency || baseCurrencyCode;
+                document.getElementById("productDetailHint").innerText = "SKU: " + sku + " | Unit Price: " + curr + " " + selectedProductPrice.toFixed(4);
+            } else {
+                selectedProductPrice = 0.0000;
+                document.getElementById("productDetailHint").innerText = "Select an active catalog product to populate pricing.";
+            }
+            recalcPreview();
+        }
+
+        // Recalculate Live Preview
+        function recalcPreview() {
+            var qtyInput = document.getElementById("inputQuantity");
+            var discInput = document.getElementById("inputDiscount");
+
+            var qty = parseFloat(qtyInput.value) || 0;
+            var disc = parseFloat(discInput.value) || 0;
+
+            // Enforce constraints
+            if (qty < 0) qty = 0;
+            if (qty > 10000) qty = 10000;
+            if (disc < 0) disc = 0;
+            if (disc > 30) disc = 30;
+
+            var gross = selectedProductPrice * qty;
+            var discAmt = gross * (disc / 100);
+            var net = gross - discAmt;
+
+            document.getElementById("previewUnitPrice").innerText = baseCurrencyCode + " " + selectedProductPrice.toFixed(4);
+            document.getElementById("previewGross").innerText = baseCurrencyCode + " " + gross.toFixed(2);
+            document.getElementById("previewDiscountAmt").innerText = baseCurrencyCode + " " + discAmt.toFixed(2);
+            document.getElementById("previewNet").innerText = baseCurrencyCode + " " + net.toFixed(2);
+        }
+
+        // Load existing lines for Opportunity in Remove Mode (DM07 schema: vn_snapshotname, vn_snapshotsku)
+        function loadExistingLines(oppId) {
+            if (!oppId) return;
+
+            var cleanId = oppId.replace(/[{}]/g, "");
+            var query = "vn_opportunitylines?$select=vn_opportunitylineid,vn_name,vn_snapshotname,vn_snapshotsku,vn_quantity,vn_netamount&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=_vn_opportunity_value eq " + cleanId + " and statecode eq 0&$orderby=createdon asc";
+
+            fetchOData(query).then(
+                function (results) {
+                    loadedLines = results.value || [];
+                    var sel = document.getElementById("existingLineSelect");
+                    sel.innerHTML = '<option value="">-- Select Persisted Line --</option>';
+
+                    loadedLines.forEach(function (line) {
+                        var opt = document.createElement("option");
+                        opt.value = line.vn_opportunitylineid;
+                        var lineName = line.vn_snapshotname || line.vn_name || "Line";
+                        var lineSku = line.vn_snapshotsku ? (" (" + line.vn_snapshotsku + ")") : "";
+                        var curr = (line.transactioncurrencyid && line.transactioncurrencyid.isocurrencycode) ? line.transactioncurrencyid.isocurrencycode : baseCurrencyCode;
+                        var net = (line.vn_netamount !== undefined && line.vn_netamount !== null) ? Number(line.vn_netamount).toFixed(2) : "0.00";
+                        var qty = (line.vn_quantity !== undefined && line.vn_quantity !== null) ? Number(line.vn_quantity) : 1;
+                        opt.text = lineName + lineSku + " (Qty: " + qty + ", Net: " + curr + " " + net + ") - " + line.vn_opportunitylineid.substring(0, 8) + "...";
+                        sel.appendChild(opt);
+                    });
+
+                    // Auto-select if lineId was passed
+                    if (currentContext.lineId) {
+                        sel.value = currentContext.lineId.replace(/[{}]/g, "").toLowerCase();
+                        onExistingLineSelected();
+                    }
+                },
+                function (err) {
+                    console.warn("Lines load error:", err);
+                }
+            );
+        }
+
+        function onExistingLineSelected() {
+            var sel = document.getElementById("existingLineSelect");
+            var val = sel.value;
+            if (val) {
+                currentContext.lineId = val;
+                document.getElementById("persistedLineGuidDisplay").innerText = val;
+            } else {
+                currentContext.lineId = "";
+                document.getElementById("persistedLineGuidDisplay").innerText = "No line selected";
+            }
+        }
+
+        function closeDialog() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # Enterprise B2B Sales CRM — Microsoft Power Platform & C# Server Extensibility
 
 **Author:** Ahmad Kassem — [GitHub](https://github.com/ak8x6) | [LinkedIn](www.linkedin.com/in/ak8x6)  
-**Solution Name:** `VNEXTInternshipCRM` | **Publisher Prefix:** `vn` | **Base Currency:** `USD` | **Time Zone Policy:** `UTC`  
+**Solution Name:** `VNEXTInternshipCRM` | **Publisher Prefix:** `vn` | **Base Currency:** `USD` (§1.1, §8.1) | **Time Zone Policy:** `UTC`  
 **Tech Stack:** Microsoft Dataverse · C# (.NET Framework 4.6.2 Plug-ins & Custom APIs) · TypeScript / React (PCF & Power Apps Code Apps) · Model-Driven Power Apps · Power Automate · Microsoft Copilot Studio · Power BI (DAX & Row-Level Security) · Power Platform CLI (`pac`)
 
 ## 1. Project Overview
@@ -100,7 +100,7 @@ flowchart TB
 | :-------- | :----------------------------------------------------------------------------- | :------------ | :------------------------- |
 | **M0**    | **Engineering Readiness, Solution & CLI Pipeline**                             | **Completed** | `m0-engineering-readiness` |
 | **M1**    | **Dataverse Relational Schema, Choices & Alternate Keys**                      | **Completed** | `m1-data-foundation`       |
-| **M2**    | **Model-Driven App, 13 Views, 4 Charts, 2 Dashboards & RBAC**                  | Pending       | `m2-model-driven-crm`      |
+| **M2**    | **Model-Driven App, 13 Views, 4 Charts, 2 Dashboards & RBAC**                  | **Completed** | `m2-model-driven-crm`      |
 | **M3**    | **C# Custom APIs (`EXT10`–`12`), Guard Plug-ins (`PL01`–`03`) & Concurrency**  | Pending       | `m3-transactional-crm`     |
 | **M4**    | **Read-Only `DealHealthPanel` PCF & Hosted 2-Screen Code App**                 | Pending       | `m4-pcf-codeapp`           |
 | **M5**    | **Approval API (`EXT13`) & 4 Solution-Aware Cloud Flows (`WF00`–`04`)**        | Pending       | `m5-flows-approval`        |
@@ -112,7 +112,7 @@ flowchart TB
 
 - [x] **M0 — Engineering Readiness:** Publisher `vn`, unmanaged/managed solution `VNEXTInternshipCRM`, 5 policy environment variables (`vn_ApprovalAmount`, `vn_ApprovalDiscount`, `vn_MaxDiscount`, `vn_StaleDays`, `vn_EscalationDays`), PAC CLI unpack pipeline, and architecture documentation.
 - [x] **M1 — Data Foundation:** 5 custom tables (`vn_lead`, `vn_opportunity`, `vn_product`, `vn_opportunityline`, `vn_approvalrequest`), native `account`/`contact`/`task` extensions, 3 active Alternate Keys, `Restrict` relationship cascades, explicit Money precision, and annotated ERD.
-- [ ] **M2 — Model-Driven CRM & Security:** `Sales A` and `Sales B` Business Units, `Sales Rep` / `Sales Manager` / `Sales Administrator` security roles, `DM14` auditing governance, 8 forms, 13 system views, 4 charts, 2 six-slot dashboards, Opportunity BPF, and command bar dialog wiring.
+- [x] **M2 — Model-Driven CRM & Security:** `Sales A` and `Sales B` Business Units, `Sales Rep` / `Sales Manager` / `Sales Administrator` security roles (with verified baseline UCI app/chart privileges), `DM14` auditing governance, 8 forms, 13 system views (`V01`–`V03`, `V05`–`V06`, `V08`–`V11`, `V14`–`V17`), 4 charts, 2 six-slot dashboards, Opportunity BPF, 2 Guidance Business Rules, and command bar dialog wiring.
 - [ ] **M3 — Transactional C# Extensibility:** Signed `.NET Framework 4.6.2` plug-in assembly implementing `EXT10`, `EXT11`, `EXT12`, `PL01`–`PL03` guards, `RowVersion` + `vn_commandsequence` concurrency latch, and `Scoped Internal Writer` impersonation.
 - [ ] **M4 — Rich UI & Hosted Code App:** Deployed `DealHealthPanel` PCF control (`PCF01`) and hosted two-screen Sales Rep Workbench Code App (`CA01` Today / `CA02` Qualify).
 - [ ] **M5 — Cloud Flows & Commercial Approval:** `EXT13` (`Submit`, `RecordDecision`, `Cancel`) and 4 solution-aware flows (`WF00-Notify`, `WF01`, `WF02`, `WF04`) with real Approvals connector integration.
@@ -126,7 +126,9 @@ flowchart TB
 VNEXTInternshipCRM/
 ├── docs/                           # Architecture diagrams, ERD, and milestone verification docs
 │   ├── M0_Engineering_Readiness.md
-│   └── M1_Data_Foundation.md
+│   ├── M1_Data_Foundation.md
+│   ├── M2_Model_Driven_CRM.md
+│   └── DATA_INVENTORY.md           # Master record inventory (Accounts, Contacts, Leads, Products, Personas)
 ├── scripts/                        # PAC CLI export, unpack, pack, and solution-checker scripts
 │   └── sync-solution.ps1
 ├── solutions/

@@ -1,14 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <CustomActions />
+  <CustomActions>
+    <CustomAction Id="vn.vn_opportunityline.Form.AddLine.CustomAction" Location="Mscrm.Form.vn_opportunityline.MainTab.Save.Controls._children" Sequence="33">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunityline.Form.AddLine.Button" Command="vn.vn_opportunityline.AddLine.Command" LabelText="$LocLabels:vn.vn_opportunityline.AddLine.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunityline.AddLine.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunityline.AddLine.ToolTipDescription" TemplateAlias="o1" Sequence="33" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="vn.vn_opportunityline.Form.Delete.Hide" Location="Mscrm.Form.vn_opportunityline.Delete" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.Form.Edit.Hide" Location="Mscrm.Form.vn_opportunityline.Edit" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.Form.NewRecord.Hide" Location="Mscrm.Form.vn_opportunityline.NewRecord" />
+    <CustomAction Id="vn.vn_opportunityline.Form.RemoveLine.CustomAction" Location="Mscrm.Form.vn_opportunityline.MainTab.Save.Controls._children" Sequence="34">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunityline.Form.RemoveLine.Button" Command="vn.vn_opportunityline.RemoveLine.Command" LabelText="$LocLabels:vn.vn_opportunityline.RemoveLine.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunityline.RemoveLine.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunityline.RemoveLine.ToolTipDescription" TemplateAlias="o1" Sequence="34" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="vn.vn_opportunityline.Form.SaveAndNew.Hide" Location="Mscrm.Form.vn_opportunityline.SaveAndNew" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.HomepageGrid.Delete.Hide" Location="Mscrm.HomepageGrid.vn_opportunityline.Delete" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.HomepageGrid.Edit.Hide" Location="Mscrm.HomepageGrid.vn_opportunityline.Edit" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.HomepageGrid.EditSelectedRecord.Hide" Location="Mscrm.HomepageGrid.vn_opportunityline.EditSelectedRecord" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.HomepageGrid.NewRecord.Hide" Location="Mscrm.HomepageGrid.vn_opportunityline.NewRecord" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.AddExisting.Hide" Location="Mscrm.SubGrid.vn_opportunityline.AddExisting" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.AddExistingStandard.Hide" Location="Mscrm.SubGrid.vn_opportunityline.AddExistingStandard" />
+    <CustomAction Id="vn.vn_opportunityline.SubGrid.AddLine.CustomAction" Location="Mscrm.SubGrid.vn_opportunityline.MainTab.Management.Controls._children" Sequence="10">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunityline.SubGrid.AddLine.Button" Command="vn.vn_opportunityline.AddLine.Command" LabelText="$LocLabels:vn.vn_opportunityline.AddLine.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunityline.AddLine.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunityline.AddLine.ToolTipDescription" TemplateAlias="o1" Sequence="10" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.AddNewStandard.Hide" Location="Mscrm.SubGrid.vn_opportunityline.AddNewStandard" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.Delete.Hide" Location="Mscrm.SubGrid.vn_opportunityline.Delete" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.Edit.Hide" Location="Mscrm.SubGrid.vn_opportunityline.Edit" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.EditSelectedRecord.Hide" Location="Mscrm.SubGrid.vn_opportunityline.EditSelectedRecord" />
+    <HideCustomAction HideActionId="vn.vn_opportunityline.SubGrid.NewRecord.Hide" Location="Mscrm.SubGrid.vn_opportunityline.NewRecord" />
+    <CustomAction Id="vn.vn_opportunityline.SubGrid.RemoveLine.CustomAction" Location="Mscrm.SubGrid.vn_opportunityline.MainTab.Management.Controls._children" Sequence="20">
+      <CommandUIDefinition>
+        <Button Id="vn.vn_opportunityline.SubGrid.RemoveLine.Button" Command="vn.vn_opportunityline.RemoveLine.Command" LabelText="$LocLabels:vn.vn_opportunityline.RemoveLine.LabelText" ToolTipTitle="$LocLabels:vn.vn_opportunityline.RemoveLine.ToolTipTitle" ToolTipDescription="$LocLabels:vn.vn_opportunityline.RemoveLine.ToolTipDescription" TemplateAlias="o1" Sequence="20" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
   <Templates>
     <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
   </Templates>
-  <CommandDefinitions />
+  <CommandDefinitions>
+    <CommandDefinition Id="vn.vn_opportunityline.AddLine.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openLineDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Add" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="vn.vn_opportunityline.RemoveLine.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="VNEXTCRM.openLineDialog" Library="$webresource:vn_crm_common.js">
+          <CrmParameter Value="PrimaryControl" />
+          <StringParameter Value="Remove" />
+          <CrmParameter Value="SelectedControlSelectedItemIds" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
   <RuleDefinitions>
     <TabDisplayRules />
     <DisplayRules />
     <EnableRules />
   </RuleDefinitions>
-  <LocLabels />
+  <LocLabels>
+    <LocLabel Id="vn.vn_opportunityline.AddLine.LabelText">
+      <Titles>
+        <Title description="Add Line" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunityline.AddLine.ToolTipDescription">
+      <Titles>
+        <Title description="Add product line to opportunity. Prepared for Milestone 3: Requires server Custom API EXT12 (vn_EditOpportunityLine)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunityline.AddLine.ToolTipTitle">
+      <Titles>
+        <Title description="Add Line" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunityline.RemoveLine.LabelText">
+      <Titles>
+        <Title description="Remove Line" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunityline.RemoveLine.ToolTipDescription">
+      <Titles>
+        <Title description="Remove product line from opportunity. Prepared for Milestone 3: Requires server Custom API EXT12 (vn_EditOpportunityLine)." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="vn.vn_opportunityline.RemoveLine.ToolTipTitle">
+      <Titles>
+        <Title description="Remove Line" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
 </RibbonDiffXml>

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{16654191-19ad-48ca-9e46-c4b4fbdad76f}</formid>
+    <IntroducedVersion>6.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form shownavigationbar="true" showImage="false" maxWidth="1920" solutionaction="Modified">
+      <tabs>
+        <tab name="TASK_TAB" verticallayout="true" id="{ADFD103B-691E-4A92-B4CF-F844B645A1F7}" IsUserDefined="0" showlabel="false" expanded="true" ordinalvalue="0">
+          <labels>
+            <label description="Task" languagecode="1033" solutionaction="Modified" />
+          </labels>
+          <columns>
+            <column width="100%" id="0" solutionaction="Modified">
+              <sections>
+                <section name="TASK" showlabel="false" showbar="false" id="{EBB3C46D-5E9B-4EBB-A9E4-B8C25D364BB3}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelposition="Left" ordinalvalue="0" solutionaction="Removed" />
+                <section name="Description" showlabel="true" showbar="false" locklevel="0" id="{bde07399-10a4-ddc1-ae5c-39b7ac6a0d7c}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" height="auto" labelid="{3e311b53-86ab-4733-ac24-54eba6327ebd}" ordinalvalue="1" solutionaction="Removed" />
+                <section name="task_details" showlabel="true" showbar="false" locklevel="0" id="{96BF03F6-399F-42D0-8295-08E1B8890D01}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" ordinalvalue="0" solutionaction="Modified">
+                  <rows>
+                    <row>
+                      <cell showlabel="true" id="{E1DB7569-03E5-4B12-A5C0-4E875D1163D8}" locklevel="0" ordinalvalue="10001" solutionaction="Modified">
+                        <labels>
+                          <label description="Regarding" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell showlabel="true" id="{CC840E7F-65AB-4F53-B495-4AEA458370B0}" labelid="{a7a7baec-6af8-4ab9-8952-8f009923ee1d}" ordinalvalue="10001" solutionaction="Removed" />
+                      <cell id="{9c426b60-1a67-4a1b-bd31-1d66b241e59c}" showlabel="false" labelid="{6449a7c4-c173-4b6b-9796-ff33b8f0befd}" ordinalvalue="20002" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{5FD2BE87-C1CF-41A6-9AD9-4D273733422E}" showlabel="true" locklevel="0" ordinalvalue="10000" solutionaction="Added">
+                        <labels>
+                          <label description="Subject" languagecode="1033" />
+                        </labels>
+                        <control id="subject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="subject" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{59BF22C1-8C1D-4235-8516-4647EDEAE360}" showlabel="true" locklevel="0" ordinalvalue="10002" solutionaction="Added">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0A9B5273-AD20-4A08-8990-64CB20861D80}" showlabel="true" locklevel="0" ordinalvalue="10003" solutionaction="Added">
+                        <labels>
+                          <label description="Priority" languagecode="1033" />
+                        </labels>
+                        <control id="prioritycode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="prioritycode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{E3CC7544-665F-4BDC-874C-FD933C7C05E0}" showlabel="true" locklevel="0" ordinalvalue="10004" solutionaction="Added">
+                        <labels>
+                          <label description="Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="scheduledstart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="scheduledstart" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{E3CC7544-665F-4BDC-874C-FD933C7C05E1}" showlabel="true" locklevel="0" ordinalvalue="10005" solutionaction="Added">
+                        <labels>
+                          <label description="Due Date" languagecode="1033" />
+                        </labels>
+                        <control id="scheduledend" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="scheduledend" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{34941c93-b671-08a7-5b39-5d4e1443b6e0}" showlabel="true" locklevel="0" auto="true" rowspan="4" ordinalvalue="10006" solutionaction="Added">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6A04844E-9375-4428-BF70-85C6C3556B80}" showlabel="true" locklevel="1" ordinalvalue="10007" solutionaction="Added">
+                        <labels>
+                          <label description="Activity Status" languagecode="1033" />
+                        </labels>
+                        <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6A04844E-9375-4428-BF70-85C6C3556B81}" showlabel="true" locklevel="1" ordinalvalue="10008" solutionaction="Added">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6A04844E-9375-4428-BF70-85C6C3556B82}" showlabel="true" locklevel="1" ordinalvalue="10009" solutionaction="Added">
+                        <labels>
+                          <label description="Automation Key" languagecode="1033" />
+                        </labels>
+                        <control id="vn_automationkey" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="vn_automationkey" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%" id="1" solutionaction="Removed" />
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{D7EF0A4A-7B76-4B39-A2E0-4207EC3C8C2D}" columns="11111" celllabelposition="Top" labelwidth="115" solutionaction="Modified">
+        <rows>
+          <row>
+            <cell id="{0A9B5273-AD20-4A08-8990-64CB20861D81}" showlabel="true" locklevel="0" ordinalvalue="10000" solutionaction="Modified">
+              <labels>
+                <label description="Priority" languagecode="1033" solutionaction="Added" />
+              </labels>
+              <control id="header_priority" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="prioritycode" disabled="false" solutionaction="Modified" />
+            </cell>
+            <cell id="{E3CC7544-665F-4BDC-874C-FD933C7C05ED}" showlabel="true" locklevel="0" ordinalvalue="20001" solutionaction="Modified">
+              <labels>
+                <label description="Due Date" languagecode="1033" solutionaction="Modified" />
+              </labels>
+            </cell>
+            <cell id="{6A04844E-9375-4428-BF70-85C6C3556B8B}" showlabel="true" locklevel="1" ordinalvalue="30002" solutionaction="Modified">
+              <labels>
+                <label description="Activity Status" languagecode="1033" solutionaction="Added" />
+              </labels>
+            </cell>
+            <cell id="{59BF22C1-8C1D-4235-8516-4647EDEAE36C}" showlabel="true" locklevel="1" ordinalvalue="50004" solutionaction="Modified">
+              <labels>
+                <label description="Owner" languagecode="1033" solutionaction="Added" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" solutionaction="Modified" />
+            </cell>
+          </row>
+          <row>
+            <cell id="{6A04844E-9375-4428-BF70-85C6C3556B8C}" showlabel="true" locklevel="1" ordinalvalue="40003" solutionaction="Added">
+              <labels>
+                <label description="Status Reason" languagecode="1033" />
+              </labels>
+              <control id="header_statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <events>
+        <event name="onload" application="true" active="true">
+          <Handlers solutionaction="Added">
+            <Handler functionName="VNEXTCRM.onActivityLoad" libraryName="vn_crm_common.js" handlerUniqueId="{524be500-9480-4670-b2f8-7ce49b41818f}" enabled="true" parameters="" passExecutionContext="true" ordinalvalue="0" />
+          </Handlers>
+        </event>
+      </events>
+      <formLibraries solutionaction="Added">
+        <Library name="vn_crm_common.js" libraryUniqueId="{16ace222-8fad-4d44-abcb-0e431b78463b}" />
+      </formLibraries>
+    </form>
+    <LocalizedNames>
+      <LocalizedName description="Task" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Updated default Task form." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{2c9a0024-34e4-f111-84ea-002248db522e}</WebResourceId>
+  <Name>vn_dlg_approval.html</Name>
+  <DisplayName>Deal Approval Dialog</DisplayName>
+  <Description>Deal Approval dialog shell for EXT13 inputs and approval actions.</Description>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/vn_dlg_approvalhtml2C9A0024-34E4-F111-84EA-002248DB522E</FileName>
+</WebResource>

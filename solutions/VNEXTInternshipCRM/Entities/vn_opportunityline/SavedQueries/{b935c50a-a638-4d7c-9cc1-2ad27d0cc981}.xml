@@ -8,10 +8,17 @@
     <isdefault>1</isdefault>
     <savedqueryid>{b935c50a-a638-4d7c-9cc1-2ad27d0cc981}</savedqueryid>
     <layoutxml>
-      <grid name="vn_opportunitylines" jump="vn_name" select="1" icon="1" preview="1">
-        <row name="vn_opportunityline" id="vn_opportunitylineid">
-          <cell name="vn_name" width="300" />
-          <cell name="createdon" width="125" />
+      <grid name="resultset" jump="vn_snapshotname" select="1" icon="1" preview="1">
+        <row name="result" id="vn_opportunitylineid">
+          <cell name="vn_snapshotname" width="200" />
+          <cell name="vn_snapshotsku" width="125" />
+          <cell name="vn_product" width="150" />
+          <cell name="vn_unitprice" width="125" />
+          <cell name="vn_quantity" width="100" />
+          <cell name="vn_discountpercent" width="100" />
+          <cell name="vn_grossamount" width="125" />
+          <cell name="vn_discountamount" width="125" />
+          <cell name="vn_netamount" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -20,9 +27,17 @@
       <fetch version="1.0" mapping="logical">
         <entity name="vn_opportunityline">
           <attribute name="vn_opportunitylineid" />
-          <attribute name="vn_name" />
+          <attribute name="vn_snapshotname" />
+          <attribute name="vn_snapshotsku" />
+          <attribute name="vn_product" />
+          <attribute name="vn_unitprice" />
+          <attribute name="vn_quantity" />
+          <attribute name="vn_discountpercent" />
+          <attribute name="vn_grossamount" />
+          <attribute name="vn_discountamount" />
+          <attribute name="vn_netamount" />
           <attribute name="createdon" />
-          <order attribute="vn_name" descending="false" />
+          <order attribute="createdon" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>

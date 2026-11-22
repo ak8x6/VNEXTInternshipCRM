@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{8448b78f-8f42-454e-8e2a-f8196b0419af}</formid>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form shownavigationbar="true" showImage="false" maxWidth="1920" solutionaction="Modified">
+      <ancestor id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" solutionaction="Removed" />
+      <hiddencontrols solutionaction="Removed" />
+      <tabs>
+        <tab name="SUMMARY_TAB" id="{3b0b63a9-d379-689a-0ec3-e71eb4c6a841}" IsUserDefined="0" showlabel="true" expanded="true" locklevel="0" ordinalvalue="0" solutionaction="Removed" />
+        <tab name="DETAILS_TAB" id="{11a42c72-9ded-ea04-253d-2143e731b795}" IsUserDefined="0" showlabel="true" expanded="true" ordinalvalue="1" solutionaction="Removed" />
+        <tab verticallayout="true" id="{f8196b04-19af-454e-8e2a-8448b78f0001}" IsUserDefined="1" name="Summary" expanded="true" locklevel="0" ordinalvalue="0" solutionaction="Added">
+          <labels>
+            <label description="Summary" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="34%" id="0">
+              <sections>
+                <section name="Account_Profile" showlabel="true" showbar="false" locklevel="0" id="{f8196b04-19af-454e-8e2a-8448b78f0002}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Account Profile" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0011}" showlabel="true" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Account Name" languagecode="1033" />
+                        </labels>
+                        <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0012}" showlabel="true" locklevel="0" ordinalvalue="10001">
+                        <labels>
+                          <label description="Account Number" languagecode="1033" />
+                        </labels>
+                        <control id="accountnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="accountnumber" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0013}" showlabel="true" locklevel="0" ordinalvalue="10002">
+                        <labels>
+                          <label description="Account Type" languagecode="1033" />
+                        </labels>
+                        <control id="vn_accounttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="vn_accounttype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0014}" showlabel="true" locklevel="0" ordinalvalue="10003">
+                        <labels>
+                          <label description="Industry" languagecode="1033" />
+                        </labels>
+                        <control id="vn_industry" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="vn_industry" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0015}" showlabel="true" locklevel="0" ordinalvalue="10004">
+                        <labels>
+                          <label description="Primary Contact" languagecode="1033" />
+                        </labels>
+                        <control id="primarycontactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="primarycontactid" disabled="false">
+                          <parameters>
+                            <FilterRelationshipName>contact_customer_accounts</FilterRelationshipName>
+                            <DependentAttributeName>contact.parentcustomerid</DependentAttributeName>
+                            <DependentAttributeType>account</DependentAttributeType>
+                            <AllowFilterOff>false</AllowFilterOff>
+                            <AutoResolve>true</AutoResolve>
+                            <DisableMru>false</DisableMru>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <DefaultViewId>{00000000-0000-0000-00AA-000010001004}</DefaultViewId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0016}" showlabel="true" locklevel="0" ordinalvalue="10005">
+                        <labels>
+                          <label description="Main Phone" languagecode="1033" />
+                        </labels>
+                        <control id="telephone1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="telephone1" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0017}" showlabel="true" locklevel="0" ordinalvalue="10006">
+                        <labels>
+                          <label description="Website" languagecode="1033" />
+                        </labels>
+                        <control id="websiteurl" classid="{71716B6C-711E-476c-8AB8-5D11542BFB47}" datafieldname="websiteurl" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0018}" showlabel="true" locklevel="0" ordinalvalue="10007">
+                        <labels>
+                          <label description="Street 1" languagecode="1033" />
+                        </labels>
+                        <control id="address1_line1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_line1" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0019}" showlabel="true" locklevel="0" ordinalvalue="10008">
+                        <labels>
+                          <label description="City" languagecode="1033" />
+                        </labels>
+                        <control id="address1_city" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_city" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0020}" showlabel="true" locklevel="0" ordinalvalue="10009">
+                        <labels>
+                          <label description="Country/Region" languagecode="1033" />
+                        </labels>
+                        <control id="address1_country" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_country" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%" id="1">
+              <sections>
+                <section name="Activity_History" showlabel="true" showbar="false" locklevel="0" id="{f8196b04-19af-454e-8e2a-8448b78f0003}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelposition="Top" ordinalvalue="0">
+                  <labels>
+                    <label description="Activity History" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0021}" showlabel="false" rowspan="23" auto="false" colspan="1" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-C143-495E-A496-C962E5B4488E}" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%" id="2">
+              <sections>
+                <section name="Contacts" showlabel="true" showbar="false" locklevel="0" id="{f8196b04-19af-454e-8e2a-8448b78f0004}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelposition="Top" ordinalvalue="0">
+                  <labels>
+                    <label description="Contacts" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0022}" showlabel="false" rowspan="10" auto="false" colspan="1" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Contacts" languagecode="1033" />
+                        </labels>
+                        <control id="Contacts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                          <parameters>
+                            <ViewId>{00000000-0000-0000-00AA-000010001004}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>contact_customer_accounts</RelationshipName>
+                            <TargetEntityType>contact</TargetEntityType>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <ViewIds>{00000000-0000-0000-00AA-000010001004}</ViewIds>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>6</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="Authorized_Opportunities" showlabel="true" showbar="false" locklevel="0" id="{f8196b04-19af-454e-8e2a-8448b78f0005}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelposition="Top" ordinalvalue="1">
+                  <labels>
+                    <label description="Authorized Opportunities" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f8196b04-19af-454e-8e2a-8448b78f0023}" showlabel="false" rowspan="10" auto="false" colspan="1" locklevel="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Authorized Opportunities" languagecode="1033" />
+                        </labels>
+                        <control id="Authorized_Opportunities" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" disabled="true">
+                          <parameters>
+                            <ViewId>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>vn_account_vn_opportunity</RelationshipName>
+                            <TargetEntityType>vn_opportunity</TargetEntityType>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <ViewIds>{4DEEF998-8FE3-F111-84EA-002248DB522E}</ViewIds>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>6</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <events solutionaction="Removed" />
+      <header id="{f8196b04-19af-454e-8e2a-8448b78f0006}" celllabelposition="Top" columns="1111" labelwidth="115" solutionaction="Modified">
+        <rows>
+          <row>
+            <cell id="{d3e19d4e-b2ae-409f-9b4e-5976527c6c83}" ordinalvalue="10000" solutionaction="Removed" />
+            <cell id="{2adb5a52-604d-5aad-ba6a-2bbab6c33594}" showlabel="true" ordinalvalue="20001" solutionaction="Removed" />
+            <cell id="{54b2d0a2-eb77-b3cd-b60a-03ea6944e98e}" showlabel="true" locklevel="1" ordinalvalue="30002" solutionaction="Removed" />
+          </row>
+          <row>
+            <cell id="{f8196b04-19af-454e-8e2a-8448b78f0031}" showlabel="true" locklevel="0" ordinalvalue="10000" solutionaction="Added">
+              <labels>
+                <label description="Account Type" languagecode="1033" />
+              </labels>
+              <control id="header_vn_accounttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="vn_accounttype" disabled="false" />
+            </cell>
+            <cell id="{f8196b04-19af-454e-8e2a-8448b78f0032}" showlabel="true" locklevel="1" ordinalvalue="20001" solutionaction="Added">
+              <labels>
+                <label description="Status" languagecode="1033" />
+              </labels>
+              <control id="header_statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="true" />
+            </cell>
+            <cell id="{f8196b04-19af-454e-8e2a-8448b78f0033}" showlabel="true" locklevel="1" ordinalvalue="30002" solutionaction="Added">
+              <labels>
+                <label description="Status Reason" languagecode="1033" />
+              </labels>
+              <control id="header_statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+            </cell>
+            <cell id="{f8196b04-19af-454e-8e2a-8448b78f0034}" showlabel="true" locklevel="1" ordinalvalue="40003" solutionaction="Added">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <clientresources solutionaction="Removed" />
+      <Navigation solutionaction="Removed" />
+      <controlDescriptions>
+        <controlDescription forControl="{3FF9A528-DD50-4ACA-8F10-2E5ED73513AD}" solutionaction="Removed" />
+      </controlDescriptions>
+      <DisplayConditions FallbackForm="true" Order="1" solutionaction="Removed" />
+    </form>
+    <LocalizedNames>
+      <LocalizedName description="Account" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Updated default Account form." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>
