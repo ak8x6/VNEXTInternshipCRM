@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="StatusReason">
+  <description default="Resulting Opportunity status reason option-set integer.">
+    <label description="Resulting Opportunity status reason option-set integer." languagecode="1033" />
+  </description>
+  <displayname default="Status Reason">
+    <label description="Status Reason" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_TransitionOpportunity.StatusReason</name>
+  <type>7</type>
+</customapiresponseproperty>

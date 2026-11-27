@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="vn_InternalWriterUserId">
+  <description default="SystemUserId GUID of the least-privilege Scoped Internal Writer used by server plug-ins for atomic BPF mirroring and protected Approval Request/pointer mutations.">
+    <label description="SystemUserId GUID of the least-privilege Scoped Internal Writer used by server plug-ins for atomic BPF mirroring and protected Approval Request/pointer mutations." languagecode="1033" />
+  </description>
+  <displayname default="Internal Writer User Id">
+    <label description="Internal Writer User Id" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

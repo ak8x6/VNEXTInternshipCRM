@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ExpectedCloseDate">
+  <description default="Initial Expected Close Date (&gt;= UTC Today).">
+    <label description="Initial Expected Close Date (&gt;= UTC Today)." languagecode="1033" />
+  </description>
+  <displayname default="Expected Close Date">
+    <label description="Expected Close Date" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_QualifyLead.ExpectedCloseDate</name>
+  <type>1</type>
+</customapirequestparameter>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PluginAssembly FullName="VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginAssemblyId="850f5f8e-44e7-f111-84ea-002248db522e" CustomizationLevel="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsolationMode>2</IsolationMode>
+  <SourceType>0</SourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <FileName>/PluginAssemblies/VNEXTCRMPlugins-850F5F8E-44E7-F111-84EA-002248DB522E/VNEXTCRMPlugins.dll</FileName>
+  <PluginTypes>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Apis.EditOpportunityLineApiPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="900f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Apis.EditOpportunityLineApiPlugin">
+      <FriendlyName>EditOpportunityLineApiPlugin</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Apis.QualifyLeadApiPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="8e0f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Apis.QualifyLeadApiPlugin">
+      <FriendlyName>QualifyLeadApiPlugin</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Apis.TransitionOpportunityApiPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="8f0f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Apis.TransitionOpportunityApiPlugin">
+      <FriendlyName>TransitionOpportunityApiPlugin</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Guards.ActivityHistoryGuardPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="8d0f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Guards.ActivityHistoryGuardPlugin">
+      <FriendlyName>ActivityHistoryGuardPlugin</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Guards.MasterDataValidationPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="8a0f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Guards.MasterDataValidationPlugin">
+      <FriendlyName>MasterDataValidationPlugin</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="VNEXT.CRM.Plugins.Guards.SalesGuardPlugin, VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" PluginTypeId="8b0f5f8e-44e7-f111-84ea-002248db522e" Name="VNEXT.CRM.Plugins.Guards.SalesGuardPlugin">
+      <FriendlyName>SalesGuardPlugin</FriendlyName>
+    </PluginType>
+  </PluginTypes>
+</PluginAssembly>

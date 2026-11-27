@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disqualify Lead</title>
+    <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --danger: #d13438;
+            --danger-hover: #a80000;
+            --bg: #faf9f8;
+            --card-bg: #ffffff;
+            --text-main: #323130;
+            --text-secondary: #605e5c;
+            --border: #edebe9;
+            --border-hover: #c8c6c4;
+            --info-bg: #eff6fc;
+            --info-border: #c7e0f4;
+            --info-text: #004578;
+            --success-bg: #dff6dd;
+            --success-border: #a7e3a5;
+            --success-text: #107c41;
+            --error-bg: #fde7e9;
+            --error-border: #f1707b;
+            --error-text: #a80000;
+            --disabled-bg: #f3f2f1;
+            --disabled-text: #a19f9d;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); font-size: 14px; line-height: 1.4; padding: 16px; display: flex; flex-direction: column; min-height: 100vh; }
+        .dialog-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px; }
+        .header-title { font-size: 18px; font-weight: 600; color: var(--danger); }
+        .context-badge { font-size: 11px; background: var(--info-bg); color: var(--info-text); padding: 3px 8px; border-radius: 12px; border: 1px solid var(--info-border); font-family: Consolas, monospace; }
+        .dialog-body { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .section-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+        .form-group:last-child { margin-bottom: 0; }
+        label { font-weight: 600; font-size: 13px; }
+        .required-star { color: var(--error-text); margin-left: 2px; }
+        select, textarea { padding: 7px 10px; border: 1px solid var(--border-hover); border-radius: 2px; font-size: 13px; color: var(--text-main); background: #ffffff; outline: none; width: 100%; }
+        textarea { resize: vertical; min-height: 90px; }
+        select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+        select:disabled, textarea:disabled { background: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; }
+        .hint { font-size: 12px; color: var(--text-secondary); }
+        .banner { border-radius: 4px; padding: 11px 12px; font-size: 13px; display: none; }
+        .banner.show { display: block; }
+        .banner-info { background: var(--info-bg); border: 1px solid var(--info-border); color: var(--info-text); }
+        .banner-error { background: var(--error-bg); border: 1px solid var(--error-border); color: var(--error-text); }
+        .banner-success { background: var(--success-bg); border: 1px solid var(--success-border); color: var(--success-text); }
+        .corr-id { display: block; margin-top: 6px; font-family: Consolas, monospace; font-size: 11px; opacity: 0.9; }
+        .dialog-footer { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+        .btn { padding: 8px 18px; font-size: 13px; font-weight: 600; border-radius: 2px; cursor: pointer; border: 1px solid transparent; }
+        .btn-danger { background: var(--danger); color: #ffffff; border-color: var(--danger); }
+        .btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+        .btn-danger:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); cursor: not-allowed; }
+        .btn-secondary { background: #ffffff; color: var(--text-main); border-color: var(--border-hover); }
+        .btn-secondary:hover { background: #f3f2f1; }
+    </style>
+</head>
+<body>
+    <div class="dialog-header">
+        <div class="header-title">Disqualify Lead</div>
+        <div id="recordContextBadge" class="context-badge" style="display: none;">
+            Lead: <span id="leadIdDisplay"></span>
+        </div>
+    </div>
+
+    <div class="dialog-body">
+        <div id="closedBanner" class="banner banner-info" role="status"></div>
+        <div id="errorBanner" class="banner banner-error" role="alert"></div>
+        <div id="successBanner" class="banner banner-success" role="status"></div>
+
+        <div class="section-card" id="formCard">
+            <div class="section-title">Disqualification Outcome (BR07 / PL02)</div>
+            <div class="hint" style="margin-bottom: 12px;">
+                Disqualifying closes this Lead as Inactive/Disqualified and freezes its history. No Opportunity or customer record is created.
+            </div>
+
+            <div class="form-group">
+                <label for="disqReason">Disqualification Reason<span class="required-star">*</span></label>
+                <select id="disqReason" onchange="onReasonChanged()">
+                    <option value="">-- Select Reason --</option>
+                    <option value="100000000">No Fit</option>
+                    <option value="100000001">No Budget</option>
+                    <option value="100000002">No Response</option>
+                    <option value="100000003">Duplicate</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="duplicateOfGroup" style="display: none;">
+                <label for="duplicateOfSelect">Duplicate Of Lead<span class="required-star">*</span></label>
+                <select id="duplicateOfSelect">
+                    <option value="">-- Loading accessible Leads... --</option>
+                </select>
+                <span class="hint">Required only when Reason is Duplicate. A Lead cannot reference itself.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="disqComments">Disqualification Comments<span class="required-star">*</span></label>
+                <textarea id="disqComments" placeholder="Enter nonblank justification for disqualifying this Lead..."></textarea>
+                <span class="hint">Required nonblank trimmed comments.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btnCommit" onclick="commitDisqualify()" disabled="disabled">Disqualify Lead</button>
+    </div>
+
+    <script>
+        var state = {
+            recordId: "",
+            isClosed: false,
+            submitting: false,
+            completed: false,
+            duplicatesLoaded: false
+        };
+
+        window.addEventListener("DOMContentLoaded", function () {
+            parseQueryParams();
+            if (!state.recordId) {
+                showError("Missing Lead identifier. Please reopen this dialog from a saved Lead record.", "");
+                return;
+            }
+            loadLead();
+        });
+
+        function cleanGuid(raw) {
+            return raw ? String(raw).replace(/[{}]/g, "").trim().toLowerCase() : "";
+        }
+
+        function parseQueryParams() {
+            try {
+                var params = new URLSearchParams(window.location.search);
+                var dataParam = params.get("data");
+                if (dataParam) {
+                    var obj = JSON.parse(dataParam);
+                    if (obj.recordId) {
+                        state.recordId = cleanGuid(obj.recordId);
+                        document.getElementById("leadIdDisplay").innerText = state.recordId.substring(0, 8) + "...";
+                        document.getElementById("recordContextBadge").style.display = "inline-block";
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not parse navigation data:", e);
+            }
+        }
+
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl().replace(/\/$/, "");
+                }
+            }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl().replace(/\/$/, "");
+            }
+            return "";
+        }
+
+        function parseErrorPayload(text, status) {
+            var message = "Request failed (HTTP " + status + ").";
+            try {
+                var j = JSON.parse(text);
+                if (j && j.error && j.error.message) {
+                    message = j.error.message;
+                }
+            } catch (e) {
+                if (text) message = text;
+            }
+            var corrMatch = message.match(/CorrelationId[=:\s]+([0-9a-fA-F-]{36})/i);
+            var corrId = corrMatch ? corrMatch[1].toLowerCase() : "";
+            var cleanMsg = message.replace(/\s*\(CorrelationId:[^)]+\)/i, "").trim();
+            return { message: cleanMsg, correlationId: corrId };
+        }
+
+        function callOData(method, relativePath, body) {
+            var url = getClientUrl() + "/api/data/v9.2/" + relativePath.replace(/^\//, "");
+            var headers = {
+                "Accept": "application/json",
+                "OData-MaxVersion": "4.0",
+                "OData-Version": "4.0",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            };
+            var opts = { method: method, cache: "no-store", headers: headers };
+            if (body !== undefined && body !== null) {
+                headers["Content-Type"] = "application/json; charset=utf-8";
+                opts.body = JSON.stringify(body);
+            }
+            return fetch(url, opts).then(function (res) {
+                return res.text().then(function (txt) {
+                    if (!res.ok) {
+                        var errInfo = parseErrorPayload(txt, res.status);
+                        var err = new Error(errInfo.message);
+                        err.correlationId = errInfo.correlationId;
+                        err.status = res.status;
+                        throw err;
+                    }
+                    return txt ? JSON.parse(txt) : null;
+                });
+            });
+        }
+
+        function showError(msg, corrId) {
+            var el = document.getElementById("errorBanner");
+            el.textContent = msg;
+            if (corrId) {
+                var sp = document.createElement("span");
+                sp.className = "corr-id";
+                sp.textContent = "CorrelationId: " + corrId;
+                el.appendChild(sp);
+            }
+            el.classList.add("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function clearBanners() {
+            document.getElementById("errorBanner").classList.remove("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function showSuccess(msg) {
+            var el = document.getElementById("successBanner");
+            el.textContent = msg;
+            el.classList.add("show");
+            document.getElementById("errorBanner").classList.remove("show");
+        }
+
+        function setInputsDisabled(disabled) {
+            document.getElementById("disqReason").disabled = disabled;
+            document.getElementById("duplicateOfSelect").disabled = disabled;
+            document.getElementById("disqComments").disabled = disabled;
+            document.getElementById("btnCommit").disabled = disabled;
+        }
+
+        function loadLead() {
+            callOData("GET", "vn_leads(" + state.recordId + ")?$select=vn_leadid,vn_name,statecode,statuscode").then(
+                function (lead) {
+                    if (lead.statecode !== 0) {
+                        state.isClosed = true;
+                        var statusLabel = lead.statuscode === 100000002 ? "Qualified" : (lead.statuscode === 100000003 ? "Disqualified" : "Inactive");
+                        var banner = document.getElementById("closedBanner");
+                        banner.textContent = "This Lead is already closed (" + statusLabel + ") and its history is read-only.";
+                        banner.classList.add("show");
+                        setInputsDisabled(true);
+                    } else {
+                        state.isClosed = false;
+                        document.getElementById("btnCommit").disabled = false;
+                    }
+                },
+                function (err) {
+                    showError("Unable to load Lead record: " + err.message, err.correlationId || "");
+                    setInputsDisabled(true);
+                }
+            );
+        }
+
+        function onReasonChanged() {
+            clearBanners();
+            var reasonVal = document.getElementById("disqReason").value;
+            var dupGroup = document.getElementById("duplicateOfGroup");
+            if (reasonVal === "100000003") {
+                dupGroup.style.display = "flex";
+                if (!state.duplicatesLoaded) {
+                    loadDuplicateCandidates();
+                }
+            } else {
+                dupGroup.style.display = "none";
+            }
+        }
+
+        function loadDuplicateCandidates() {
+            var sel = document.getElementById("duplicateOfSelect");
+            sel.disabled = true;
+            sel.innerHTML = '<option value="">-- Loading accessible Leads... --</option>';
+            var query = "vn_leads?$select=vn_leadid,vn_name,vn_lastname,statecode&$filter=vn_leadid ne " + state.recordId + "&$orderby=createdon desc&$top=50";
+            callOData("GET", query).then(
+                function (res) {
+                    state.duplicatesLoaded = true;
+                    var leads = (res && res.value) ? res.value : [];
+                    if (leads.length === 0) {
+                        sel.innerHTML = '<option value="">No authorized matching records</option>';
+                        sel.disabled = true;
+                        return;
+                    }
+                    sel.innerHTML = '<option value="">-- Select Duplicate Of Lead --</option>';
+                    leads.forEach(function (l) {
+                        var opt = document.createElement("option");
+                        opt.value = cleanGuid(l.vn_leadid);
+                        var stateText = l.statecode === 0 ? "Open" : "Closed";
+                        opt.text = (l.vn_name || "Lead") + (l.vn_lastname ? (" — " + l.vn_lastname) : "") + " [" + stateText + "]";
+                        sel.appendChild(opt);
+                    });
+                    sel.disabled = state.isClosed || state.completed;
+                },
+                function (err) {
+                    sel.innerHTML = '<option value="">No authorized matching records</option>';
+                    showError("Could not load accessible Leads: " + err.message, err.correlationId || "");
+                }
+            );
+        }
+
+        function commitDisqualify() {
+            if (state.submitting || state.isClosed || state.completed) return;
+            clearBanners();
+
+            var reasonRaw = document.getElementById("disqReason").value;
+            var reasonInt = parseInt(reasonRaw, 10);
+            if (isNaN(reasonInt)) {
+                showError("Please select a Disqualification Reason.", "");
+                return;
+            }
+
+            var comments = (document.getElementById("disqComments").value || "").trim();
+            if (!comments) {
+                showError("Disqualification comments are required and cannot be blank.", "");
+                return;
+            }
+
+            var payload = {
+                statecode: 1,
+                statuscode: 100000003,
+                vn_disqualificationreason: reasonInt,
+                vn_disqualificationcomments: comments
+            };
+
+            if (reasonInt === 100000003) {
+                var dupId = cleanGuid(document.getElementById("duplicateOfSelect").value);
+                if (!dupId) {
+                    showError("Please select the referenced Duplicate Of Lead.", "");
+                    return;
+                }
+                if (dupId === state.recordId) {
+                    showError("A Lead cannot reference itself as Duplicate Of.", "");
+                    return;
+                }
+                payload["vn_duplicateof@odata.bind"] = "/vn_leads(" + dupId + ")";
+            }
+
+            state.submitting = true;
+            var btn = document.getElementById("btnCommit");
+            btn.disabled = true;
+            btn.textContent = "Disqualifying...";
+
+            callOData("PATCH", "vn_leads(" + state.recordId + ")", payload).then(
+                function () {
+                    state.submitting = false;
+                    state.completed = true;
+                    setInputsDisabled(true);
+                    btn.textContent = "Disqualified";
+                    document.getElementById("btnCancel").textContent = "Close";
+                    showSuccess("Lead disqualified successfully. Click Close to refresh the Lead form.");
+                },
+                function (err) {
+                    state.submitting = false;
+                    btn.disabled = false;
+                    btn.textContent = "Disqualify Lead";
+                    showError(err.message, err.correlationId || "");
+                }
+            );
+        }
+
+        function closeDialog() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

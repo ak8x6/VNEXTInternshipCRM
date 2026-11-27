@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Command">
+  <description default="Transition command: Advance, Won, or Lost.">
+    <label description="Transition command: Advance, Won, or Lost." languagecode="1033" />
+  </description>
+  <displayname default="Command">
+    <label description="Command" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_TransitionOpportunity.Command</name>
+  <type>10</type>
+</customapirequestparameter>

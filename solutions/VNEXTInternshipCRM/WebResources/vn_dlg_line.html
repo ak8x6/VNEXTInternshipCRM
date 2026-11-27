@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opportunity Line Add/Remove Dialog</title>
+    <title>Opportunity Product Line</title>
     <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
     <style>
         :root {
@@ -23,741 +23,707 @@
             --info-bg: #eff6fc;
             --info-border: #c7e0f4;
             --info-text: #004578;
+            --success-bg: #dff6dd;
+            --success-border: #a7e3a5;
+            --success-text: #107c41;
+            --error-bg: #fde7e9;
+            --error-border: #f1707b;
+            --error-text: #a80000;
             --disabled-bg: #f3f2f1;
             --disabled-text: #a19f9d;
-            --error: #a80000;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-size: 14px;
-            line-height: 1.4;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .dialog-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 14px;
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .context-badge {
-            font-size: 11px;
-            background: var(--info-bg);
-            color: var(--info-text);
-            padding: 3px 8px;
-            border-radius: 12px;
-            border: 1px solid var(--info-border);
-            font-family: Consolas, monospace;
-        }
-
-        /* Mode Selector Tabs (Add / Remove only - strictly no Edit/Replace) */
-        .mode-nav {
-            display: flex;
-            gap: 4px;
-            background: #edebe9;
-            padding: 3px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-        }
-
-        .mode-tab {
-            flex: 1;
-            text-align: center;
-            padding: 7px 12px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            background: transparent;
-        }
-
-        .mode-tab:hover {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .mode-tab.active {
-            background: var(--card-bg);
-            color: var(--primary);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .mode-tab.active.tab-remove {
-            color: var(--danger);
-        }
-
-        .dialog-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .required-star {
-            color: var(--error);
-            margin-left: 2px;
-        }
-
-        input[type="text"], input[type="number"], select {
-            padding: 7px 10px;
-            border: 1px solid var(--border-hover);
-            border-radius: 2px;
-            font-size: 13px;
-            color: var(--text-main);
-            background: #ffffff;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-        }
-
-        input[type="text"]:focus, input[type="number"]:focus, select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-        }
-
-        input:disabled, select:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            cursor: not-allowed;
-            border-color: var(--border);
-        }
-
-        .guid-display-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #f3f2f1;
-            padding: 6px 10px;
-            border-radius: 3px;
-            border: 1px solid var(--border);
-            font-family: Consolas, monospace;
-            font-size: 12px;
-            color: #323130;
-        }
-
-        .guid-display-box span {
-            flex: 1;
-            user-select: all;
-            word-break: break-all;
-        }
-
-        .guid-regen-btn {
-            font-size: 11px;
-            padding: 2px 6px;
-            background: #ffffff;
-            border: 1px solid var(--border-hover);
-            border-radius: 2px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        .guid-regen-btn:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .calc-preview-card {
-            background: #f8fbfd;
-            border: 1px solid #c7e0f4;
-            border-radius: 4px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            margin-top: 8px;
-        }
-
-        .calc-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .calc-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .calc-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-top: 2px;
-        }
-
-        .calc-value.highlight {
-            color: var(--primary);
-            font-size: 15px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            font-size: 13px;
-            margin-top: 6px;
-            color: var(--text-main);
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            margin-top: 3px;
-            cursor: pointer;
-        }
-
-        .hint {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Milestone Banner */
-        .milestone-banner {
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            border-radius: 4px;
-            padding: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--warning-text);
-            font-size: 13px;
-        }
-
-        .banner-icon {
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        .banner-content strong {
-            display: block;
-            margin-bottom: 2px;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .dialog-footer {
-            border-top: 1px solid var(--border);
-            padding-top: 14px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .btn {
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 2px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: #ffffff;
-            border-color: var(--danger);
-        }
-
-        .btn:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            border-color: var(--border);
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
-        .btn-secondary {
-            background-color: #ffffff;
-            color: var(--text-main);
-            border-color: var(--border-hover);
-        }
-
-        .btn-secondary:hover {
-            background-color: #f3f2f1;
-            border-color: var(--text-secondary);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); font-size: 14px; line-height: 1.4; padding: 16px; display: flex; flex-direction: column; min-height: 100vh; }
+        .dialog-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px; }
+        .header-title { font-size: 18px; font-weight: 600; }
+        .context-badge { font-size: 11px; background: var(--info-bg); color: var(--info-text); padding: 3px 8px; border-radius: 12px; border: 1px solid var(--info-border); font-family: Consolas, monospace; }
+        .mode-nav { display: flex; gap: 4px; background: #edebe9; padding: 3px; border-radius: 4px; margin-bottom: 14px; }
+        .mode-tab { flex: 1; text-align: center; padding: 7px 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary); border-radius: 3px; cursor: pointer; border: none; background: transparent; }
+        .mode-tab:hover { color: var(--text-main); background: rgba(255,255,255,0.5); }
+        .mode-tab.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .mode-tab.active.tab-remove { color: var(--danger); }
+        .dialog-body { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .summary-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; }
+        .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .section-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-row { display: flex; gap: 12px; }
+        .form-row .form-group { flex: 1; }
+        label { font-weight: 600; font-size: 13px; }
+        .required-star { color: var(--error-text); margin-left: 2px; }
+        input[type="number"], select { padding: 7px 10px; border: 1px solid var(--border-hover); border-radius: 2px; font-size: 13px; color: var(--text-main); background: #ffffff; outline: none; width: 100%; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+        input:disabled, select:disabled { background: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; }
+        .guid-display-box { display: flex; align-items: center; gap: 8px; background: #f3f2f1; padding: 6px 10px; border-radius: 3px; border: 1px solid var(--border); font-family: Consolas, monospace; font-size: 12px; }
+        .guid-display-box span { flex: 1; user-select: all; word-break: break-all; }
+        .calc-preview-card { background: #f8fbfd; border: 1px solid #c7e0f4; border-radius: 4px; padding: 10px 12px; display: flex; justify-content: space-around; margin-top: 4px; }
+        .calc-col { display: flex; flex-direction: column; align-items: center; }
+        .calc-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; }
+        .calc-value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+        .calc-value.highlight { color: var(--primary); }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; margin-top: 4px; font-weight: 400; cursor: pointer; }
+        .checkbox-container input[type="checkbox"] { margin-top: 3px; cursor: pointer; }
+        .hint { font-size: 12px; color: var(--text-secondary); }
+        .banner { border-radius: 4px; padding: 11px 12px; font-size: 13px; display: none; }
+        .banner.show { display: block; }
+        .banner-info { background: var(--info-bg); border: 1px solid var(--info-border); color: var(--info-text); }
+        .banner-error { background: var(--error-bg); border: 1px solid var(--error-border); color: var(--error-text); }
+        .banner-success { background: var(--success-bg); border: 1px solid var(--success-border); color: var(--success-text); }
+        .result-kv { margin-top: 8px; font-family: Consolas, monospace; font-size: 12px; white-space: pre-line; line-height: 1.6; }
+        .banner-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .line-detail-box { background: #f8fbfd; border: 1px solid #c7e0f4; border-radius: 4px; padding: 10px 12px; font-size: 12px; margin-top: 6px; line-height: 1.6; }
+        .dialog-footer { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .btn { padding: 8px 18px; font-size: 13px; font-weight: 600; border-radius: 2px; cursor: pointer; border: 1px solid transparent; }
+        .btn-sm { padding: 5px 12px; font-size: 12px; }
+        .btn-primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+        .btn-danger { background: var(--danger); color: #ffffff; border-color: var(--danger); }
+        .btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+        .btn:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); cursor: not-allowed; }
+        .btn-secondary { background: #ffffff; color: var(--text-main); border-color: var(--border-hover); }
+        .btn-secondary:hover { background: #f3f2f1; }
     </style>
 </head>
 <body>
-
     <div class="dialog-header">
-        <div class="header-title">
-            <span id="dialogTitle">Opportunity Product Line</span>
-        </div>
+        <div class="header-title">Opportunity Product Line</div>
         <div id="recordContextBadge" class="context-badge" style="display: none;">
-            Opp ID: <span id="oppIdDisplay"></span>
+            Opp: <span id="oppIdDisplay"></span>
         </div>
     </div>
 
-    <!-- Mode Selector Navigation (Add / Remove only - matching EXT12 §7.3, strictly no Edit/Replace) -->
     <div class="mode-nav" role="tablist">
         <button type="button" class="mode-tab active" id="tabAdd" onclick="switchMode('Add')">Add Line</button>
         <button type="button" class="mode-tab tab-remove" id="tabRemove" onclick="switchMode('Remove')">Remove Line</button>
     </div>
 
     <div class="dialog-body">
+        <div class="summary-bar">
+            <span>Deal: <strong id="sumOppName">Loading...</strong></span>
+            <span>Server Total: <strong id="sumTotal">--</strong></span>
+            <span>Max Discount: <strong id="sumDiscount">--</strong></span>
+        </div>
 
-        <!-- ==================== MODE 1: ADD LINE ==================== -->
+        <div id="closedBanner" class="banner banner-info" role="status"></div>
+        <div id="checkLineBanner" class="banner banner-info" role="status"></div>
+        <div id="errorBanner" class="banner banner-error" role="alert"></div>
+        <div id="successBanner" class="banner banner-success" role="status"></div>
+
+        <!-- MODE 1: ADD LINE -->
         <div id="panelAdd" class="section-card">
             <div class="section-title">Add Opportunity Line (EXT12 §7.3)</div>
 
-            <!-- Client-Generated Line GUID -->
             <div class="form-group">
-                <label>Client-Generated Line ID (GUID)<span class="required-star">*</span></label>
+                <label>Stable Client-Generated LineId (GUID)<span class="required-star">*</span></label>
                 <div class="guid-display-box">
                     <span id="clientLineGuid"></span>
-                    <button type="button" class="guid-regen-btn" onclick="generateAndDisplayLineId()" title="Regenerate GUID">Regen</button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="btnCheckSaved" onclick="checkSavedLine()">Check Saved Line</button>
                 </div>
-                <span class="hint">Stable client-side LineId generated prior to dispatch for idempotency.</span>
+                <span class="hint">Generated before dispatch and preserved across retries for BR15/§7.3 idempotency. Use "Check Saved Line" if a network response is uncertain.</span>
             </div>
 
-            <!-- Active Product Selector -->
             <div class="form-group">
                 <label for="productSelect">Active Product<span class="required-star">*</span></label>
                 <select id="productSelect" onchange="onProductSelected()">
-                    <option value="">-- Select Active Product --</option>
+                    <option value="">-- Loading Active Products... --</option>
                 </select>
-                <span class="hint" id="productDetailHint">Select an active catalog product to populate pricing.</span>
+                <span class="hint" id="productDetailHint">Select an active catalog product (4-decimal base-currency snapshot price).</span>
             </div>
 
             <div class="form-row">
-                <!-- Quantity: default 1.000, >0 to 10,000, max 3 decimals -->
                 <div class="form-group">
                     <label for="inputQuantity">Quantity<span class="required-star">*</span></label>
                     <input type="number" id="inputQuantity" value="1.000" min="0.001" max="10000" step="0.001" oninput="recalcPreview()" />
-                    <span class="hint">Range &gt; 0 to 10,000 (max 3 decimals).</span>
+                    <span class="hint">&gt; 0 to 10,000 (max 3 decimals)</span>
                 </div>
-
-                <!-- Discount %: default 0.00, 0-30%, max 2 decimals -->
                 <div class="form-group">
                     <label for="inputDiscount">Discount %<span class="required-star">*</span></label>
                     <input type="number" id="inputDiscount" value="0.00" min="0" max="30" step="0.01" oninput="recalcPreview()" />
-                    <span class="hint">Range 0.00% to 30.00% (max 2 decimals).</span>
+                    <span class="hint">0.00% to 30.00% (max 2 decimals)</span>
                 </div>
             </div>
 
-            <!-- Financial Calculation Preview Card -->
-            <div class="form-group" style="margin-top: 14px;">
-                <label style="font-size: 12px; color: var(--text-secondary); font-weight: 600;">
-                    Indicative Preview Only — Server arithmetic (BR17) is authoritative upon commit.
-                </label>
-                <div class="calc-preview-card" style="margin-top: 4px;">
-                    <div class="calc-col">
-                        <span class="calc-label">Unit Price (4 dec)</span>
-                        <span class="calc-value" id="previewUnitPrice">USD 0.0000</span>
-                    </div>
-                    <div class="calc-col">
-                        <span class="calc-label">Gross Total</span>
-                        <span class="calc-value" id="previewGross">USD 0.00</span>
-                    </div>
-                    <div class="calc-col">
-                        <span class="calc-label">Discount Amt</span>
-                        <span class="calc-value" id="previewDiscountAmt">USD 0.00</span>
-                    </div>
-                    <div class="calc-col">
-                        <span class="calc-label">Line Total</span>
-                        <span class="calc-value highlight" id="previewNet">USD 0.00</span>
-                    </div>
+            <div class="form-group" style="margin-top: 8px;">
+                <span class="hint">Indicative preview only — authoritative BR17 rounded amounts are computed on the server.</span>
+                <div class="calc-preview-card">
+                    <div class="calc-col"><span class="calc-label">Unit Price</span><span class="calc-value" id="previewUnitPrice">--</span></div>
+                    <div class="calc-col"><span class="calc-label">Gross</span><span class="calc-value" id="previewGross">--</span></div>
+                    <div class="calc-col"><span class="calc-label">Discount</span><span class="calc-value" id="previewDiscountAmt">--</span></div>
+                    <div class="calc-col"><span class="calc-label">Net</span><span class="calc-value highlight" id="previewNet">--</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== MODE 2: REMOVE LINE ==================== -->
+        <!-- MODE 2: REMOVE LINE -->
         <div id="panelRemove" class="section-card" style="display: none;">
             <div class="section-title" style="color: var(--danger);">Remove Opportunity Line (EXT12 §7.3)</div>
-            <div class="hint" style="margin-bottom: 12px;">Delete an existing persisted product line from the parent Opportunity.</div>
-
-            <!-- Select Existing Line (if not prepopulated) -->
-            <div class="form-group" id="linePickerGroup">
-                <label for="existingLineSelect">Select Line to Remove<span class="required-star">*</span></label>
-                <select id="existingLineSelect" onchange="onExistingLineSelected()">
-                    <option value="">-- Select Persisted Line --</option>
-                </select>
-                <span class="hint">Active product lines currently associated with this Opportunity.</span>
+            <div class="hint" style="margin-bottom: 10px;">
+                Removing a line permanently deletes it in its own transaction and recalculates server totals (BR16/BR19).
             </div>
 
-            <!-- Display Persisted Line GUID -->
             <div class="form-group">
-                <label>Persisted Line GUID<span class="required-star">*</span></label>
-                <div class="guid-display-box" style="background: #fff0f0; border-color: #fed9cc;">
-                    <span id="persistedLineGuidDisplay" style="color: var(--danger);">No line selected</span>
-                </div>
-                <span class="hint">The target vn_opportunitylineid record to be removed.</span>
+                <label for="existingLineSelect">Persisted Active Line<span class="required-star">*</span></label>
+                <select id="existingLineSelect" onchange="onExistingLineSelected()">
+                    <option value="">-- Loading Opportunity Lines... --</option>
+                </select>
             </div>
 
-            <!-- Parent Opportunity Confirmation -->
-            <div class="form-group" style="margin-top: 14px;">
-                <label>Parent Opportunity Confirmation<span class="required-star">*</span></label>
+            <div class="line-detail-box" id="selectedLineDetails" style="display: none;"></div>
+
+            <div class="form-group" style="margin-top: 10px;">
                 <label class="checkbox-container">
                     <input type="checkbox" id="confirmRemoveCheckbox" />
-                    <span>I confirm permanent removal of this product line from parent Opportunity (<span id="oppConfirmId"></span>).</span>
+                    <span>I confirm permanent removal of this persisted line from parent Opportunity (<span id="oppConfirmLabel">Current Opportunity</span>).</span>
                 </label>
             </div>
         </div>
-
-        <!-- ==================== MILESTONE BANNER ==================== -->
-        <div class="milestone-banner">
-            <span class="banner-icon">ℹ️</span>
-            <div class="banner-content">
-                <strong>Milestone Status</strong>
-                <p>Prepared for Milestone 3: Requires server Custom API EXT12 (vn_EditOpportunityLine).</p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- Dialog Footer -->
     <div class="dialog-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btnCommit" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_EditOpportunityLine in M3">Add Line</button>
+        <button type="button" class="btn btn-secondary" id="btnCancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-secondary" id="btnAddAnother" style="display: none;" onclick="prepareAddAnother()">Add Another Line</button>
+        <button type="button" class="btn btn-primary" id="btnCommit" onclick="commitLineOperation()" disabled="disabled">Add Line</button>
     </div>
 
     <script>
-        var currentContext = {
+        var ctxState = {
             opportunityId: "",
             rowVersion: "",
             operationMode: "Add",
-            lineId: "",
-            generatedLineId: ""
+            selectedRemoveLineId: "",
+            generatedLineId: "",
+            currencyCode: "",
+            oppName: "",
+            isClosed: false,
+            loaded: false,
+            submitting: false,
+            hasActiveLines: false,
+            hasActiveProducts: false
         };
 
         var loadedProducts = [];
         var loadedLines = [];
-        var selectedProductPrice = 0.0000;
-        var baseCurrencyCode = "USD";
+        var selectedProductPrice = 0;
 
         window.addEventListener("DOMContentLoaded", function () {
             parseQueryParams();
-            generateAndDisplayLineId();
-            applyContextToUI();
-            loadActiveProducts();
-            if (currentContext.opportunityId) {
-                loadExistingLines(currentContext.opportunityId);
+            generateFreshLineId();
+            switchMode(ctxState.operationMode);
+            if (!ctxState.opportunityId) {
+                showError("Missing parent Opportunity identifier. Please reopen from a saved Opportunity.", "", false);
+                return;
             }
+            loadOpportunityAndLines();
+            loadActiveProducts();
         });
 
-        // Generate stable client-side LineId GUID (RFC 4122 v4)
-        function generateGuid() {
+        function cleanGuid(raw) {
+            return raw ? String(raw).replace(/[{}]/g, "").trim().toLowerCase() : "";
+        }
+
+        function normalizeEtag(etag) {
+            if (!etag) return "";
+            var str = String(etag).trim();
+            var m = str.match(/^W\/"'?([^"']+)'?"$/i);
+            return m && m[1] ? m[1].trim() : str.replace(/^W\/"?'?/i, "").replace(/'?"?$/, "").trim();
+        }
+
+        // RFC 4122 v4 UUID using crypto.randomUUID() with crypto.getRandomValues fallback
+        function generateCryptoV4Guid() {
             if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
-                return crypto.randomUUID();
+                return crypto.randomUUID().toLowerCase();
             }
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
+            var bytes = new Uint8Array(16);
+            crypto.getRandomValues(bytes);
+            bytes[6] = (bytes[6] & 0x0f) | 0x40;
+            bytes[8] = (bytes[8] & 0x3f) | 0x80;
+            var hex = [];
+            for (var i = 0; i < 16; i++) {
+                hex.push(bytes[i].toString(16).padStart(2, "0"));
+            }
+            return (
+                hex.slice(0, 4).join("") + "-" +
+                hex.slice(4, 6).join("") + "-" +
+                hex.slice(6, 8).join("") + "-" +
+                hex.slice(8, 10).join("") + "-" +
+                hex.slice(10, 16).join("")
+            );
         }
 
-        function generateAndDisplayLineId() {
-            currentContext.generatedLineId = generateGuid();
-            var el = document.getElementById("clientLineGuid");
-            if (el) el.innerText = currentContext.generatedLineId;
+        function generateFreshLineId() {
+            ctxState.generatedLineId = generateCryptoV4Guid();
+            document.getElementById("clientLineGuid").textContent = ctxState.generatedLineId;
         }
 
-        // Parse query params passed by Xrm.Navigation.navigateTo
         function parseQueryParams() {
             try {
-                var search = window.location.search;
-                var params = new URLSearchParams(search);
+                var params = new URLSearchParams(window.location.search);
                 var dataParam = params.get("data");
                 if (dataParam) {
-                    var dataObj = JSON.parse(dataParam);
-                    if (dataObj.opportunityId) {
-                        currentContext.opportunityId = dataObj.opportunityId;
+                    var obj = JSON.parse(dataParam);
+                    if (obj.opportunityId) {
+                        ctxState.opportunityId = cleanGuid(obj.opportunityId);
+                        document.getElementById("oppIdDisplay").textContent = ctxState.opportunityId.substring(0, 8) + "...";
+                        document.getElementById("recordContextBadge").style.display = "inline-block";
                     }
-                    if (dataObj.rowVersion) {
-                        currentContext.rowVersion = dataObj.rowVersion;
-                    }
-                    if (dataObj.operationMode) {
-                        currentContext.operationMode = dataObj.operationMode;
-                    }
-                    if (dataObj.lineId) {
-                        currentContext.lineId = dataObj.lineId;
-                    }
+                    if (obj.rowVersion) ctxState.rowVersion = normalizeEtag(obj.rowVersion);
+                    if (obj.operationMode === "Remove") ctxState.operationMode = "Remove";
+                    if (obj.lineId) ctxState.selectedRemoveLineId = cleanGuid(obj.lineId);
+                    if (obj.currencyCode) ctxState.currencyCode = obj.currencyCode;
                 }
             } catch (e) {
-                console.warn("Could not parse navigation parameters:", e);
+                console.warn("Could not parse navigation data:", e);
             }
         }
 
-        function applyContextToUI() {
-            if (currentContext.opportunityId) {
-                document.getElementById("oppIdDisplay").innerText = currentContext.opportunityId.substring(0, 8) + "...";
-                document.getElementById("oppConfirmId").innerText = currentContext.opportunityId;
-                document.getElementById("recordContextBadge").style.display = "inline-block";
-            } else {
-                document.getElementById("oppConfirmId").innerText = "Current Opportunity";
-            }
-
-            if (currentContext.lineId) {
-                document.getElementById("persistedLineGuidDisplay").innerText = currentContext.lineId;
-            }
-
-            // Set initial mode (strictly Add or Remove)
-            var initMode = (currentContext.operationMode === "Remove") ? "Remove" : "Add";
-            switchMode(initMode);
-        }
-
-        // Mode Switching
-        function switchMode(mode) {
-            currentContext.operationMode = mode;
-
-            document.getElementById("tabAdd").classList.toggle("active", mode === "Add");
-            document.getElementById("tabRemove").classList.toggle("active", mode === "Remove");
-
-            document.getElementById("panelAdd").style.display = (mode === "Add") ? "block" : "none";
-            document.getElementById("panelRemove").style.display = (mode === "Remove") ? "block" : "none";
-
-            var btnCommit = document.getElementById("btnCommit");
-            if (mode === "Add") {
-                btnCommit.innerText = "Add Line";
-                btnCommit.className = "btn btn-primary";
-            } else {
-                btnCommit.innerText = "Remove Line";
-                btnCommit.className = "btn btn-danger";
-            }
-        }
-
-        // Resolve client base URL via GetGlobalContext().getClientUrl()
         function getClientUrl() {
             if (typeof GetGlobalContext === "function") {
                 var ctx = GetGlobalContext();
                 if (ctx && typeof ctx.getClientUrl === "function") {
-                    return ctx.getClientUrl();
+                    return ctx.getClientUrl().replace(/\/$/, "");
                 }
             }
             if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
-                return Xrm.Utility.getGlobalContext().getClientUrl();
+                return Xrm.Utility.getGlobalContext().getClientUrl().replace(/\/$/, "");
             }
             return "";
         }
 
-        // Perform read-only GET requests using standard same-origin fetch()
-        function fetchOData(relativeEndpoint) {
-            var baseUrl = getClientUrl();
-            var cleanEndpoint = relativeEndpoint.replace(/^\//, "");
-            var url = (baseUrl ? baseUrl.replace(/\/$/, "") : "") + "/api/data/v9.2/" + cleanEndpoint;
+        function formatMoney(val, decimals) {
+            var num = Number(val || 0).toFixed(decimals);
+            return ctxState.currencyCode ? (ctxState.currencyCode + " " + num) : num;
+        }
 
-            return fetch(url, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "OData-MaxVersion": "4.0",
-                    "OData-Version": "4.0",
-                    "Content-Type": "application/json; charset=utf-8"
-                }
-            }).then(function (response) {
-                if (!response.ok) {
-                    return response.json().then(
-                        function (err) {
-                            var msg = (err && err.error && err.error.message) ? err.error.message : ("HTTP " + response.status);
-                            throw new Error(msg);
-                        },
-                        function () {
-                            throw new Error("HTTP " + response.status + ": " + response.statusText);
-                        }
-                    );
-                }
-                return response.json();
+        function parseErrorPayload(text, status) {
+            var message = "Request failed (HTTP " + status + ").";
+            try {
+                var j = JSON.parse(text);
+                if (j && j.error && j.error.message) message = j.error.message;
+            } catch (e) {
+                if (text) message = text;
+            }
+            var codeMatch = message.match(/\[(CRM\d{3})\]/);
+            var corrMatch = message.match(/CorrelationId[=:\s]+([0-9a-fA-F-]{36})/i);
+            return {
+                message: message.replace(/\s*\(CorrelationId:[^)]+\)/i, "").trim(),
+                crmCode: codeMatch ? codeMatch[1] : "",
+                correlationId: corrMatch ? corrMatch[1].toLowerCase() : ""
+            };
+        }
+
+        function callOData(method, relativePath, body) {
+            var url = getClientUrl() + "/api/data/v9.2/" + relativePath.replace(/^\//, "");
+            var headers = {
+                "Accept": "application/json",
+                "OData-MaxVersion": "4.0",
+                "OData-Version": "4.0",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            };
+            var opts = { method: method, cache: "no-store", headers: headers };
+            if (body !== undefined && body !== null) {
+                headers["Content-Type"] = "application/json; charset=utf-8";
+                opts.body = JSON.stringify(body);
+            }
+            return fetch(url, opts).then(function (res) {
+                return res.text().then(function (txt) {
+                    if (!res.ok) {
+                        var info = parseErrorPayload(txt, res.status);
+                        var err = new Error(info.message);
+                        err.crmCode = info.crmCode;
+                        err.correlationId = info.correlationId;
+                        err.status = res.status;
+                        throw err;
+                    }
+                    return txt ? JSON.parse(txt) : null;
+                });
             });
         }
 
-        // Load active products via Dataverse Web API with transactioncurrencyid expand
-        function loadActiveProducts() {
-            var query = "vn_products?$select=vn_productid,vn_name,vn_sku,vn_unitprice&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=statecode eq 0&$orderby=vn_name asc&$top=100";
-            fetchOData(query).then(
-                function (results) {
-                    loadedProducts = results.value || [];
-                    var sel = document.getElementById("productSelect");
-                    sel.innerHTML = '<option value="">-- Select Active Product --</option>';
-
-                    loadedProducts.forEach(function (p) {
-                        var opt = document.createElement("option");
-                        opt.value = p.vn_productid;
-                        var curr = (p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) ? p.transactioncurrencyid.isocurrencycode : baseCurrencyCode;
-                        if (p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) {
-                            baseCurrencyCode = p.transactioncurrencyid.isocurrencycode;
-                        }
-                        var unitPrice = (p.vn_unitprice !== undefined && p.vn_unitprice !== null) ? Number(p.vn_unitprice) : 0;
-                        var formattedPrice = unitPrice.toFixed(4);
-                        opt.text = p.vn_name + (p.vn_sku ? (" (" + p.vn_sku + ")") : "") + " - " + curr + " " + formattedPrice;
-                        opt.dataset.price = unitPrice;
-                        opt.dataset.sku = p.vn_sku || "";
-                        opt.dataset.currency = curr;
-                        sel.appendChild(opt);
-                    });
-                },
-                function (err) {
-                    console.warn("Product load error:", err);
-                }
-            );
+        function clearBanners() {
+            document.getElementById("errorBanner").classList.remove("show");
+            document.getElementById("successBanner").classList.remove("show");
+            document.getElementById("checkLineBanner").classList.remove("show");
         }
 
-        function onProductSelected() {
-            var sel = document.getElementById("productSelect");
-            var selectedOpt = sel.options[sel.selectedIndex];
-            if (selectedOpt && selectedOpt.value) {
-                selectedProductPrice = parseFloat(selectedOpt.dataset.price) || 0;
-                var sku = selectedOpt.dataset.sku || "N/A";
-                var curr = selectedOpt.dataset.currency || baseCurrencyCode;
-                document.getElementById("productDetailHint").innerText = "SKU: " + sku + " | Unit Price: " + curr + " " + selectedProductPrice.toFixed(4);
-            } else {
-                selectedProductPrice = 0.0000;
-                document.getElementById("productDetailHint").innerText = "Select an active catalog product to populate pricing.";
+        function showError(msg, corrId, showRefreshBtn) {
+            var el = document.getElementById("errorBanner");
+            el.innerHTML = "";
+            var p = document.createElement("div");
+            p.textContent = msg;
+            el.appendChild(p);
+            if (corrId) {
+                var c = document.createElement("div");
+                c.className = "result-kv";
+                c.textContent = "CorrelationId: " + corrId;
+                el.appendChild(c);
             }
-            recalcPreview();
+            if (showRefreshBtn) {
+                var actions = document.createElement("div");
+                actions.className = "banner-actions";
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn btn-secondary btn-sm";
+                btn.textContent = "Refresh Opportunity Version";
+                btn.onclick = function () {
+                    clearBanners();
+                    loadOpportunityAndLines();
+                };
+                actions.appendChild(btn);
+                el.appendChild(actions);
+            }
+            el.classList.add("show");
+            document.getElementById("successBanner").classList.remove("show");
         }
 
-        // Recalculate Live Preview
-        function recalcPreview() {
-            var qtyInput = document.getElementById("inputQuantity");
-            var discInput = document.getElementById("inputDiscount");
+        function loadOpportunityAndLines() {
+            var oppQuery = "vn_opportunities(" + ctxState.opportunityId + ")?$select=vn_opportunityid,vn_name,statecode,vn_total,vn_maxdiscount&$expand=transactioncurrencyid($select=isocurrencycode)";
+            var linesQuery = "vn_opportunitylines?$select=vn_opportunitylineid,vn_name,vn_snapshotsku,vn_snapshotname,vn_unitprice,vn_quantity,vn_discountpercent,vn_netamount&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=_vn_opportunity_value eq " + ctxState.opportunityId + " and statecode eq 0&$orderby=createdon asc";
 
-            var qty = parseFloat(qtyInput.value) || 0;
-            var disc = parseFloat(discInput.value) || 0;
-
-            // Enforce constraints
-            if (qty < 0) qty = 0;
-            if (qty > 10000) qty = 10000;
-            if (disc < 0) disc = 0;
-            if (disc > 30) disc = 30;
-
-            var gross = selectedProductPrice * qty;
-            var discAmt = gross * (disc / 100);
-            var net = gross - discAmt;
-
-            document.getElementById("previewUnitPrice").innerText = baseCurrencyCode + " " + selectedProductPrice.toFixed(4);
-            document.getElementById("previewGross").innerText = baseCurrencyCode + " " + gross.toFixed(2);
-            document.getElementById("previewDiscountAmt").innerText = baseCurrencyCode + " " + discAmt.toFixed(2);
-            document.getElementById("previewNet").innerText = baseCurrencyCode + " " + net.toFixed(2);
-        }
-
-        // Load existing lines for Opportunity in Remove Mode (DM07 schema: vn_snapshotname, vn_snapshotsku)
-        function loadExistingLines(oppId) {
-            if (!oppId) return;
-
-            var cleanId = oppId.replace(/[{}]/g, "");
-            var query = "vn_opportunitylines?$select=vn_opportunitylineid,vn_name,vn_snapshotname,vn_snapshotsku,vn_quantity,vn_netamount&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=_vn_opportunity_value eq " + cleanId + " and statecode eq 0&$orderby=createdon asc";
-
-            fetchOData(query).then(
+            return Promise.all([
+                callOData("GET", oppQuery),
+                callOData("GET", linesQuery)
+            ]).then(
                 function (results) {
-                    loadedLines = results.value || [];
-                    var sel = document.getElementById("existingLineSelect");
-                    sel.innerHTML = '<option value="">-- Select Persisted Line --</option>';
-
-                    loadedLines.forEach(function (line) {
-                        var opt = document.createElement("option");
-                        opt.value = line.vn_opportunitylineid;
-                        var lineName = line.vn_snapshotname || line.vn_name || "Line";
-                        var lineSku = line.vn_snapshotsku ? (" (" + line.vn_snapshotsku + ")") : "";
-                        var curr = (line.transactioncurrencyid && line.transactioncurrencyid.isocurrencycode) ? line.transactioncurrencyid.isocurrencycode : baseCurrencyCode;
-                        var net = (line.vn_netamount !== undefined && line.vn_netamount !== null) ? Number(line.vn_netamount).toFixed(2) : "0.00";
-                        var qty = (line.vn_quantity !== undefined && line.vn_quantity !== null) ? Number(line.vn_quantity) : 1;
-                        opt.text = lineName + lineSku + " (Qty: " + qty + ", Net: " + curr + " " + net + ") - " + line.vn_opportunitylineid.substring(0, 8) + "...";
-                        sel.appendChild(opt);
-                    });
-
-                    // Auto-select if lineId was passed
-                    if (currentContext.lineId) {
-                        sel.value = currentContext.lineId.replace(/[{}]/g, "").toLowerCase();
-                        onExistingLineSelected();
+                    var opp = results[0];
+                    var lineRes = results[1];
+                    ctxState.loaded = true;
+                    if (opp["@odata.etag"]) ctxState.rowVersion = normalizeEtag(opp["@odata.etag"]);
+                    if (opp.transactioncurrencyid && opp.transactioncurrencyid.isocurrencycode) {
+                        ctxState.currencyCode = opp.transactioncurrencyid.isocurrencycode;
                     }
+                    ctxState.oppName = opp.vn_name || "Opportunity";
+                    document.getElementById("sumOppName").textContent = ctxState.oppName;
+                    document.getElementById("oppConfirmLabel").textContent = ctxState.oppName + " (" + ctxState.opportunityId.substring(0, 8) + "...)";
+                    document.getElementById("sumTotal").textContent = formatMoney(opp.vn_total, 2);
+                    document.getElementById("sumDiscount").textContent = Number(opp.vn_maxdiscount || 0).toFixed(2) + "%";
+
+                    if (opp.statecode !== 0) {
+                        ctxState.isClosed = true;
+                        var cb = document.getElementById("closedBanner");
+                        cb.textContent = "This Opportunity is closed and read-only. Product lines cannot be added or removed.";
+                        cb.classList.add("show");
+                    } else {
+                        ctxState.isClosed = false;
+                        document.getElementById("closedBanner").classList.remove("show");
+                    }
+
+                    loadedLines = (lineRes && lineRes.value) ? lineRes.value : [];
+                    renderLinesDropdown();
+                    recalcPreview();
+                    syncCommitButton();
                 },
                 function (err) {
-                    console.warn("Lines load error:", err);
+                    showError("Unable to load Opportunity or Lines: " + err.message, err.correlationId || "", false);
+                    document.getElementById("btnCommit").disabled = true;
                 }
             );
+        }
+
+        function loadActiveProducts() {
+            var q = "vn_products?$select=vn_productid,vn_name,vn_sku,vn_unitprice&$expand=transactioncurrencyid($select=isocurrencycode)&$filter=statecode eq 0&$orderby=vn_name asc&$top=100";
+            callOData("GET", q).then(
+                function (res) {
+                    loadedProducts = (res && res.value) ? res.value : [];
+                    var sel = document.getElementById("productSelect");
+                    if (loadedProducts.length === 0) {
+                        ctxState.hasActiveProducts = false;
+                        sel.innerHTML = '<option value="">No authorized matching records</option>';
+                        sel.disabled = true;
+                        syncCommitButton();
+                        return;
+                    }
+                    ctxState.hasActiveProducts = true;
+                    sel.disabled = ctxState.isClosed;
+                    sel.innerHTML = '<option value="">-- Select Active Product --</option>';
+                    loadedProducts.forEach(function (p) {
+                        if (!ctxState.currencyCode && p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) {
+                            ctxState.currencyCode = p.transactioncurrencyid.isocurrencycode;
+                        }
+                        var curr = (p.transactioncurrencyid && p.transactioncurrencyid.isocurrencycode) ? p.transactioncurrencyid.isocurrencycode : ctxState.currencyCode;
+                        var price = Number(p.vn_unitprice || 0);
+                        var opt = document.createElement("option");
+                        opt.value = cleanGuid(p.vn_productid);
+                        opt.text = (p.vn_sku || "") + " - " + (p.vn_name || "Product") + " (" + (curr ? curr + " " : "") + price.toFixed(4) + ")";
+                        opt.dataset.price = String(price);
+                        opt.dataset.sku = p.vn_sku || "";
+                        sel.appendChild(opt);
+                    });
+                    recalcPreview();
+                    syncCommitButton();
+                },
+                function () {
+                    ctxState.hasActiveProducts = false;
+                    document.getElementById("productSelect").innerHTML = '<option value="">No authorized matching records</option>';
+                    syncCommitButton();
+                }
+            );
+        }
+
+        function renderLinesDropdown() {
+            var sel = document.getElementById("existingLineSelect");
+            var detailBox = document.getElementById("selectedLineDetails");
+            if (loadedLines.length === 0) {
+                ctxState.hasActiveLines = false;
+                ctxState.selectedRemoveLineId = "";
+                sel.innerHTML = '<option value="">No authorized matching records</option>';
+                sel.disabled = true;
+                detailBox.style.display = "none";
+                return;
+            }
+            ctxState.hasActiveLines = true;
+            sel.disabled = ctxState.isClosed;
+            sel.innerHTML = '<option value="">-- Select Persisted Line to Remove --</option>';
+            loadedLines.forEach(function (l) {
+                var id = cleanGuid(l.vn_opportunitylineid);
+                var curr = (l.transactioncurrencyid && l.transactioncurrencyid.isocurrencycode) ? l.transactioncurrencyid.isocurrencycode : ctxState.currencyCode;
+                var prefix = curr ? (curr + " ") : "";
+                var opt = document.createElement("option");
+                opt.value = id;
+                opt.text = (l.vn_snapshotsku || "") + " - " + (l.vn_snapshotname || l.vn_name || "Line") +
+                    " | Qty " + Number(l.vn_quantity || 0) +
+                    " | Disc " + Number(l.vn_discountpercent || 0).toFixed(2) + "%" +
+                    " | Net " + prefix + Number(l.vn_netamount || 0).toFixed(2);
+                sel.appendChild(opt);
+            });
+
+            if (ctxState.selectedRemoveLineId) {
+                var found = loadedLines.some(function (l) { return cleanGuid(l.vn_opportunitylineid) === ctxState.selectedRemoveLineId; });
+                if (found) {
+                    sel.value = ctxState.selectedRemoveLineId;
+                } else {
+                    ctxState.selectedRemoveLineId = "";
+                }
+            }
+            onExistingLineSelected();
         }
 
         function onExistingLineSelected() {
             var sel = document.getElementById("existingLineSelect");
-            var val = sel.value;
-            if (val) {
-                currentContext.lineId = val;
-                document.getElementById("persistedLineGuidDisplay").innerText = val;
-            } else {
-                currentContext.lineId = "";
-                document.getElementById("persistedLineGuidDisplay").innerText = "No line selected";
+            var val = cleanGuid(sel.value);
+            ctxState.selectedRemoveLineId = val;
+            var box = document.getElementById("selectedLineDetails");
+            if (!val) {
+                box.style.display = "none";
+                return;
             }
+            var line = loadedLines.find(function (l) { return cleanGuid(l.vn_opportunitylineid) === val; });
+            if (!line) {
+                box.style.display = "none";
+                return;
+            }
+            box.style.whiteSpace = "pre-line";
+            box.textContent =
+                "LineId: " + val + "\n" +
+                "Product Snapshot: " + (line.vn_snapshotsku || "") + " - " + (line.vn_snapshotname || line.vn_name || "") + "\n" +
+                "Unit Price: " + formatMoney(line.vn_unitprice, 4) +
+                " | Quantity: " + Number(line.vn_quantity || 0) +
+                " | Discount: " + Number(line.vn_discountpercent || 0).toFixed(2) + "%" +
+                " | Net Amount: " + formatMoney(line.vn_netamount, 2);
+            box.style.display = "block";
+        }
+
+        function onProductSelected() {
+            var sel = document.getElementById("productSelect");
+            var opt = sel.options[sel.selectedIndex];
+            if (opt && opt.value) {
+                selectedProductPrice = parseFloat(opt.dataset.price) || 0;
+                document.getElementById("productDetailHint").textContent = "SKU: " + (opt.dataset.sku || "N/A") + " | Snapshot Unit Price: " + formatMoney(selectedProductPrice, 4);
+            } else {
+                selectedProductPrice = 0;
+                document.getElementById("productDetailHint").textContent = "Select an active catalog product (4-decimal base-currency snapshot price).";
+            }
+            recalcPreview();
+        }
+
+        function recalcPreview() {
+            var qty = parseFloat(document.getElementById("inputQuantity").value);
+            var disc = parseFloat(document.getElementById("inputDiscount").value);
+            if (isNaN(qty) || qty < 0) qty = 0;
+            if (isNaN(disc) || disc < 0) disc = 0;
+            var gross = selectedProductPrice * qty;
+            var discAmt = gross * (disc / 100);
+            var net = gross - discAmt;
+            document.getElementById("previewUnitPrice").textContent = formatMoney(selectedProductPrice, 4);
+            document.getElementById("previewGross").textContent = formatMoney(gross, 2);
+            document.getElementById("previewDiscountAmt").textContent = formatMoney(discAmt, 2);
+            document.getElementById("previewNet").textContent = formatMoney(net, 2);
+        }
+
+        function switchMode(mode) {
+            if (ctxState.submitting) return;
+            ctxState.operationMode = (mode === "Remove") ? "Remove" : "Add";
+            clearBanners();
+            document.getElementById("btnAddAnother").style.display = "none";
+            document.getElementById("tabAdd").classList.toggle("active", ctxState.operationMode === "Add");
+            document.getElementById("tabRemove").classList.toggle("active", ctxState.operationMode === "Remove");
+            document.getElementById("panelAdd").style.display = (ctxState.operationMode === "Add") ? "block" : "none";
+            document.getElementById("panelRemove").style.display = (ctxState.operationMode === "Remove") ? "block" : "none";
+            syncCommitButton();
+        }
+
+        function syncCommitButton() {
+            var btn = document.getElementById("btnCommit");
+            btn.style.display = "inline-block";
+            if (ctxState.operationMode === "Add") {
+                btn.textContent = "Add Line";
+                btn.className = "btn btn-primary";
+                btn.disabled = !ctxState.loaded || ctxState.isClosed || ctxState.submitting || !ctxState.hasActiveProducts;
+            } else {
+                btn.textContent = "Remove Line";
+                btn.className = "btn btn-danger";
+                btn.disabled = !ctxState.loaded || ctxState.isClosed || ctxState.submitting || !ctxState.hasActiveLines;
+            }
+        }
+
+        function checkSavedLine() {
+            var lineId = ctxState.generatedLineId;
+            if (!lineId) return;
+            var banner = document.getElementById("checkLineBanner");
+            banner.textContent = "Checking Dataverse for LineId " + lineId + "...";
+            banner.classList.add("show");
+            var q = "vn_opportunitylines(" + lineId + ")?$select=vn_opportunitylineid,vn_snapshotsku,vn_snapshotname,vn_quantity,vn_discountpercent,vn_netamount,_vn_opportunity_value,statecode";
+            callOData("GET", q).then(
+                function (line) {
+                    banner.style.whiteSpace = "pre-line";
+                    banner.textContent =
+                        "Saved line FOUND in Dataverse:\n" +
+                        "LineId: " + line.vn_opportunitylineid + " | " + (line.vn_snapshotsku || "") + " - " + (line.vn_snapshotname || "") + "\n" +
+                        "Qty: " + line.vn_quantity + " | Discount: " + line.vn_discountpercent + "% | Net: " + formatMoney(line.vn_netamount, 2);
+                },
+                function (err) {
+                    if (err.status === 404) {
+                        banner.textContent = "LineId " + lineId + " has NOT been committed yet. You may safely retry Add with this exact LineId after checking Opportunity version.";
+                    } else {
+                        banner.textContent = "Unable to inspect LineId " + lineId + ": " + err.message;
+                    }
+                }
+            );
+        }
+
+        function prepareAddAnother() {
+            clearBanners();
+            generateFreshLineId();
+            document.getElementById("btnAddAnother").style.display = "none";
+            document.getElementById("btnCancel").textContent = "Cancel";
+            loadOpportunityAndLines();
+        }
+
+        function commitLineOperation() {
+            if (ctxState.submitting || ctxState.isClosed || !ctxState.loaded) return;
+            clearBanners();
+
+            if (!ctxState.rowVersion) {
+                showError("Missing Opportunity RowVersion. Click Refresh Opportunity Version to reload.", "", true);
+                return;
+            }
+
+            var mode = ctxState.operationMode;
+            var payload;
+
+            if (mode === "Add") {
+                var productId = cleanGuid(document.getElementById("productSelect").value);
+                var qtyNum = Number(document.getElementById("inputQuantity").value);
+                var discNum = Number(document.getElementById("inputDiscount").value);
+                if (!productId) {
+                    showError("Please select an Active Product.", "", false);
+                    return;
+                }
+                if (!isFinite(qtyNum) || qtyNum <= 0 || qtyNum > 10000) {
+                    showError("Quantity must be greater than 0 and at most 10,000.", "", false);
+                    return;
+                }
+                if (!isFinite(discNum) || discNum < 0 || discNum > 30) {
+                    showError("Discount % must be between 0.00 and 30.00.", "", false);
+                    return;
+                }
+                payload = {
+                    Operation: "Add",
+                    ExpectedRowVersion: ctxState.rowVersion,
+                    LineId: ctxState.generatedLineId,
+                    ProductId: productId,
+                    Quantity: qtyNum,
+                    DiscountPercent: discNum
+                };
+            } else {
+                var targetLineId = ctxState.selectedRemoveLineId;
+                if (!targetLineId) {
+                    showError("Please select a persisted line to remove.", "", false);
+                    return;
+                }
+                if (!document.getElementById("confirmRemoveCheckbox").checked) {
+                    showError("Please confirm permanent removal of the selected line.", "", false);
+                    return;
+                }
+                payload = {
+                    Operation: "Remove",
+                    ExpectedRowVersion: ctxState.rowVersion,
+                    LineId: targetLineId
+                };
+            }
+
+            ctxState.submitting = true;
+            var btn = document.getElementById("btnCommit");
+            btn.disabled = true;
+            btn.textContent = (mode === "Add") ? "Adding Line..." : "Removing Line...";
+
+            callOData("POST", "vn_opportunities(" + ctxState.opportunityId + ")/Microsoft.Dynamics.CRM.vn_EditOpportunityLine", payload).then(
+                function (result) {
+                    ctxState.submitting = false;
+                    // Strictly read ONLY the exact 4 §7.3 response properties
+                    var resLineId = result.LineId;
+                    var resTotal = result.Total;
+                    var resAlready = result.WasAlreadyApplied;
+                    var resCorr = result.CorrelationId;
+
+                    if (mode === "Remove") {
+                        try {
+                            if (window.sessionStorage && resLineId) {
+                                window.sessionStorage.setItem("vn_line_removed_" + cleanGuid(resLineId), "1");
+                            }
+                        } catch (e) {
+                            console.warn("sessionStorage write skipped:", e);
+                        }
+                        document.getElementById("confirmRemoveCheckbox").checked = false;
+                        ctxState.selectedRemoveLineId = "";
+                    }
+
+                    var sb = document.getElementById("successBanner");
+                    sb.innerHTML = "";
+                    var heading = document.createElement("strong");
+                    heading.textContent = (mode === "Add")
+                        ? (resAlready ? "Line Add already applied (idempotent readback):" : "Line added atomically via EXT12 (vn_EditOpportunityLine):")
+                        : "Line removed atomically via EXT12 (vn_EditOpportunityLine):";
+                    var kv = document.createElement("div");
+                    kv.className = "result-kv";
+                    kv.textContent =
+                        "LineId: " + resLineId + "\n" +
+                        "Authoritative Server Total: " + formatMoney(resTotal, 2) + "\n" +
+                        "WasAlreadyApplied: " + String(resAlready) + "\n" +
+                        "CorrelationId: " + resCorr;
+                    sb.appendChild(heading);
+                    sb.appendChild(kv);
+                    sb.classList.add("show");
+
+                    document.getElementById("btnCancel").textContent = "Close";
+                    if (mode === "Add") {
+                        btn.style.display = "none";
+                        document.getElementById("btnAddAnother").style.display = "inline-block";
+                    }
+
+                    loadOpportunityAndLines().then(function () {
+                        if (mode === "Add") {
+                            btn.style.display = "none";
+                        }
+                    });
+                },
+                function (err) {
+                    ctxState.submitting = false;
+                    syncCommitButton();
+                    showError(err.message, err.correlationId || "", err.crmCode === "CRM021");
+                }
+            );
         }
 
         function closeDialog() {

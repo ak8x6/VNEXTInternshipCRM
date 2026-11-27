@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="CommandSequence">
+  <description default="Updated Opportunity command sequence after latch bump.">
+    <label description="Updated Opportunity command sequence after latch bump." languagecode="1033" />
+  </description>
+  <displayname default="Command Sequence">
+    <label description="Command Sequence" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_TransitionOpportunity.CommandSequence</name>
+  <type>7</type>
+</customapiresponseproperty>

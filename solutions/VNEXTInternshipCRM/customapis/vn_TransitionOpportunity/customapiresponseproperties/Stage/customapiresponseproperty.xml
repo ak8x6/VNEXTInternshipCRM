@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Stage">
+  <description default="Resulting Opportunity stage option-set integer.">
+    <label description="Resulting Opportunity stage option-set integer." languagecode="1033" />
+  </description>
+  <displayname default="Stage">
+    <label description="Stage" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_TransitionOpportunity.Stage</name>
+  <type>7</type>
+</customapiresponseproperty>

@@ -48,6 +48,7 @@
     <RolePrivilege name="prvReadContact" level="Global" />
     <RolePrivilege name="prvReadCustomization" level="Global" />
     <RolePrivilege name="prvReadEntity" level="Global" />
+    <RolePrivilege name="prvReadEnvironmentVariableDefinition" level="Global" />
     <RolePrivilege name="prvReadNote" level="Local" />
     <RolePrivilege name="prvReadOptionSet" level="Global" />
     <RolePrivilege name="prvReadOrganization" level="Global" />

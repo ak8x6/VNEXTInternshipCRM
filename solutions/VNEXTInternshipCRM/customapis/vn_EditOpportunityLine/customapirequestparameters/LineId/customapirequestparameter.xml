@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="LineId">
+  <description default="Stable client GUID for Add or target Line GUID for Remove.">
+    <label description="Stable client GUID for Add or target Line GUID for Remove." languagecode="1033" />
+  </description>
+  <displayname default="Line Id">
+    <label description="Line Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_EditOpportunityLine.LineId</name>
+  <type>12</type>
+</customapirequestparameter>

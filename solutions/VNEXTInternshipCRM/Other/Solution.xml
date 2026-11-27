@@ -91,6 +91,7 @@
       <RootComponent type="1" schemaName="vn_opportunitysalesprocess" behavior="0" />
       <RootComponent type="1" schemaName="vn_product" behavior="0" />
       <RootComponent type="20" id="{07b59a79-87e3-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="20" id="{14a71a69-2ce7-f111-84ea-002248db522e}" behavior="0" />
       <RootComponent type="20" id="{455ed134-87e3-f111-84ea-002248db522e}" behavior="0" />
       <RootComponent type="20" id="{a0bf376b-85e3-f111-84ea-002248db522e}" behavior="0" />
       <RootComponent type="29" id="{98705fdd-c4ee-4c02-b91d-41f196f33f8a}" behavior="0" />
@@ -100,11 +101,93 @@
       <RootComponent type="60" id="{fe113b41-17e4-f111-84ea-002248db522e}" behavior="0" />
       <RootComponent type="61" schemaName="vn_crm_common.js" behavior="0" />
       <RootComponent type="61" schemaName="vn_dlg_approval.html" behavior="0" />
+      <RootComponent type="61" schemaName="vn_dlg_disqualify.html" behavior="0" />
       <RootComponent type="61" schemaName="vn_dlg_line.html" behavior="0" />
       <RootComponent type="61" schemaName="vn_dlg_qualify.html" behavior="0" />
       <RootComponent type="61" schemaName="vn_dlg_transition.html" behavior="0" />
       <RootComponent type="62" schemaName="vn_VNEXTSalesCRMSiteMap" behavior="0" />
       <RootComponent type="80" schemaName="vn_VNEXTSalesCRM" behavior="0" />
+      <RootComponent type="91" id="{850f5f8e-44e7-f111-84ea-002248db522e}" schemaName="VNEXT.CRM.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0a6c558d4ce78b7" behavior="0" />
+      <RootComponent type="92" id="{010d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{040d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{070d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{0a0d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{0d0d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{100d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{130d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{170d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{1a0d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{1e0d44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{5d3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{603d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{633d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{663d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{693d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{6c3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{6f3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{733d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{773d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{7a3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{7d3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{803d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{833d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{863d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{893d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{8c2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{8d3d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{902a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{913d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{943d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{952a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{973d5609-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{982a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{98a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{9ba44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{9d2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{9ea44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a12a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a1a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a42a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a4a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a72a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{a7a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{aa2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{aba44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{ad2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{afa44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b02a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b2a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b42a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b5a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b72a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{b8a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{ba2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{bba44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{bd2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{bea44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c02a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c1a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c32a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c4a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c62a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c8a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{c92a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{cba44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{cc2a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{cea44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d02a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d1a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d32a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d4a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d62a4dfd-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{d7a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{daa44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{dda44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{e0a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{e4a44503-47e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{f70c44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{fa0c44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
+      <RootComponent type="92" id="{fe0c44f7-46e7-f111-84ea-002248db522e}" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
@@ -112,7 +195,7 @@
         <Dependent type="1" schemaName="activitypointer" displayName="ActivityPointer" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3573.1)" />
+        <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3602.4)" />
         <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
       </MissingDependency>
       <MissingDependency>

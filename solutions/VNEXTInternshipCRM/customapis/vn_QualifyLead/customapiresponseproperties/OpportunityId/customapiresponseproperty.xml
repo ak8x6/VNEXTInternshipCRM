@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="OpportunityId">
+  <description default="Created or existing originating Opportunity GUID.">
+    <label description="Created or existing originating Opportunity GUID." languagecode="1033" />
+  </description>
+  <displayname default="Opportunity Id">
+    <label description="Opportunity Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_QualifyLead.OpportunityId</name>
+  <type>12</type>
+</customapiresponseproperty>

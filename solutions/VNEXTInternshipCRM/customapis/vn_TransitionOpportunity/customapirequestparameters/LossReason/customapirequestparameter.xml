@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="LossReason">
+  <description default="Loss reason option-set integer required for Lost.">
+    <label description="Loss reason option-set integer required for Lost." languagecode="1033" />
+  </description>
+  <displayname default="Loss Reason">
+    <label description="Loss Reason" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_TransitionOpportunity.LossReason</name>
+  <type>7</type>
+</customapirequestparameter>

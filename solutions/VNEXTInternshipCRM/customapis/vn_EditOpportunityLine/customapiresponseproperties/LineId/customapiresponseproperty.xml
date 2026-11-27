@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="LineId">
+  <description default="Created, idempotent, or removed Opportunity Line GUID.">
+    <label description="Created, idempotent, or removed Opportunity Line GUID." languagecode="1033" />
+  </description>
+  <displayname default="Line Id">
+    <label description="Line Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_EditOpportunityLine.LineId</name>
+  <type>12</type>
+</customapiresponseproperty>

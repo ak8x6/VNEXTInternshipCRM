@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Quantity">
+  <description default="Line quantity (0 &lt; q &lt;= 10000, &lt;= 3 decimals) required for Add.">
+    <label description="Line quantity (0 &lt; q &lt;= 10000, &lt;= 3 decimals) required for Add." languagecode="1033" />
+  </description>
+  <displayname default="Quantity">
+    <label description="Quantity" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_EditOpportunityLine.Quantity</name>
+  <type>2</type>
+</customapirequestparameter>

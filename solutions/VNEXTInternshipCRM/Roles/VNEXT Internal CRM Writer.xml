@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{14a71a69-2ce7-f111-84ea-002248db522e}" name="VNEXT Internal CRM Writer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendToBusinessUnit" level="Global" />
+    <RolePrivilege name="prvAppendToTransactionCurrency" level="Global" />
+    <RolePrivilege name="prvAppendToUser" level="Global" />
+    <RolePrivilege name="prvAppendTovn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvAppendTovn_opportunity" level="Global" />
+    <RolePrivilege name="prvAppendTovn_opportunitysalesprocess" level="Global" />
+    <RolePrivilege name="prvAppendToWorkflow" level="Global" />
+    <RolePrivilege name="prvAppendvn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvAppendvn_opportunity" level="Global" />
+    <RolePrivilege name="prvAppendvn_opportunitysalesprocess" level="Global" />
+    <RolePrivilege name="prvAssignvn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvCreatevn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvCreatevn_opportunitysalesprocess" level="Global" />
+    <RolePrivilege name="prvReadBusinessUnit" level="Global" />
+    <RolePrivilege name="prvReadEnvironmentVariableDefinition" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvReadTransactionCurrency" level="Global" />
+    <RolePrivilege name="prvReadUser" level="Global" />
+    <RolePrivilege name="prvReadvn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvReadvn_opportunity" level="Global" />
+    <RolePrivilege name="prvReadvn_opportunitysalesprocess" level="Global" />
+    <RolePrivilege name="prvReadWorkflow" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+    <RolePrivilege name="prvWritevn_approvalrequest" level="Global" />
+    <RolePrivilege name="prvWritevn_opportunity" level="Global" />
+    <RolePrivilege name="prvWritevn_opportunitysalesprocess" level="Global" />
+  </RolePrivileges>
+</Role>

@@ -1,0 +1,20 @@
+<customapi uniquename="vn_TransitionOpportunity">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>vn_opportunity</boundentitylogicalname>
+  <description default="Atomically advances Opportunity stage or closes as Won/Lost with server validation, concurrency latch, and BPF mirroring.">
+    <label description="Atomically advances Opportunity stage or closes as Won/Lost with server validation, concurrency latch, and BPF mirroring." languagecode="1033" />
+  </description>
+  <displayname default="VNEXT Transition Opportunity">
+    <label description="VNEXT Transition Opportunity" languagecode="1033" />
+  </displayname>
+  <executeprivilegename>prvReadvn_opportunity</executeprivilegename>
+  <iscustomizable>0</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>vn_TransitionOpportunity</name>
+  <plugintypeid>
+    <plugintypeexportkey>8f0f5f8e-44e7-f111-84ea-002248db522e</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

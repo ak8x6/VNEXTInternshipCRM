@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="CorrelationId">
+  <description default="Server execution correlation identifier.">
+    <label description="Server execution correlation identifier." languagecode="1033" />
+  </description>
+  <displayname default="Correlation Id">
+    <label description="Correlation Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_QualifyLead.CorrelationId</name>
+  <type>10</type>
+</customapiresponseproperty>

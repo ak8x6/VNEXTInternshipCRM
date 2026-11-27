@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="ContactId">
+  <description default="Resolved or created Contact GUID.">
+    <label description="Resolved or created Contact GUID." languagecode="1033" />
+  </description>
+  <displayname default="Contact Id">
+    <label description="Contact Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_QualifyLead.ContactId</name>
+  <type>12</type>
+</customapiresponseproperty>

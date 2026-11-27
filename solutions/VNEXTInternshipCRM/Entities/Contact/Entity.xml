@@ -366,7 +366,7 @@
           <IsFilterable>0</IsFilterable>
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
-          <AppDefaultValue>100000000</AppDefaultValue>
+          <AppDefaultValue>-1</AppDefaultValue>
           <optionset Name="vn_contact_vn_preferredmethod">
             <OptionSetType>picklist</OptionSetType>
             <IntroducedVersion>1.0.0.0</IntroducedVersion>

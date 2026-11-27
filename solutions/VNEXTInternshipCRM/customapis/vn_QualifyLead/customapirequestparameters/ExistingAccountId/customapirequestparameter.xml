@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ExistingAccountId">
+  <description default="Optional existing active Account GUID to reuse.">
+    <label description="Optional existing active Account GUID to reuse." languagecode="1033" />
+  </description>
+  <displayname default="Existing Account Id">
+    <label description="Existing Account Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_QualifyLead.ExistingAccountId</name>
+  <type>12</type>
+</customapirequestparameter>

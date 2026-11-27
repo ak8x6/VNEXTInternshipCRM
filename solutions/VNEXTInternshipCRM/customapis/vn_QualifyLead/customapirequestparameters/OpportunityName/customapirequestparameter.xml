@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="OpportunityName">
+  <description default="Target Opportunity display name.">
+    <label description="Target Opportunity display name." languagecode="1033" />
+  </description>
+  <displayname default="Opportunity Name">
+    <label description="Opportunity Name" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_QualifyLead.OpportunityName</name>
+  <type>10</type>
+</customapirequestparameter>

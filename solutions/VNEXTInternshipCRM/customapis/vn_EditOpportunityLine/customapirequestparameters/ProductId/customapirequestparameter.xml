@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ProductId">
+  <description default="Active Product GUID required for Add.">
+    <label description="Active Product GUID required for Add." languagecode="1033" />
+  </description>
+  <displayname default="Product Id">
+    <label description="Product Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_EditOpportunityLine.ProductId</name>
+  <type>12</type>
+</customapirequestparameter>

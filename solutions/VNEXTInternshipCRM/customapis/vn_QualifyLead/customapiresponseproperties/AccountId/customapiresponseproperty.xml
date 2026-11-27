@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="AccountId">
+  <description default="Resolved or created Account GUID.">
+    <label description="Resolved or created Account GUID." languagecode="1033" />
+  </description>
+  <displayname default="Account Id">
+    <label description="Account Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_QualifyLead.AccountId</name>
+  <type>12</type>
+</customapiresponseproperty>

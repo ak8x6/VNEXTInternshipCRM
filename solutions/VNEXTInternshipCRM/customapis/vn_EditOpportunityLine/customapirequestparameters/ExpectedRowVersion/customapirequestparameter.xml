@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ExpectedRowVersion">
+  <description default="Optimistic concurrency RowVersion/ETag of the Opportunity.">
+    <label description="Optimistic concurrency RowVersion/ETag of the Opportunity." languagecode="1033" />
+  </description>
+  <displayname default="Expected Row Version">
+    <label description="Expected Row Version" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_EditOpportunityLine.ExpectedRowVersion</name>
+  <type>10</type>
+</customapirequestparameter>

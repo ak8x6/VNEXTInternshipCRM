@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ExistingContactId">
+  <description default="Optional existing active matching Contact GUID to reuse.">
+    <label description="Optional existing active matching Contact GUID to reuse." languagecode="1033" />
+  </description>
+  <displayname default="Existing Contact Id">
+    <label description="Existing Contact Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_QualifyLead.ExistingContactId</name>
+  <type>12</type>
+</customapirequestparameter>

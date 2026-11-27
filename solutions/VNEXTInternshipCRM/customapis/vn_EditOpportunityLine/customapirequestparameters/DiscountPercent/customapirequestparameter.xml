@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="DiscountPercent">
+  <description default="Line discount percent (0..30, &lt;= 2 decimals).">
+    <label description="Line discount percent (0..30, &lt;= 2 decimals)." languagecode="1033" />
+  </description>
+  <displayname default="Discount Percent">
+    <label description="Discount Percent" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_EditOpportunityLine.DiscountPercent</name>
+  <type>2</type>
+</customapirequestparameter>

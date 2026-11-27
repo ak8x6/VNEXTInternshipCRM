@@ -1,0 +1,20 @@
+<customapi uniquename="vn_QualifyLead">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>vn_lead</boundentitylogicalname>
+  <description default="Atomically qualifies an Active Contacted Lead into an Account, Contact, Opportunity, and Opportunity BPF instance.">
+    <label description="Atomically qualifies an Active Contacted Lead into an Account, Contact, Opportunity, and Opportunity BPF instance." languagecode="1033" />
+  </description>
+  <displayname default="VNEXT Qualify Lead">
+    <label description="VNEXT Qualify Lead" languagecode="1033" />
+  </displayname>
+  <executeprivilegename>prvReadvn_lead</executeprivilegename>
+  <iscustomizable>0</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>vn_QualifyLead</name>
+  <plugintypeid>
+    <plugintypeexportkey>8e0f5f8e-44e7-f111-84ea-002248db522e</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

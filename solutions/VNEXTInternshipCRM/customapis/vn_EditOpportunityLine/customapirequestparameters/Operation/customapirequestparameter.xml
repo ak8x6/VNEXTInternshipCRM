@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Operation">
+  <description default="Line operation: Add or Remove.">
+    <label description="Line operation: Add or Remove." languagecode="1033" />
+  </description>
+  <displayname default="Operation">
+    <label description="Operation" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>vn_EditOpportunityLine.Operation</name>
+  <type>10</type>
+</customapirequestparameter>

@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Total">
+  <description default="Authoritative recalculated Opportunity Total.">
+    <label description="Authoritative recalculated Opportunity Total." languagecode="1033" />
+  </description>
+  <displayname default="Total">
+    <label description="Total" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_EditOpportunityLine.Total</name>
+  <type>2</type>
+</customapiresponseproperty>

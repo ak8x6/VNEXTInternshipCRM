@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="WasAlreadyQualified">
+  <description default="True if safe already-qualified readback occurred.">
+    <label description="True if safe already-qualified readback occurred." languagecode="1033" />
+  </description>
+  <displayname default="Was Already Qualified">
+    <label description="Was Already Qualified" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_QualifyLead.WasAlreadyQualified</name>
+  <type>0</type>
+</customapiresponseproperty>

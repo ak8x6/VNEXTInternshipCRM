@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ActualCloseDate">
+  <description default="Actual close date within CreatedOn UTC date through UTC Today.">
+    <label description="Actual close date within CreatedOn UTC date through UTC Today." languagecode="1033" />
+  </description>
+  <displayname default="Actual Close Date">
+    <label description="Actual Close Date" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_TransitionOpportunity.ActualCloseDate</name>
+  <type>1</type>
+</customapirequestparameter>

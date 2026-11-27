@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="TargetStage">
+  <description default="Optional explicit immediate next stage option-set integer.">
+    <label description="Optional explicit immediate next stage option-set integer." languagecode="1033" />
+  </description>
+  <displayname default="Target Stage">
+    <label description="Target Stage" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>vn_TransitionOpportunity.TargetStage</name>
+  <type>7</type>
+</customapirequestparameter>

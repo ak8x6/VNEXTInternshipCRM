@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{6c93d2ac-05e8-f111-84ea-002248db522e}</WebResourceId>
+  <Name>vn_dlg_disqualify.html</Name>
+  <DisplayName>Disqualify Lead Dialog</DisplayName>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/vn_dlg_disqualifyhtml6C93D2AC-05E8-F111-84EA-002248DB522E</FileName>
+</WebResource>

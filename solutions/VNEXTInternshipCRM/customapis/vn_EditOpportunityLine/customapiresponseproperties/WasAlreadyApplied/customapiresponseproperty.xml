@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="WasAlreadyApplied">
+  <description default="True if an idempotent Add retry matched an existing Line.">
+    <label description="True if an idempotent Add retry matched an existing Line." languagecode="1033" />
+  </description>
+  <displayname default="Was Already Applied">
+    <label description="Was Already Applied" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>vn_EditOpportunityLine.WasAlreadyApplied</name>
+  <type>0</type>
+</customapiresponseproperty>
