@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qualify Lead Dialog</title>
+    <title>Qualify Lead</title>
     <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
     <style>
         :root {
@@ -21,439 +21,424 @@
             --info-bg: #eff6fc;
             --info-border: #c7e0f4;
             --info-text: #004578;
+            --success-bg: #dff6dd;
+            --success-border: #a7e3a5;
+            --success-text: #107c41;
+            --error-bg: #fde7e9;
+            --error-border: #f1707b;
+            --error-text: #a80000;
             --disabled-bg: #f3f2f1;
             --disabled-text: #a19f9d;
-            --error: #a80000;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-size: 14px;
-            line-height: 1.4;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .dialog-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .context-badge {
-            font-size: 11px;
-            background: var(--info-bg);
-            color: var(--info-text);
-            padding: 3px 8px;
-            border-radius: 12px;
-            border: 1px solid var(--info-border);
-            font-family: Consolas, monospace;
-        }
-
-        .dialog-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .required-star {
-            color: var(--error);
-            margin-left: 2px;
-        }
-
-        input[type="text"], input[type="date"], select {
-            padding: 7px 10px;
-            border: 1px solid var(--border-hover);
-            border-radius: 2px;
-            font-size: 13px;
-            color: var(--text-main);
-            background: #ffffff;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-        }
-
-        input[type="text"]:focus, input[type="date"]:focus, select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-        }
-
-        input:disabled, select:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            cursor: not-allowed;
-            border-color: var(--border);
-        }
-
-        .hint {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Radio Selector */
-        .path-option {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            background: #ffffff;
-            transition: all 0.2s;
-        }
-
-        .path-option:hover {
-            border-color: var(--primary);
-            background-color: #fcfcfc;
-        }
-
-        .path-option.selected {
-            border-color: var(--primary);
-            background-color: #f3f9fe;
-        }
-
-        .path-option input[type="radio"] {
-            margin-top: 3px;
-            cursor: pointer;
-        }
-
-        .path-content {
-            flex: 1;
-        }
-
-        .path-label {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .path-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-
-        .path-details {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            margin-top: 4px;
-            color: var(--text-main);
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            cursor: pointer;
-        }
-
-        /* Milestone Banner */
-        .milestone-banner {
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            border-radius: 4px;
-            padding: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--warning-text);
-            font-size: 13px;
-        }
-
-        .banner-icon {
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        .banner-content strong {
-            display: block;
-            margin-bottom: 2px;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .dialog-footer {
-            border-top: 1px solid var(--border);
-            padding-top: 14px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .btn {
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 2px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-primary:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            border-color: var(--border);
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
-        .btn-secondary {
-            background-color: #ffffff;
-            color: var(--text-main);
-            border-color: var(--border-hover);
-        }
-
-        .btn-secondary:hover {
-            background-color: #f3f2f1;
-            border-color: var(--text-secondary);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); font-size: 14px; line-height: 1.4; padding: 16px; display: flex; flex-direction: column; min-height: 100vh; }
+        .dialog-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px; }
+        .header-title { font-size: 18px; font-weight: 600; }
+        .context-badge { font-size: 11px; background: var(--info-bg); color: var(--info-text); padding: 3px 8px; border-radius: 12px; border: 1px solid var(--info-border); font-family: Consolas, monospace; }
+        .dialog-body { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .section-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+        .form-group:last-child { margin-bottom: 0; }
+        label { font-weight: 600; font-size: 13px; }
+        .required-star { color: var(--error-text); margin-left: 2px; }
+        input[type="text"], input[type="date"], select { padding: 7px 10px; border: 1px solid var(--border-hover); border-radius: 2px; font-size: 13px; color: var(--text-main); background: #ffffff; outline: none; width: 100%; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+        input:disabled, select:disabled { background: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; }
+        .hint { font-size: 12px; color: var(--text-secondary); }
+        .readiness-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px; font-size: 12px; }
+        .readiness-item { display: flex; align-items: center; gap: 6px; }
+        .readiness-ok { color: var(--success-text); font-weight: 600; }
+        .readiness-miss { color: var(--error-text); font-weight: 600; }
+        .path-option { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 8px; cursor: pointer; background: #ffffff; }
+        .path-option:last-child { margin-bottom: 0; }
+        .path-option.selected { border-color: var(--primary); background: #f3f9fe; }
+        .path-option input[type="radio"] { margin-top: 3px; cursor: pointer; }
+        .path-content { flex: 1; }
+        .path-label { font-weight: 600; font-size: 13px; cursor: pointer; }
+        .path-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .path-details { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); display: flex; flex-direction: column; gap: 10px; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; cursor: pointer; font-weight: 400; }
+        .checkbox-container input[type="checkbox"] { margin-top: 3px; cursor: pointer; }
+        .banner { border-radius: 4px; padding: 11px 12px; font-size: 13px; display: none; }
+        .banner.show { display: block; }
+        .banner-info { background: var(--info-bg); border: 1px solid var(--info-border); color: var(--info-text); }
+        .banner-warn { background: var(--warning-bg); border: 1px solid var(--warning-border); color: var(--warning-text); }
+        .banner-error { background: var(--error-bg); border: 1px solid var(--error-border); color: var(--error-text); }
+        .banner-success { background: var(--success-bg); border: 1px solid var(--success-border); color: var(--success-text); }
+        .result-kv { margin-top: 8px; font-family: Consolas, monospace; font-size: 12px; line-height: 1.6; }
+        .banner-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .dialog-footer { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .btn { padding: 8px 18px; font-size: 13px; font-weight: 600; border-radius: 2px; cursor: pointer; border: 1px solid transparent; }
+        .btn-sm { padding: 5px 12px; font-size: 12px; }
+        .btn-primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+        .btn-primary:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); cursor: not-allowed; }
+        .btn-secondary { background: #ffffff; color: var(--text-main); border-color: var(--border-hover); }
+        .btn-secondary:hover { background: #f3f2f1; }
     </style>
 </head>
 <body>
-
     <div class="dialog-header">
-        <div class="header-title">
-            <span>Qualify Lead</span>
-        </div>
+        <div class="header-title">Qualify Lead</div>
         <div id="recordContextBadge" class="context-badge" style="display: none;">
-            Lead ID: <span id="leadIdDisplay"></span>
+            Lead: <span id="leadIdDisplay"></span>
         </div>
     </div>
 
     <div class="dialog-body">
-        <!-- Section 1: Opportunity Header Info -->
-        <div class="section-card">
-            <div class="section-title">1. Opportunity Details (EXT10 §7.1)</div>
-            
-            <div class="form-group">
-                <label for="oppName">Opportunity Name<span class="required-star">*</span></label>
-                <input type="text" id="oppName" placeholder="e.g., Cloud Modernization Pilot - Acme Corp" autocomplete="off" />
-                <span class="hint">Required name for the resulting Opportunity pipeline deal.</span>
-            </div>
+        <div id="closedBanner" class="banner banner-info" role="status"></div>
+        <div id="errorBanner" class="banner banner-error" role="alert"></div>
+        <div id="successBanner" class="banner banner-success" role="status"></div>
 
-            <div class="form-group">
-                <label for="closeDate">Estimated Close Date (Date Only)<span class="required-star">*</span></label>
-                <input type="date" id="closeDate" />
-                <span class="hint">Target close date must be on or after UTC Today.</span>
+        <!-- BR03 Readiness Checklist -->
+        <div class="section-card" id="readinessCard">
+            <div class="section-title">Lead Qualification Readiness (BR03)</div>
+            <div class="readiness-grid" id="readinessList">
+                <div class="hint">Loading Lead state...</div>
             </div>
         </div>
 
-        <!-- Section 2: Customer Resolution Path -->
-        <div class="section-card">
-            <div class="section-title">2. Customer Resolution Path (EXT10 §7.1)</div>
-            <div class="hint" style="margin-bottom: 10px;">Select one of 3 explicit customer association options. Selecting a Contact without an Account is strictly disallowed.</div>
+        <!-- Opportunity Header Info -->
+        <div class="section-card" id="oppDetailsCard">
+            <div class="section-title">1. Opportunity Details (EXT10 §7.1)</div>
+            <div class="form-group">
+                <label for="oppName">Opportunity Name<span class="required-star">*</span></label>
+                <input type="text" id="oppName" placeholder="e.g., Enterprise Telemetry Expansion" autocomplete="off" />
+            </div>
+            <div class="form-group">
+                <label for="closeDate">Expected Close Date (UTC Date Only)<span class="required-star">*</span></label>
+                <input type="date" id="closeDate" />
+                <span class="hint">Must be on or after UTC Today.</span>
+            </div>
+        </div>
 
-            <!-- Path 1: Existing Account + Matching Contact -->
-            <div class="path-option" id="cardPath1" onclick="selectPath('path1')">
+        <!-- Exact 3 Explicit Customer Resolution Paths -->
+        <div class="section-card" id="customerPathCard">
+            <div class="section-title">2. Explicit Customer Selection Path (BR04 / §7.1)</div>
+            <div class="hint" style="margin-bottom: 10px;">Choose one of the 3 explicit customer paths. Contact-without-Account is disallowed.</div>
+
+            <div class="path-option selected" id="cardPath1" onclick="selectPath('path1')">
                 <input type="radio" name="customerPath" id="path1" value="1" checked onchange="onPathChanged()" />
                 <div class="path-content">
-                    <label for="path1" class="path-label">1. Reuse existing active Account + matching active Contact</label>
-                    <div class="path-desc">Both Account and Contact records already exist and are linked.</div>
-                    
+                    <label for="path1" class="path-label">1. Reuse existing active Account and matching active Contact</label>
+                    <div class="path-desc">Links the existing Account and matching Contact without modifying either record.</div>
                     <div class="path-details" id="path1Details">
                         <div class="form-group">
                             <label for="accountSelectPath1">Existing Active Account<span class="required-star">*</span></label>
-                            <select id="accountSelectPath1" onchange="onAccountChangedPath1()">
-                                <option value="">-- Select Active Account --</option>
+                            <select id="accountSelectPath1" onchange="onAccountChangedPath1()" onclick="event.stopPropagation()">
+                                <option value="">-- Loading Active Accounts... --</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="contactSelectPath1">Matching Active Contact<span class="required-star">*</span></label>
-                            <select id="contactSelectPath1" disabled>
+                            <select id="contactSelectPath1" disabled onclick="event.stopPropagation()">
                                 <option value="">-- Select Account first --</option>
                             </select>
-                            <span class="hint">Contact is locked until an Account is selected.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Path 2: Existing Account + New Contact -->
             <div class="path-option" id="cardPath2" onclick="selectPath('path2')">
                 <input type="radio" name="customerPath" id="path2" value="2" onchange="onPathChanged()" />
                 <div class="path-content">
-                    <label for="path2" class="path-label">2. Reuse existing active Account + create new Contact</label>
-                    <div class="path-desc">Reuse existing company Account, but create and associate a new Contact from Lead data.</div>
-                    
+                    <label for="path2" class="path-label">2. Reuse existing active Account and create new Contact from Lead</label>
+                    <div class="path-desc">Preserves the existing Account (including Primary Contact) and creates one new Contact under it.</div>
                     <div class="path-details" id="path2Details" style="display: none;">
                         <div class="form-group">
                             <label for="accountSelectPath2">Existing Active Account<span class="required-star">*</span></label>
-                            <select id="accountSelectPath2">
-                                <option value="">-- Select Active Account --</option>
+                            <select id="accountSelectPath2" onclick="event.stopPropagation()">
+                                <option value="">-- Loading Active Accounts... --</option>
                             </select>
                         </div>
-                        <label class="checkbox-container">
+                        <label class="checkbox-container" onclick="event.stopPropagation()">
                             <input type="checkbox" id="confirmNewContact" />
-                            <span>I confirm creating a new Contact under this Account from Lead contact information.</span>
+                            <span>Confirm creating a new Contact under the selected Account</span>
                         </label>
                     </div>
                 </div>
             </div>
 
-            <!-- Path 3: Create both new Account and new Contact -->
             <div class="path-option" id="cardPath3" onclick="selectPath('path3')">
                 <input type="radio" name="customerPath" id="path3" value="3" onchange="onPathChanged()" />
                 <div class="path-content">
-                    <label for="path3" class="path-label">3. Create both new Account and new Contact</label>
-                    <div class="path-desc">Neither record exists. Create both new Account and new Contact atomically.</div>
-                    
+                    <label for="path3" class="path-label">3. Create new Account and Contact from Lead</label>
+                    <div class="path-desc">Creates a new Account and new Contact atomically from Lead data and links Primary Contact.</div>
                     <div class="path-details" id="path3Details" style="display: none;">
-                        <label class="checkbox-container">
+                        <label class="checkbox-container" onclick="event.stopPropagation()">
                             <input type="checkbox" id="confirmBothNew" />
-                            <span>I confirm creating both a new Account and a new Contact from Lead company & contact details.</span>
+                            <span>Confirm creating a new Account and Contact from this Lead</span>
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Section 3: Milestone 2 Status Banner -->
-        <div class="milestone-banner">
-            <span class="banner-icon">ℹ️</span>
-            <div class="banner-content">
-                <strong>Milestone 2 Status</strong>
-                <p>Prepared for Milestone 3: Requires server Custom API EXT10 (vn_QualifyLead) to commit qualification atomically.</p>
-            </div>
-        </div>
     </div>
 
-    <!-- Footer Buttons -->
     <div class="dialog-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btnQualify" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_QualifyLead in M3">Qualify</button>
+        <button type="button" class="btn btn-secondary" id="btnCancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnOpenOpp" style="display: none;" onclick="openResultOpportunity()">Open Opportunity</button>
+        <button type="button" class="btn btn-primary" id="btnCommit" onclick="commitQualify()" disabled="disabled">Qualify Lead</button>
     </div>
 
     <script>
-        var parsedContext = {
+        var ctxState = {
             recordId: "",
-            rowVersion: ""
+            rowVersion: "",
+            isClosed: false,
+            submitting: false,
+            completed: false,
+            resultOpportunityId: ""
         };
 
-        // Initialize Dialog
         window.addEventListener("DOMContentLoaded", function () {
             initDateConstraint();
             parseQueryParams();
-            loadAccounts();
             onPathChanged();
+            if (!ctxState.recordId) {
+                showError("Missing Lead identifier. Please reopen from a saved Lead.", "", false);
+                return;
+            }
+            loadLeadState(true);
+            loadAccounts();
         });
 
-        // Set Estimated Close Date minimum to UTC Today
-        function initDateConstraint() {
-            var today = new Date();
-            var utcYear = today.getUTCFullYear();
-            var utcMonth = String(today.getUTCMonth() + 1).padStart(2, '0');
-            var utcDay = String(today.getUTCDate()).padStart(2, '0');
-            var minDateStr = utcYear + "-" + utcMonth + "-" + utcDay;
-            
-            var closeDateInput = document.getElementById("closeDate");
-            closeDateInput.min = minDateStr;
-            closeDateInput.value = minDateStr;
+        function cleanGuid(raw) {
+            return raw ? String(raw).replace(/[{}]/g, "").trim().toLowerCase() : "";
         }
 
-        // Parse query string data parameter passed by Xrm.Navigation.navigateTo
+        function normalizeEtag(etag) {
+            if (!etag) return "";
+            var str = String(etag).trim();
+            var m = str.match(/^W\/"'?([^"']+)'?"$/i);
+            return m && m[1] ? m[1].trim() : str.replace(/^W\/"?'?/i, "").replace(/'?"?$/, "").trim();
+        }
+
+        function getUtcTodayYmd() {
+            var now = new Date();
+            var y = now.getUTCFullYear();
+            var m = String(now.getUTCMonth() + 1).padStart(2, "0");
+            var d = String(now.getUTCDate()).padStart(2, "0");
+            return y + "-" + m + "-" + d;
+        }
+
+        function initDateConstraint() {
+            var todayStr = getUtcTodayYmd();
+            var el = document.getElementById("closeDate");
+            el.min = todayStr;
+            el.value = todayStr;
+        }
+
         function parseQueryParams() {
             try {
-                var search = window.location.search;
-                var params = new URLSearchParams(search);
+                var params = new URLSearchParams(window.location.search);
                 var dataParam = params.get("data");
                 if (dataParam) {
-                    var dataObj = JSON.parse(dataParam);
-                    if (dataObj.recordId) {
-                        parsedContext.recordId = dataObj.recordId;
-                        document.getElementById("leadIdDisplay").innerText = dataObj.recordId.substring(0, 8) + "...";
+                    var obj = JSON.parse(dataParam);
+                    if (obj.recordId) {
+                        ctxState.recordId = cleanGuid(obj.recordId);
+                        document.getElementById("leadIdDisplay").innerText = ctxState.recordId.substring(0, 8) + "...";
                         document.getElementById("recordContextBadge").style.display = "inline-block";
                     }
-                    if (dataObj.rowVersion) {
-                        parsedContext.rowVersion = dataObj.rowVersion;
+                    if (obj.rowVersion) {
+                        ctxState.rowVersion = normalizeEtag(obj.rowVersion);
                     }
                 }
             } catch (e) {
-                console.warn("Could not parse navigation parameters:", e);
+                console.warn("Could not parse navigation data:", e);
             }
         }
 
-        // Customer Path Selection
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl().replace(/\/$/, "");
+                }
+            }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl().replace(/\/$/, "");
+            }
+            return "";
+        }
+
+        function parseErrorPayload(text, status) {
+            var message = "Request failed (HTTP " + status + ").";
+            try {
+                var j = JSON.parse(text);
+                if (j && j.error && j.error.message) {
+                    message = j.error.message;
+                }
+            } catch (e) {
+                if (text) message = text;
+            }
+            var codeMatch = message.match(/\[(CRM\d{3})\]/);
+            var corrMatch = message.match(/CorrelationId[=:\s]+([0-9a-fA-F-]{36})/i);
+            return {
+                message: message.replace(/\s*\(CorrelationId:[^)]+\)/i, "").trim(),
+                crmCode: codeMatch ? codeMatch[1] : "",
+                correlationId: corrMatch ? corrMatch[1].toLowerCase() : ""
+            };
+        }
+
+        function callOData(method, relativePath, body) {
+            var url = getClientUrl() + "/api/data/v9.2/" + relativePath.replace(/^\//, "");
+            var headers = {
+                "Accept": "application/json",
+                "OData-MaxVersion": "4.0",
+                "OData-Version": "4.0",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            };
+            var opts = { method: method, cache: "no-store", headers: headers };
+            if (body !== undefined && body !== null) {
+                headers["Content-Type"] = "application/json; charset=utf-8";
+                opts.body = JSON.stringify(body);
+            }
+            return fetch(url, opts).then(function (res) {
+                return res.text().then(function (txt) {
+                    if (!res.ok) {
+                        var info = parseErrorPayload(txt, res.status);
+                        var err = new Error(info.message);
+                        err.crmCode = info.crmCode;
+                        err.correlationId = info.correlationId;
+                        err.status = res.status;
+                        throw err;
+                    }
+                    return txt ? JSON.parse(txt) : null;
+                });
+            });
+        }
+
+        function showError(msg, corrId, showRefreshBtn) {
+            var el = document.getElementById("errorBanner");
+            el.innerHTML = "";
+            var p = document.createElement("div");
+            p.textContent = msg;
+            el.appendChild(p);
+            if (corrId) {
+                var c = document.createElement("div");
+                c.className = "result-kv";
+                c.textContent = "CorrelationId: " + corrId;
+                el.appendChild(c);
+            }
+            if (showRefreshBtn) {
+                var actions = document.createElement("div");
+                actions.className = "banner-actions";
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn btn-secondary btn-sm";
+                btn.textContent = "Refresh Lead Version";
+                btn.onclick = function () {
+                    clearMessages();
+                    loadLeadState(false);
+                };
+                actions.appendChild(btn);
+                el.appendChild(actions);
+            }
+            el.classList.add("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function clearMessages() {
+            document.getElementById("errorBanner").classList.remove("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function renderReadiness(lead) {
+            var checks = [
+                { label: "Status = Contacted", ok: lead.statecode === 0 && lead.statuscode === 100000001 },
+                { label: "Company Name", ok: Boolean(lead.vn_companyname && lead.vn_companyname.trim()) },
+                { label: "Last Name", ok: Boolean(lead.vn_lastname && lead.vn_lastname.trim()) },
+                { label: "Email or Phone", ok: Boolean((lead.vn_email && lead.vn_email.trim()) || (lead.vn_phone && lead.vn_phone.trim())) },
+                { label: "Business Need", ok: Boolean(lead.vn_need && lead.vn_need.trim()) },
+                { label: "Next Step", ok: Boolean(lead.vn_nextstep && lead.vn_nextstep.trim()) },
+                { label: "Next Follow-up Date", ok: Boolean(lead.vn_nextfollowupdate) }
+            ];
+            var grid = document.getElementById("readinessList");
+            grid.innerHTML = "";
+            checks.forEach(function (chk) {
+                var row = document.createElement("div");
+                row.className = "readiness-item";
+                var badge = document.createElement("span");
+                badge.className = chk.ok ? "readiness-ok" : "readiness-miss";
+                badge.textContent = chk.ok ? "[OK]" : "[Missing]";
+                var lbl = document.createElement("span");
+                lbl.textContent = chk.label;
+                row.appendChild(badge);
+                row.appendChild(lbl);
+                grid.appendChild(row);
+            });
+        }
+
+        function setFormDisabled(disabled) {
+            var ids = ["oppName", "closeDate", "path1", "path2", "path3", "accountSelectPath1", "contactSelectPath1", "accountSelectPath2", "confirmNewContact", "confirmBothNew", "btnCommit"];
+            ids.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) el.disabled = disabled;
+            });
+        }
+
+        function loadLeadState(prefillOppName) {
+            var select = "vn_leadid,vn_name,statecode,statuscode,vn_companyname,vn_lastname,vn_email,vn_phone,vn_need,vn_nextstep,vn_nextfollowupdate,_vn_account_value,_vn_contact_value,_vn_opportunity_value,vn_qualifiedon";
+            callOData("GET", "vn_leads(" + ctxState.recordId + ")?$select=" + select).then(
+                function (lead) {
+                    if (lead["@odata.etag"]) {
+                        ctxState.rowVersion = normalizeEtag(lead["@odata.etag"]);
+                    }
+                    if (prefillOppName && lead.vn_name && !document.getElementById("oppName").value) {
+                        document.getElementById("oppName").value = lead.vn_name;
+                    }
+
+                    var closedBanner = document.getElementById("closedBanner");
+                    if (lead.statecode !== 0 && lead.statuscode === 100000002) {
+                        ctxState.isClosed = true;
+                        ctxState.resultOpportunityId = cleanGuid(lead._vn_opportunity_value);
+                        closedBanner.innerHTML = "";
+                        var title = document.createElement("strong");
+                        title.textContent = "This Lead is already Qualified (read-only conversion record):";
+                        var kv = document.createElement("div");
+                        kv.className = "result-kv";
+                        kv.textContent =
+                            "AccountId: " + (lead._vn_account_value || "N/A") + "\n" +
+                            "ContactId: " + (lead._vn_contact_value || "N/A") + "\n" +
+                            "OpportunityId: " + (lead._vn_opportunity_value || "N/A") + "\n" +
+                            "Qualified On (UTC): " + (lead.vn_qualifiedon || "N/A");
+                        kv.style.whiteSpace = "pre-line";
+                        closedBanner.appendChild(title);
+                        closedBanner.appendChild(kv);
+                        closedBanner.classList.add("show");
+
+                        document.getElementById("readinessCard").style.display = "none";
+                        setFormDisabled(true);
+                        document.getElementById("btnCancel").textContent = "Close";
+                        if (ctxState.resultOpportunityId) {
+                            document.getElementById("btnOpenOpp").style.display = "inline-block";
+                        }
+                    } else if (lead.statecode !== 0) {
+                        ctxState.isClosed = true;
+                        closedBanner.textContent = "This Lead is Disqualified and read-only. Closed Leads cannot be qualified.";
+                        closedBanner.classList.add("show");
+                        document.getElementById("readinessCard").style.display = "none";
+                        setFormDisabled(true);
+                        document.getElementById("btnCancel").textContent = "Close";
+                    } else {
+                        ctxState.isClosed = false;
+                        closedBanner.classList.remove("show");
+                        renderReadiness(lead);
+                        document.getElementById("btnCommit").disabled = false;
+                    }
+                },
+                function (err) {
+                    showError("Unable to load Lead details: " + err.message, err.correlationId || "", false);
+                    document.getElementById("btnCommit").disabled = true;
+                }
+            );
+        }
+
         function selectPath(pathKey) {
+            if (ctxState.isClosed || ctxState.completed) return;
             document.getElementById(pathKey).checked = true;
             onPathChanged();
         }
@@ -462,94 +447,54 @@
             var p1 = document.getElementById("path1").checked;
             var p2 = document.getElementById("path2").checked;
             var p3 = document.getElementById("path3").checked;
-
             document.getElementById("cardPath1").classList.toggle("selected", p1);
             document.getElementById("cardPath2").classList.toggle("selected", p2);
             document.getElementById("cardPath3").classList.toggle("selected", p3);
-
             document.getElementById("path1Details").style.display = p1 ? "flex" : "none";
             document.getElementById("path2Details").style.display = p2 ? "flex" : "none";
             document.getElementById("path3Details").style.display = p3 ? "flex" : "none";
         }
 
-        // Resolve client base URL via GetGlobalContext().getClientUrl()
-        function getClientUrl() {
-            if (typeof GetGlobalContext === "function") {
-                var ctx = GetGlobalContext();
-                if (ctx && typeof ctx.getClientUrl === "function") {
-                    return ctx.getClientUrl();
-                }
-            }
-            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
-                return Xrm.Utility.getGlobalContext().getClientUrl();
-            }
-            return "";
-        }
-
-        // Perform read-only GET requests using standard same-origin fetch()
-        function fetchOData(relativeEndpoint) {
-            var baseUrl = getClientUrl();
-            var cleanEndpoint = relativeEndpoint.replace(/^\//, "");
-            var url = (baseUrl ? baseUrl.replace(/\/$/, "") : "") + "/api/data/v9.2/" + cleanEndpoint;
-
-            return fetch(url, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "OData-MaxVersion": "4.0",
-                    "OData-Version": "4.0",
-                    "Content-Type": "application/json; charset=utf-8"
-                }
-            }).then(function (response) {
-                if (!response.ok) {
-                    return response.json().then(
-                        function (err) {
-                            var msg = (err && err.error && err.error.message) ? err.error.message : ("HTTP " + response.status);
-                            throw new Error(msg);
-                        },
-                        function () {
-                            throw new Error("HTTP " + response.status + ": " + response.statusText);
-                        }
-                    );
-                }
-                return response.json();
-            });
-        }
-
-        // Populate active accounts (statecode eq 0) via Dataverse Web API
         function loadAccounts() {
-            fetchOData("accounts?$select=accountid,name&$filter=statecode eq 0&$orderby=name asc&$top=100").then(
-                function (results) {
-                    var accounts = results.value || [];
+            callOData("GET", "accounts?$select=accountid,name&$filter=statecode eq 0&$orderby=name asc&$top=100").then(
+                function (res) {
+                    var accounts = (res && res.value) ? res.value : [];
                     var sel1 = document.getElementById("accountSelectPath1");
                     var sel2 = document.getElementById("accountSelectPath2");
-                    
+
+                    if (accounts.length === 0) {
+                        sel1.innerHTML = '<option value="">No authorized matching records</option>';
+                        sel2.innerHTML = '<option value="">No authorized matching records</option>';
+                        return;
+                    }
+
                     sel1.innerHTML = '<option value="">-- Select Active Account --</option>';
                     sel2.innerHTML = '<option value="">-- Select Active Account --</option>';
 
                     accounts.forEach(function (acc) {
+                        var id = cleanGuid(acc.accountid);
                         var opt1 = document.createElement("option");
-                        opt1.value = acc.accountid;
+                        opt1.value = id;
                         opt1.text = acc.name;
                         sel1.appendChild(opt1);
 
                         var opt2 = document.createElement("option");
-                        opt2.value = acc.accountid;
+                        opt2.value = id;
                         opt2.text = acc.name;
                         sel2.appendChild(opt2);
                     });
                 },
-                function (error) {
-                    console.warn("Account load error:", error);
+                function (err) {
+                    document.getElementById("accountSelectPath1").innerHTML = '<option value="">No authorized matching records</option>';
+                    document.getElementById("accountSelectPath2").innerHTML = '<option value="">No authorized matching records</option>';
+                    console.warn("Account load error:", err);
                 }
             );
         }
 
-        // Account change in Path 1 filters active contacts (_parentcustomerid_value eq <accountid>)
         function onAccountChangedPath1() {
-            var accId = document.getElementById("accountSelectPath1").value;
+            var accId = cleanGuid(document.getElementById("accountSelectPath1").value);
             var contactSel = document.getElementById("contactSelectPath1");
-            contactSel.innerHTML = '<option value="">-- Select Matching Active Contact --</option>';
 
             if (!accId) {
                 contactSel.disabled = true;
@@ -558,30 +503,144 @@
             }
 
             contactSel.disabled = true;
-            var cleanAccId = accId.replace(/[{}]/g, "");
-            var query = "contacts?$select=contactid,fullname&$filter=statecode eq 0 and _parentcustomerid_value eq " + cleanAccId + "&$orderby=fullname asc";
+            contactSel.innerHTML = '<option value="">-- Loading matching Contacts... --</option>';
+            var query = "contacts?$select=contactid,fullname&$filter=statecode eq 0 and _parentcustomerid_value eq " + accId + "&$orderby=fullname asc&$top=100";
 
-            fetchOData(query).then(
-                function (results) {
-                    var contacts = results.value || [];
+            callOData("GET", query).then(
+                function (res) {
+                    var contacts = (res && res.value) ? res.value : [];
                     if (contacts.length === 0) {
-                        contactSel.innerHTML = '<option value="">-- No active contacts found for this account --</option>';
-                    } else {
-                        contactSel.innerHTML = '<option value="">-- Select Matching Active Contact --</option>';
-                        contacts.forEach(function (c) {
-                            var opt = document.createElement("option");
-                            opt.value = c.contactid;
-                            opt.text = c.fullname;
-                            contactSel.appendChild(opt);
-                        });
-                        contactSel.disabled = false;
+                        contactSel.innerHTML = '<option value="">No authorized matching records</option>';
+                        contactSel.disabled = true;
+                        return;
                     }
+                    contactSel.innerHTML = '<option value="">-- Select Matching Active Contact --</option>';
+                    contacts.forEach(function (c) {
+                        var opt = document.createElement("option");
+                        opt.value = cleanGuid(c.contactid);
+                        opt.text = c.fullname;
+                        contactSel.appendChild(opt);
+                    });
+                    contactSel.disabled = ctxState.isClosed || ctxState.completed;
                 },
-                function (error) {
-                    console.warn("Contact load error:", error);
-                    contactSel.disabled = false;
+                function () {
+                    contactSel.innerHTML = '<option value="">No authorized matching records</option>';
+                    contactSel.disabled = true;
                 }
             );
+        }
+
+        function commitQualify() {
+            if (ctxState.submitting || ctxState.isClosed || ctxState.completed) return;
+            clearMessages();
+
+            var oppName = (document.getElementById("oppName").value || "").trim();
+            if (!oppName) {
+                showError("Opportunity Name is required.", "", false);
+                return;
+            }
+
+            var closeDateRaw = (document.getElementById("closeDate").value || "").trim();
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(closeDateRaw)) {
+                showError("A valid Expected Close Date (YYYY-MM-DD) is required.", "", false);
+                return;
+            }
+
+            var payload = {
+                OpportunityName: oppName,
+                ExpectedCloseDate: closeDateRaw + "T00:00:00Z"
+            };
+            if (ctxState.rowVersion) {
+                payload.ExpectedRowVersion = ctxState.rowVersion;
+            }
+
+            if (document.getElementById("path1").checked) {
+                var acc1 = cleanGuid(document.getElementById("accountSelectPath1").value);
+                var con1 = cleanGuid(document.getElementById("contactSelectPath1").value);
+                if (!acc1) {
+                    showError("Path 1 requires selecting an existing active Account.", "", false);
+                    return;
+                }
+                if (!con1) {
+                    showError("Path 1 requires selecting a matching active Contact under the selected Account.", "", false);
+                    return;
+                }
+                payload.ExistingAccountId = acc1;
+                payload.ExistingContactId = con1;
+            } else if (document.getElementById("path2").checked) {
+                var acc2 = cleanGuid(document.getElementById("accountSelectPath2").value);
+                if (!acc2) {
+                    showError("Path 2 requires selecting an existing active Account.", "", false);
+                    return;
+                }
+                if (!document.getElementById("confirmNewContact").checked) {
+                    showError("Please check the confirmation box before creating a new Contact under the selected Account.", "", false);
+                    return;
+                }
+                payload.ExistingAccountId = acc2;
+            } else if (document.getElementById("path3").checked) {
+                if (!document.getElementById("confirmBothNew").checked) {
+                    showError("Please check the confirmation box before creating a new Account and Contact.", "", false);
+                    return;
+                }
+            }
+
+            ctxState.submitting = true;
+            var btn = document.getElementById("btnCommit");
+            btn.disabled = true;
+            btn.textContent = "Qualifying...";
+
+            callOData("POST", "vn_leads(" + ctxState.recordId + ")/Microsoft.Dynamics.CRM.vn_QualifyLead", payload).then(
+                function (result) {
+                    ctxState.submitting = false;
+                    ctxState.completed = true;
+                    ctxState.resultOpportunityId = cleanGuid(result.OpportunityId);
+                    setFormDisabled(true);
+                    btn.style.display = "none";
+                    document.getElementById("btnCancel").textContent = "Close";
+                    if (ctxState.resultOpportunityId) {
+                        document.getElementById("btnOpenOpp").style.display = "inline-block";
+                    }
+
+                    var sb = document.getElementById("successBanner");
+                    sb.innerHTML = "";
+                    var heading = document.createElement("strong");
+                    heading.textContent = result.WasAlreadyQualified
+                        ? "Lead was already qualified (safe idempotent readback):"
+                        : "Lead qualified atomically via EXT10 (vn_QualifyLead):";
+                    var kv = document.createElement("div");
+                    kv.className = "result-kv";
+                    kv.style.whiteSpace = "pre-line";
+                    kv.textContent =
+                        "AccountId: " + result.AccountId + "\n" +
+                        "ContactId: " + result.ContactId + "\n" +
+                        "OpportunityId: " + result.OpportunityId + "\n" +
+                        "WasAlreadyQualified: " + String(result.WasAlreadyQualified) + "\n" +
+                        "CorrelationId: " + result.CorrelationId;
+                    sb.appendChild(heading);
+                    sb.appendChild(kv);
+                    sb.classList.add("show");
+                },
+                function (err) {
+                    ctxState.submitting = false;
+                    btn.disabled = false;
+                    btn.textContent = "Qualify Lead";
+                    showError(err.message, err.correlationId || "", err.crmCode === "CRM021");
+                }
+            );
+        }
+
+        function openResultOpportunity() {
+            if (ctxState.resultOpportunityId && ctxState.recordId) {
+                try {
+                    if (window.sessionStorage) {
+                        window.sessionStorage.setItem("vn_open_opp_" + ctxState.recordId, ctxState.resultOpportunityId);
+                    }
+                } catch (e) {
+                    console.warn("sessionStorage write skipped:", e);
+                }
+            }
+            window.close();
         }
 
         function closeDialog() {

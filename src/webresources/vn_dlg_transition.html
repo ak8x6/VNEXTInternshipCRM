@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transition Opportunity Dialog</title>
+    <title>Transition Opportunity</title>
     <script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
     <style>
         :root {
             --primary: #0078d4;
             --primary-hover: #106ebe;
             --success: #107c41;
+            --success-hover: #0b5a2f;
             --danger: #d13438;
+            --danger-hover: #a80000;
             --bg: #faf9f8;
             --card-bg: #ffffff;
             --text-main: #323130;
@@ -23,380 +25,84 @@
             --info-bg: #eff6fc;
             --info-border: #c7e0f4;
             --info-text: #004578;
+            --success-bg: #dff6dd;
+            --success-border: #a7e3a5;
+            --error-bg: #fde7e9;
+            --error-border: #f1707b;
+            --error-text: #a80000;
             --disabled-bg: #f3f2f1;
             --disabled-text: #a19f9d;
-            --error: #a80000;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-size: 14px;
-            line-height: 1.4;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .dialog-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 14px;
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .context-badge {
-            font-size: 11px;
-            background: var(--info-bg);
-            color: var(--info-text);
-            padding: 3px 8px;
-            border-radius: 12px;
-            border: 1px solid var(--info-border);
-            font-family: Consolas, monospace;
-        }
-
-        /* Mode Selector Tabs */
-        .mode-nav {
-            display: flex;
-            gap: 4px;
-            background: #edebe9;
-            padding: 3px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-        }
-
-        .mode-tab {
-            flex: 1;
-            text-align: center;
-            padding: 7px 12px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            background: transparent;
-        }
-
-        .mode-tab:hover {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .mode-tab.active {
-            background: var(--card-bg);
-            color: var(--primary);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .mode-tab.active.tab-won {
-            color: var(--success);
-        }
-
-        .mode-tab.active.tab-lost {
-            color: var(--danger);
-        }
-
-        .dialog-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .required-star {
-            color: var(--error);
-            margin-left: 2px;
-        }
-
-        input[type="text"], input[type="date"], select, textarea {
-            padding: 7px 10px;
-            border: 1px solid var(--border-hover);
-            border-radius: 2px;
-            font-size: 13px;
-            color: var(--text-main);
-            background: #ffffff;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-            line-height: 1.4;
-        }
-
-        input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-        }
-
-        input:disabled, select:disabled, textarea:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            cursor: not-allowed;
-            border-color: var(--border);
-        }
-
-        .hint {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Stage Stepper Visualization */
-        .stage-pipeline {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-            padding: 8px 12px;
-            background: #f3f2f1;
-            border-radius: 4px;
-        }
-
-        .stage-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stage-circle {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            background: #e1dfdd;
-            color: #605e5c;
-            border: 2px solid #edebe9;
-        }
-
-        .stage-name {
-            font-size: 11px;
-            font-weight: 600;
-            color: #605e5c;
-        }
-
-        .stage-node.current .stage-circle {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: #004578;
-        }
-
-        .stage-node.current .stage-name {
-            color: var(--primary);
-        }
-
-        .stage-node.next .stage-circle {
-            background: #ffffff;
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .stage-node.next .stage-name {
-            color: var(--text-main);
-        }
-
-        .stage-connector {
-            flex: 1;
-            height: 2px;
-            background: #d2d0ce;
-            margin: 0 8px;
-            margin-bottom: 16px;
-        }
-
-        .stage-connector.completed {
-            background: var(--primary);
-        }
-
-        .transition-callout {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            padding: 16px;
-            background: #f8fbfd;
-            border: 1px solid #c7e0f4;
-            border-radius: 4px;
-            margin-top: 8px;
-        }
-
-        .stage-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 18px;
-            background: #ffffff;
-            border: 1px solid #c7e0f4;
-            border-radius: 4px;
-            min-width: 140px;
-        }
-
-        .stage-box-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .stage-box-value {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-top: 2px;
-        }
-
-        .arrow-indicator {
-            font-size: 24px;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        /* Milestone Banner */
-        .milestone-banner {
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            border-radius: 4px;
-            padding: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--warning-text);
-            font-size: 13px;
-        }
-
-        .banner-icon {
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        .banner-content strong {
-            display: block;
-            margin-bottom: 2px;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .dialog-footer {
-            border-top: 1px solid var(--border);
-            padding-top: 14px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .btn {
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 2px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        .btn-primary:disabled {
-            background-color: var(--disabled-bg);
-            color: var(--disabled-text);
-            border-color: var(--border);
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
-        .btn-secondary {
-            background-color: #ffffff;
-            color: var(--text-main);
-            border-color: var(--border-hover);
-        }
-
-        .btn-secondary:hover {
-            background-color: #f3f2f1;
-            border-color: var(--text-secondary);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); font-size: 14px; line-height: 1.4; padding: 16px; display: flex; flex-direction: column; min-height: 100vh; }
+        .dialog-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px; }
+        .header-title { font-size: 18px; font-weight: 600; }
+        .context-badge { font-size: 11px; background: var(--info-bg); color: var(--info-text); padding: 3px 8px; border-radius: 12px; border: 1px solid var(--info-border); font-family: Consolas, monospace; }
+        .mode-nav { display: flex; gap: 4px; background: #edebe9; padding: 3px; border-radius: 4px; margin-bottom: 14px; }
+        .mode-tab { flex: 1; text-align: center; padding: 7px 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary); border-radius: 3px; cursor: pointer; border: none; background: transparent; }
+        .mode-tab:hover { color: var(--text-main); background: rgba(255,255,255,0.5); }
+        .mode-tab.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .mode-tab.active.tab-won { color: var(--success); }
+        .mode-tab.active.tab-lost { color: var(--danger); }
+        .dialog-body { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .summary-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; }
+        .summary-bar strong { color: var(--text-main); }
+        .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .section-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+        .form-group:last-child { margin-bottom: 0; }
+        label { font-weight: 600; font-size: 13px; }
+        .required-star { color: var(--error-text); margin-left: 2px; }
+        input[type="date"], select, textarea { padding: 7px 10px; border: 1px solid var(--border-hover); border-radius: 2px; font-size: 13px; color: var(--text-main); background: #ffffff; outline: none; width: 100%; }
+        textarea { resize: vertical; min-height: 84px; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+        input:disabled, select:disabled, textarea:disabled { background: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; }
+        .hint { font-size: 12px; color: var(--text-secondary); }
+        .stage-pipeline { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding: 8px 12px; background: #f3f2f1; border-radius: 4px; }
+        .stage-node { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .stage-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #e1dfdd; color: #605e5c; border: 2px solid #edebe9; }
+        .stage-name { font-size: 11px; font-weight: 600; color: #605e5c; }
+        .stage-node.current .stage-circle { background: var(--primary); color: #ffffff; border-color: #004578; }
+        .stage-node.current .stage-name { color: var(--primary); }
+        .stage-node.next .stage-circle { background: #ffffff; color: var(--primary); border-color: var(--primary); }
+        .stage-node.next .stage-name { color: var(--text-main); }
+        .stage-connector { flex: 1; height: 2px; background: #d2d0ce; margin: 0 8px 16px 8px; }
+        .stage-connector.completed { background: var(--primary); }
+        .transition-callout { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 14px; background: #f8fbfd; border: 1px solid #c7e0f4; border-radius: 4px; }
+        .stage-box { display: flex; flex-direction: column; align-items: center; padding: 10px 16px; background: #ffffff; border: 1px solid #c7e0f4; border-radius: 4px; min-width: 140px; }
+        .stage-box-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; }
+        .stage-box-value { font-size: 15px; font-weight: 600; margin-top: 2px; }
+        .arrow-indicator { font-size: 22px; color: var(--primary); font-weight: bold; }
+        .banner { border-radius: 4px; padding: 11px 12px; font-size: 13px; display: none; }
+        .banner.show { display: block; }
+        .banner-info { background: var(--info-bg); border: 1px solid var(--info-border); color: var(--info-text); }
+        .banner-warn { background: var(--warning-bg); border: 1px solid var(--warning-border); color: var(--warning-text); }
+        .banner-error { background: var(--error-bg); border: 1px solid var(--error-border); color: var(--error-text); }
+        .banner-success { background: var(--success-bg); border: 1px solid var(--success-border); color: var(--success); }
+        .result-kv { margin-top: 8px; font-family: Consolas, monospace; font-size: 12px; white-space: pre-line; line-height: 1.6; }
+        .banner-actions { margin-top: 8px; display: flex; gap: 8px; }
+        .dialog-footer { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .btn { padding: 8px 18px; font-size: 13px; font-weight: 600; border-radius: 2px; cursor: pointer; border: 1px solid transparent; }
+        .btn-sm { padding: 5px 12px; font-size: 12px; }
+        .btn-primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+        .btn-success { background: var(--success); color: #ffffff; border-color: var(--success); }
+        .btn-success:hover:not(:disabled) { background: var(--success-hover); }
+        .btn-danger { background: var(--danger); color: #ffffff; border-color: var(--danger); }
+        .btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+        .btn:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); cursor: not-allowed; }
+        .btn-secondary { background: #ffffff; color: var(--text-main); border-color: var(--border-hover); }
+        .btn-secondary:hover { background: #f3f2f1; }
     </style>
 </head>
 <body>
-
     <div class="dialog-header">
-        <div class="header-title">
-            <span>Transition Opportunity</span>
-        </div>
+        <div class="header-title">Transition Opportunity</div>
         <div id="recordContextBadge" class="context-badge" style="display: none;">
-            Opp ID: <span id="oppIdDisplay"></span>
+            Opp: <span id="oppIdDisplay"></span>
         </div>
     </div>
 
-    <!-- Mode Selector Navigation -->
     <div class="mode-nav" role="tablist">
         <button type="button" class="mode-tab active" id="tabAdvance" onclick="switchMode('Advance')">Advance Stage</button>
         <button type="button" class="mode-tab tab-won" id="tabWon" onclick="switchMode('Won')">Close as Won</button>
@@ -404,122 +110,97 @@
     </div>
 
     <div class="dialog-body">
+        <div class="summary-bar" id="oppSummaryBar">
+            <span>Deal: <strong id="sumOppName">Loading...</strong></span>
+            <span>Total: <strong id="sumTotal">--</strong></span>
+            <span>Max Discount: <strong id="sumDiscount">--</strong></span>
+        </div>
 
-        <!-- ==================== MODE 1: ADVANCE ==================== -->
+        <div id="closedBanner" class="banner banner-info" role="status"></div>
+        <div id="errorBanner" class="banner banner-error" role="alert"></div>
+        <div id="successBanner" class="banner banner-success" role="status"></div>
+
+        <!-- MODE 1: ADVANCE -->
         <div id="panelAdvance" class="section-card">
             <div class="section-title">Advance Opportunity Stage (EXT11 §7.2)</div>
-            
             <div class="stage-pipeline">
-                <div class="stage-node" id="nodeQualify">
-                    <div class="stage-circle">1</div>
-                    <div class="stage-name">Qualify</div>
-                </div>
+                <div class="stage-node" id="nodeQualify"><div class="stage-circle">1</div><div class="stage-name">Qualify</div></div>
                 <div class="stage-connector" id="conn1"></div>
-                <div class="stage-node" id="nodeDevelop">
-                    <div class="stage-circle">2</div>
-                    <div class="stage-name">Develop</div>
-                </div>
+                <div class="stage-node" id="nodeDevelop"><div class="stage-circle">2</div><div class="stage-name">Develop</div></div>
                 <div class="stage-connector" id="conn2"></div>
-                <div class="stage-node" id="nodePropose">
-                    <div class="stage-circle">3</div>
-                    <div class="stage-name">Propose</div>
-                </div>
+                <div class="stage-node" id="nodePropose"><div class="stage-circle">3</div><div class="stage-name">Propose</div></div>
                 <div class="stage-connector" id="conn3"></div>
-                <div class="stage-node" id="nodeClose">
-                    <div class="stage-circle">4</div>
-                    <div class="stage-name">Close</div>
-                </div>
+                <div class="stage-node" id="nodeClose"><div class="stage-circle">4</div><div class="stage-name">Close</div></div>
             </div>
-
             <div class="transition-callout">
                 <div class="stage-box">
                     <div class="stage-box-label">Current Stage</div>
                     <div class="stage-box-value" id="currentStageText">Qualify</div>
                 </div>
-                <div class="arrow-indicator">➔</div>
+                <div class="arrow-indicator">-&gt;</div>
                 <div class="stage-box">
                     <div class="stage-box-label">Next Adjacent Stage</div>
                     <div class="stage-box-value" id="nextStageText" style="color: var(--primary);">Develop</div>
                 </div>
             </div>
-
-            <div id="advanceNote" class="hint" style="margin-top: 12px; text-align: center;">
-                Stage advancement is strictly sequential and forward-only (no skipping, no backward steps).
+            <div id="advanceNote" class="hint" style="margin-top: 10px; text-align: center;">
+                Forward adjacent transition only. Server validates BR12 stage readiness and mirrors the Opportunity BPF atomically.
             </div>
-            <div id="terminalStageAlert" style="display: none; margin-top: 12px; padding: 10px; background: #fff4ce; border: 1px solid #fed9cc; border-radius: 4px; color: #794300; font-size: 13px;">
-                <strong>Notice:</strong> This Opportunity is already at the final stage (Close). It cannot be advanced further and must be closed as <strong>Won</strong> or <strong>Lost</strong>.
+            <div id="terminalStageAlert" class="banner banner-warn" style="margin-top: 10px;">
+                Opportunity is already in Close stage; use Close as Won or Close as Lost.
             </div>
         </div>
 
-        <!-- ==================== MODE 2: WON ==================== -->
+        <!-- MODE 2: WON -->
         <div id="panelWon" class="section-card" style="display: none;">
             <div class="section-title">Close as Won (EXT11 §7.2)</div>
-            <div class="hint" style="margin-bottom: 12px;">Record successful deal outcome. Opportunity will transition to Won (statuscode: Won).</div>
-
-            <div class="form-group">
-                <label for="wonActualCloseDate">Actual Close Date (Date Only)<span class="required-star">*</span></label>
-                <input type="date" id="wonActualCloseDate" />
-                <span class="hint">Date on which customer agreement was finalized.</span>
+            <div id="approvalWarningBanner" class="banner banner-warn" style="margin-bottom: 12px;">
+                <strong>Approval Policy Triggered (BR20 / CRM012):</strong> This deal meets the commercial approval threshold (Total &ge; 50,000 or Max Discount &gt; 10%). Closing as Won requires a current Approved Request delivered by Milestone 5 (EXT13 / WF04) and will be blocked with [CRM012] until approved.
             </div>
-
             <div class="form-group">
-                <label for="wonCloseComments">Close Comments<span class="required-star">*</span></label>
-                <textarea id="wonCloseComments" placeholder="Enter nonblank closing rationale, key success factors, and contract highlights..."></textarea>
-                <span class="hint">Nonblank closing comments are required.</span>
+                <label for="wonActualCloseDate">Actual Close Date (UTC Date Only)<span class="required-star">*</span></label>
+                <input type="date" id="wonActualCloseDate" />
+                <span class="hint">Must be within Created On UTC calendar date through UTC Today inclusive.</span>
+            </div>
+            <div class="form-group">
+                <label for="wonComments">Comments<span class="required-star">*</span></label>
+                <textarea id="wonComments" placeholder="Enter nonblank closing rationale and agreement highlights..."></textarea>
             </div>
         </div>
 
-        <!-- ==================== MODE 3: LOST ==================== -->
+        <!-- MODE 3: LOST -->
         <div id="panelLost" class="section-card" style="display: none;">
             <div class="section-title">Close as Lost (EXT11 §7.2)</div>
-            <div class="hint" style="margin-bottom: 12px;">Record lost deal outcome. Opportunity will transition to Lost (statuscode: Lost).</div>
-
             <div class="form-group">
                 <label for="lostReason">Loss Reason<span class="required-star">*</span></label>
                 <select id="lostReason">
                     <option value="">-- Select Loss Reason --</option>
-                    <option value="100000000">Price (100000000)</option>
-                    <option value="100000001">Timing (100000001)</option>
-                    <option value="100000002">Competitor (100000002)</option>
-                    <option value="100000003">No Budget (100000003)</option>
-                    <option value="100000004">No Decision (100000004)</option>
-                    <option value="100000005">Other (100000005)</option>
+                    <option value="100000000">Price</option>
+                    <option value="100000001">Timing</option>
+                    <option value="100000002">Competitor</option>
+                    <option value="100000003">No Budget</option>
+                    <option value="100000004">No Decision</option>
+                    <option value="100000005">Other</option>
                 </select>
-                <span class="hint">Primary driver for loss outcome.</span>
             </div>
-
             <div class="form-group">
-                <label for="lostActualCloseDate">Actual Close Date (Date Only)<span class="required-star">*</span></label>
+                <label for="lostActualCloseDate">Actual Close Date (UTC Date Only)<span class="required-star">*</span></label>
                 <input type="date" id="lostActualCloseDate" />
-                <span class="hint">Date on which opportunity was determined lost.</span>
+                <span class="hint">Must be within Created On UTC calendar date through UTC Today inclusive.</span>
             </div>
-
             <div class="form-group">
-                <label for="lostCloseComments">Close Comments<span class="required-star">*</span></label>
-                <textarea id="lostCloseComments" placeholder="Enter nonblank loss justification, competitor details, or customer feedback..."></textarea>
-                <span class="hint">Nonblank closing comments are required.</span>
+                <label for="lostComments">Comments<span class="required-star">*</span></label>
+                <textarea id="lostComments" placeholder="Enter nonblank loss justification and customer feedback..."></textarea>
             </div>
         </div>
-
-        <!-- ==================== MILESTONE BANNER ==================== -->
-        <div class="milestone-banner">
-            <span class="banner-icon">ℹ️</span>
-            <div class="banner-content">
-                <strong>Milestone Status</strong>
-                <p>Prepared for Milestone 3: Requires server Custom API EXT11 (vn_TransitionOpportunity).</p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- Dialog Footer -->
     <div class="dialog-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btnCommit" disabled="disabled" title="Disabled in Milestone 2: Awaiting Custom API vn_TransitionOpportunity in M3">Advance Stage</button>
+        <button type="button" class="btn btn-secondary" id="btnCancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnCommit" onclick="commitTransition()" disabled="disabled">Advance Stage</button>
     </div>
 
     <script>
-        // Stage Metadata and Sequential Progression Map
         var STAGES = {
             100000000: { code: 100000000, name: "Qualify", next: 100000001, nextName: "Develop", index: 1 },
             100000001: { code: 100000001, name: "Develop", next: 100000002, nextName: "Propose", index: 2 },
@@ -527,132 +208,377 @@
             100000003: { code: 100000003, name: "Close", next: null, nextName: "None (Final Stage)", index: 4 }
         };
 
-        var currentContext = {
+        var STATUS_LABELS = {
+            100000000: "Open",
+            100000001: "Won",
+            100000002: "Lost"
+        };
+
+        var ctxState = {
             recordId: "",
             rowVersion: "",
             commandMode: "Advance",
-            currentStage: 100000000
+            currentStage: 100000000,
+            total: 0,
+            maxDiscount: 0,
+            currencyCode: "",
+            isClosed: false,
+            loaded: false,
+            submitting: false,
+            completed: false
         };
 
         window.addEventListener("DOMContentLoaded", function () {
             initDateFields();
             parseQueryParams();
-            applyContextToUI();
+            switchMode(ctxState.commandMode);
+            if (!ctxState.recordId) {
+                showError("Missing Opportunity identifier. Please reopen from a saved Opportunity.", "", false);
+                return;
+            }
+            loadOpportunityState();
         });
 
-        // Initialize default dates to UTC Today
-        function initDateFields() {
-            var today = new Date();
-            var utcYear = today.getUTCFullYear();
-            var utcMonth = String(today.getUTCMonth() + 1).padStart(2, '0');
-            var utcDay = String(today.getUTCDate()).padStart(2, '0');
-            var todayStr = utcYear + "-" + utcMonth + "-" + utcDay;
-
-            document.getElementById("wonActualCloseDate").value = todayStr;
-            document.getElementById("lostActualCloseDate").value = todayStr;
+        function cleanGuid(raw) {
+            return raw ? String(raw).replace(/[{}]/g, "").trim().toLowerCase() : "";
         }
 
-        // Parse query params passed by Xrm.Navigation.navigateTo
+        function normalizeEtag(etag) {
+            if (!etag) return "";
+            var str = String(etag).trim();
+            var m = str.match(/^W\/"'?([^"']+)'?"$/i);
+            return m && m[1] ? m[1].trim() : str.replace(/^W\/"?'?/i, "").replace(/'?"?$/, "").trim();
+        }
+
+        function getUtcTodayYmd() {
+            var d = new Date();
+            return d.getUTCFullYear() + "-" + String(d.getUTCMonth() + 1).padStart(2, "0") + "-" + String(d.getUTCDate()).padStart(2, "0");
+        }
+
+        function initDateFields() {
+            var todayStr = getUtcTodayYmd();
+            var wonEl = document.getElementById("wonActualCloseDate");
+            var lostEl = document.getElementById("lostActualCloseDate");
+            wonEl.max = todayStr;
+            wonEl.value = todayStr;
+            lostEl.max = todayStr;
+            lostEl.value = todayStr;
+        }
+
         function parseQueryParams() {
             try {
-                var search = window.location.search;
-                var params = new URLSearchParams(search);
+                var params = new URLSearchParams(window.location.search);
                 var dataParam = params.get("data");
                 if (dataParam) {
-                    var dataObj = JSON.parse(dataParam);
-                    if (dataObj.recordId) {
-                        currentContext.recordId = dataObj.recordId;
+                    var obj = JSON.parse(dataParam);
+                    if (obj.recordId) {
+                        ctxState.recordId = cleanGuid(obj.recordId);
+                        document.getElementById("oppIdDisplay").innerText = ctxState.recordId.substring(0, 8) + "...";
+                        document.getElementById("recordContextBadge").style.display = "inline-block";
                     }
-                    if (dataObj.rowVersion) {
-                        currentContext.rowVersion = dataObj.rowVersion;
+                    if (obj.rowVersion) ctxState.rowVersion = normalizeEtag(obj.rowVersion);
+                    if (obj.commandMode === "Won" || obj.commandMode === "Lost" || obj.commandMode === "Advance") {
+                        ctxState.commandMode = obj.commandMode;
                     }
-                    if (dataObj.commandMode) {
-                        currentContext.commandMode = dataObj.commandMode;
+                    if (obj.currentStage !== undefined && obj.currentStage !== null) {
+                        ctxState.currentStage = parseInt(obj.currentStage, 10);
                     }
-                    if (dataObj.currentStage !== undefined && dataObj.currentStage !== null) {
-                        currentContext.currentStage = parseInt(dataObj.currentStage, 10);
-                    }
+                    if (obj.currencyCode) ctxState.currencyCode = obj.currencyCode;
                 }
             } catch (e) {
-                console.warn("Could not parse navigation parameters:", e);
+                console.warn("Could not parse navigation data:", e);
             }
         }
 
-        function applyContextToUI() {
-            if (currentContext.recordId) {
-                document.getElementById("oppIdDisplay").innerText = currentContext.recordId.substring(0, 8) + "...";
-                document.getElementById("recordContextBadge").style.display = "inline-block";
+        function getClientUrl() {
+            if (typeof GetGlobalContext === "function") {
+                var ctx = GetGlobalContext();
+                if (ctx && typeof ctx.getClientUrl === "function") {
+                    return ctx.getClientUrl().replace(/\/$/, "");
+                }
             }
+            if (typeof Xrm !== "undefined" && Xrm.Utility && typeof Xrm.Utility.getGlobalContext === "function") {
+                return Xrm.Utility.getGlobalContext().getClientUrl().replace(/\/$/, "");
+            }
+            return "";
+        }
 
-            // Update Stage UI
-            updateStageDisplay(currentContext.currentStage);
+        function parseErrorPayload(text, status) {
+            var message = "Request failed (HTTP " + status + ").";
+            try {
+                var j = JSON.parse(text);
+                if (j && j.error && j.error.message) message = j.error.message;
+            } catch (e) {
+                if (text) message = text;
+            }
+            var codeMatch = message.match(/\[(CRM\d{3})\]/);
+            var corrMatch = message.match(/CorrelationId[=:\s]+([0-9a-fA-F-]{36})/i);
+            return {
+                message: message.replace(/\s*\(CorrelationId:[^)]+\)/i, "").trim(),
+                crmCode: codeMatch ? codeMatch[1] : "",
+                correlationId: corrMatch ? corrMatch[1].toLowerCase() : ""
+            };
+        }
 
-            // Switch to initial mode
-            switchMode(currentContext.commandMode || "Advance");
+        function callOData(method, relativePath, body) {
+            var url = getClientUrl() + "/api/data/v9.2/" + relativePath.replace(/^\//, "");
+            var headers = {
+                "Accept": "application/json",
+                "OData-MaxVersion": "4.0",
+                "OData-Version": "4.0",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            };
+            var opts = { method: method, cache: "no-store", headers: headers };
+            if (body !== undefined && body !== null) {
+                headers["Content-Type"] = "application/json; charset=utf-8";
+                opts.body = JSON.stringify(body);
+            }
+            return fetch(url, opts).then(function (res) {
+                return res.text().then(function (txt) {
+                    if (!res.ok) {
+                        var info = parseErrorPayload(txt, res.status);
+                        var err = new Error(info.message);
+                        err.crmCode = info.crmCode;
+                        err.correlationId = info.correlationId;
+                        err.status = res.status;
+                        throw err;
+                    }
+                    return txt ? JSON.parse(txt) : null;
+                });
+            });
+        }
+
+        function showError(msg, corrId, showRefreshBtn) {
+            var el = document.getElementById("errorBanner");
+            el.innerHTML = "";
+            var p = document.createElement("div");
+            p.textContent = msg;
+            el.appendChild(p);
+            if (corrId) {
+                var c = document.createElement("div");
+                c.className = "result-kv";
+                c.textContent = "CorrelationId: " + corrId;
+                el.appendChild(c);
+            }
+            if (showRefreshBtn) {
+                var actions = document.createElement("div");
+                actions.className = "banner-actions";
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn btn-secondary btn-sm";
+                btn.textContent = "Refresh Opportunity Version";
+                btn.onclick = function () {
+                    clearMessages();
+                    loadOpportunityState();
+                };
+                actions.appendChild(btn);
+                el.appendChild(actions);
+            }
+            el.classList.add("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function clearMessages() {
+            document.getElementById("errorBanner").classList.remove("show");
+            document.getElementById("successBanner").classList.remove("show");
+        }
+
+        function loadOpportunityState() {
+            var q = "vn_opportunities(" + ctxState.recordId + ")?$select=vn_opportunityid,vn_name,statecode,statuscode,vn_stage,vn_total,vn_maxdiscount&$expand=transactioncurrencyid($select=isocurrencycode)";
+            callOData("GET", q).then(
+                function (opp) {
+                    ctxState.loaded = true;
+                    if (opp["@odata.etag"]) ctxState.rowVersion = normalizeEtag(opp["@odata.etag"]);
+                    ctxState.currentStage = opp.vn_stage || 100000000;
+                    ctxState.total = Number(opp.vn_total || 0);
+                    ctxState.maxDiscount = Number(opp.vn_maxdiscount || 0);
+                    if (opp.transactioncurrencyid && opp.transactioncurrencyid.isocurrencycode) {
+                        ctxState.currencyCode = opp.transactioncurrencyid.isocurrencycode;
+                    }
+                    var currPrefix = ctxState.currencyCode ? (ctxState.currencyCode + " ") : "";
+                    document.getElementById("sumOppName").textContent = opp.vn_name || "Opportunity";
+                    document.getElementById("sumTotal").textContent = currPrefix + ctxState.total.toFixed(2);
+                    document.getElementById("sumDiscount").textContent = ctxState.maxDiscount.toFixed(2) + "%";
+
+                    var needsApproval = ctxState.total >= 50000 || ctxState.maxDiscount > 10;
+                    document.getElementById("approvalWarningBanner").classList.toggle("show", needsApproval);
+
+                    updateStageDisplay(ctxState.currentStage);
+
+                    if (opp.statecode !== 0) {
+                        ctxState.isClosed = true;
+                        var statusText = STATUS_LABELS[opp.statuscode] || "Closed";
+                        var cb = document.getElementById("closedBanner");
+                        cb.textContent = "This Opportunity is already closed (" + statusText + ") and read-only. Closed deals cannot be transitioned.";
+                        cb.classList.add("show");
+                    } else {
+                        ctxState.isClosed = false;
+                        document.getElementById("closedBanner").classList.remove("show");
+                    }
+                    syncCommitButton();
+                },
+                function (err) {
+                    showError("Unable to load Opportunity: " + err.message, err.correlationId || "", false);
+                    document.getElementById("btnCommit").disabled = true;
+                }
+            );
         }
 
         function updateStageDisplay(stageCode) {
             var stageInfo = STAGES[stageCode] || STAGES[100000000];
-            document.getElementById("currentStageText").innerText = stageInfo.name + " (" + stageInfo.code + ")";
-
+            document.getElementById("currentStageText").textContent = stageInfo.name;
+            var nextEl = document.getElementById("nextStageText");
             if (stageInfo.next) {
-                document.getElementById("nextStageText").innerText = stageInfo.nextName + " (" + stageInfo.next + ")";
+                nextEl.textContent = stageInfo.nextName;
+                nextEl.style.color = "var(--primary)";
                 document.getElementById("advanceNote").style.display = "block";
-                document.getElementById("terminalStageAlert").style.display = "none";
+                document.getElementById("terminalStageAlert").classList.remove("show");
             } else {
-                document.getElementById("nextStageText").innerText = "None (Terminal)";
-                document.getElementById("nextStageText").style.color = "var(--text-secondary)";
+                nextEl.textContent = "None (Final Stage)";
+                nextEl.style.color = "var(--text-secondary)";
                 document.getElementById("advanceNote").style.display = "none";
-                document.getElementById("terminalStageAlert").style.display = "block";
+                document.getElementById("terminalStageAlert").classList.add("show");
             }
 
-            // Update Pipeline Stepper
             var nodes = ["nodeQualify", "nodeDevelop", "nodePropose", "nodeClose"];
             var conns = ["conn1", "conn2", "conn3"];
-            
-            nodes.forEach(function (nId, idx) {
-                var el = document.getElementById(nId);
+            nodes.forEach(function (id, idx) {
+                var el = document.getElementById(id);
                 el.classList.remove("current", "next");
-                if (idx + 1 === stageInfo.index) {
-                    el.classList.add("current");
-                } else if (idx + 1 === stageInfo.index + 1) {
-                    el.classList.add("next");
-                }
+                if (idx + 1 === stageInfo.index) el.classList.add("current");
+                else if (idx + 1 === stageInfo.index + 1) el.classList.add("next");
             });
-
-            conns.forEach(function (cId, idx) {
-                var el = document.getElementById(cId);
-                el.classList.remove("completed");
-                if (idx + 1 < stageInfo.index) {
-                    el.classList.add("completed");
-                }
+            conns.forEach(function (id, idx) {
+                var el = document.getElementById(id);
+                el.classList.toggle("completed", idx + 1 < stageInfo.index);
             });
         }
 
-        // Mode Switching
         function switchMode(mode) {
-            currentContext.commandMode = mode;
-
-            // Nav Tabs
+            if (ctxState.submitting || ctxState.completed) return;
+            ctxState.commandMode = mode;
+            clearMessages();
             document.getElementById("tabAdvance").classList.toggle("active", mode === "Advance");
             document.getElementById("tabWon").classList.toggle("active", mode === "Won");
             document.getElementById("tabLost").classList.toggle("active", mode === "Lost");
-
-            // Panels
             document.getElementById("panelAdvance").style.display = (mode === "Advance") ? "block" : "none";
             document.getElementById("panelWon").style.display = (mode === "Won") ? "block" : "none";
             document.getElementById("panelLost").style.display = (mode === "Lost") ? "block" : "none";
+            syncCommitButton();
+        }
 
-            // Button Label
-            var btnCommit = document.getElementById("btnCommit");
+        function syncCommitButton() {
+            var btn = document.getElementById("btnCommit");
+            var mode = ctxState.commandMode;
+            var stageInfo = STAGES[ctxState.currentStage] || STAGES[100000000];
             if (mode === "Advance") {
-                var stageInfo = STAGES[currentContext.currentStage] || STAGES[100000000];
-                btnCommit.innerText = stageInfo.next ? ("Advance to " + stageInfo.nextName) : "Advance Stage";
+                btn.textContent = stageInfo.next ? ("Advance to " + stageInfo.nextName) : "Advance Stage";
+                btn.className = "btn btn-primary";
+                btn.disabled = !ctxState.loaded || ctxState.isClosed || ctxState.submitting || ctxState.completed || !stageInfo.next;
             } else if (mode === "Won") {
-                btnCommit.innerText = "Confirm Won";
-            } else if (mode === "Lost") {
-                btnCommit.innerText = "Confirm Lost";
+                btn.textContent = "Confirm Won";
+                btn.className = "btn btn-success";
+                btn.disabled = !ctxState.loaded || ctxState.isClosed || ctxState.submitting || ctxState.completed;
+            } else {
+                btn.textContent = "Confirm Lost";
+                btn.className = "btn btn-danger";
+                btn.disabled = !ctxState.loaded || ctxState.isClosed || ctxState.submitting || ctxState.completed;
             }
+        }
+
+        function commitTransition() {
+            if (ctxState.submitting || ctxState.isClosed || ctxState.completed || !ctxState.loaded) return;
+            clearMessages();
+
+            if (!ctxState.rowVersion) {
+                showError("Missing Opportunity RowVersion. Click Refresh Opportunity Version to reload.", "", true);
+                return;
+            }
+
+            var mode = ctxState.commandMode;
+            var payload = {
+                Command: mode,
+                ExpectedRowVersion: ctxState.rowVersion
+            };
+
+            if (mode === "Advance") {
+                var stageInfo = STAGES[ctxState.currentStage];
+                if (!stageInfo || !stageInfo.next) {
+                    showError("Opportunity is already in Close stage; use Close as Won or Close as Lost.", "", false);
+                    return;
+                }
+                payload.TargetStage = stageInfo.next;
+            } else if (mode === "Won") {
+                var wonDate = (document.getElementById("wonActualCloseDate").value || "").trim();
+                var wonComments = (document.getElementById("wonComments").value || "").trim();
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(wonDate)) {
+                    showError("Actual Close Date is required.", "", false);
+                    return;
+                }
+                if (!wonComments) {
+                    showError("Nonblank closing comments are required to close as Won.", "", false);
+                    return;
+                }
+                payload.ActualCloseDate = wonDate + "T00:00:00Z";
+                payload.Comments = wonComments;
+            } else if (mode === "Lost") {
+                var reasonInt = parseInt(document.getElementById("lostReason").value, 10);
+                var lostDate = (document.getElementById("lostActualCloseDate").value || "").trim();
+                var lostComments = (document.getElementById("lostComments").value || "").trim();
+                if (isNaN(reasonInt)) {
+                    showError("Loss Reason is required to close as Lost.", "", false);
+                    return;
+                }
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(lostDate)) {
+                    showError("Actual Close Date is required.", "", false);
+                    return;
+                }
+                if (!lostComments) {
+                    showError("Nonblank closing comments are required to close as Lost.", "", false);
+                    return;
+                }
+                payload.LossReason = reasonInt;
+                payload.ActualCloseDate = lostDate + "T00:00:00Z";
+                payload.Comments = lostComments;
+            }
+
+            ctxState.submitting = true;
+            var btn = document.getElementById("btnCommit");
+            btn.disabled = true;
+            btn.textContent = "Submitting...";
+
+            callOData("POST", "vn_opportunities(" + ctxState.recordId + ")/Microsoft.Dynamics.CRM.vn_TransitionOpportunity", payload).then(
+                function (result) {
+                    ctxState.submitting = false;
+                    ctxState.completed = true;
+                    btn.style.display = "none";
+                    document.getElementById("btnCancel").textContent = "Close";
+
+                    var stageLabel = (STAGES[result.Stage] ? STAGES[result.Stage].name + " (" + result.Stage + ")" : String(result.Stage));
+                    var statusLabel = (STATUS_LABELS[result.StatusReason] ? STATUS_LABELS[result.StatusReason] + " (" + result.StatusReason + ")" : String(result.StatusReason));
+
+                    var sb = document.getElementById("successBanner");
+                    sb.innerHTML = "";
+                    var heading = document.createElement("strong");
+                    heading.textContent = "Opportunity transition committed via EXT11 (vn_TransitionOpportunity):";
+                    var kv = document.createElement("div");
+                    kv.className = "result-kv";
+                    kv.textContent =
+                        "Stage: " + stageLabel + "\n" +
+                        "StatusReason: " + statusLabel + "\n" +
+                        "CommandSequence: " + String(result.CommandSequence) + "\n" +
+                        "CorrelationId: " + result.CorrelationId;
+                    sb.appendChild(heading);
+                    sb.appendChild(kv);
+                    sb.classList.add("show");
+                },
+                function (err) {
+                    ctxState.submitting = false;
+                    syncCommitButton();
+                    showError(err.message, err.correlationId || "", err.crmCode === "CRM021");
+                }
+            );
         }
 
         function closeDialog() {
