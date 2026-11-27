@@ -11,6 +11,7 @@
 *.env
 *.pfx
 *.snk
+**/TestResults/
 
 # Private local documentation
 readme_local.md
