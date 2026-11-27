@@ -101,7 +101,7 @@ flowchart TB
 | **M0**    | **Engineering Readiness, Solution & CLI Pipeline**                             | **Completed** | `m0-engineering-readiness` |
 | **M1**    | **Dataverse Relational Schema, Choices & Alternate Keys**                      | **Completed** | `m1-data-foundation`       |
 | **M2**    | **Model-Driven App, 13 Views, 4 Charts, 2 Dashboards & RBAC**                  | **Completed** | `m2-model-driven-crm`      |
-| **M3**    | **C# Custom APIs (`EXT10`–`12`), Guard Plug-ins (`PL01`–`03`) & Concurrency**  | Pending       | `m3-transactional-crm`     |
+| **M3**    | **C# Custom APIs (`EXT10`–`12`), Guard Plug-ins (`PL01`–`03`) & Concurrency**  | **Completed** | `m3-transactional-crm`     |
 | **M4**    | **Read-Only `DealHealthPanel` PCF & Hosted 2-Screen Code App**                 | Pending       | `m4-pcf-codeapp`           |
 | **M5**    | **Approval API (`EXT13`) & 4 Solution-Aware Cloud Flows (`WF00`–`04`)**        | Pending       | `m5-flows-approval`        |
 | **M6**    | **2 Published Copilot Studio Agents & 3 Agent Flows (`AF01`, `AF03`, `AF04`)** | Pending       | `m6-copilot-agents`        |
@@ -113,7 +113,7 @@ flowchart TB
 - [x] **M0 — Engineering Readiness:** Publisher `vn`, unmanaged/managed solution `VNEXTInternshipCRM`, 5 policy environment variables (`vn_ApprovalAmount`, `vn_ApprovalDiscount`, `vn_MaxDiscount`, `vn_StaleDays`, `vn_EscalationDays`), PAC CLI unpack pipeline, and architecture documentation.
 - [x] **M1 — Data Foundation:** 5 custom tables (`vn_lead`, `vn_opportunity`, `vn_product`, `vn_opportunityline`, `vn_approvalrequest`), native `account`/`contact`/`task` extensions, 3 active Alternate Keys, `Restrict` relationship cascades, explicit Money precision, and annotated ERD.
 - [x] **M2 — Model-Driven CRM & Security:** `Sales A` and `Sales B` Business Units, `Sales Rep` / `Sales Manager` / `Sales Administrator` security roles (with verified baseline UCI app/chart privileges), `DM14` auditing governance, 8 forms, 13 system views (`V01`–`V03`, `V05`–`V06`, `V08`–`V11`, `V14`–`V17`), 4 charts, 2 six-slot dashboards, Opportunity BPF, 2 Guidance Business Rules, and command bar dialog wiring.
-- [ ] **M3 — Transactional C# Extensibility:** Signed `.NET Framework 4.6.2` plug-in assembly implementing `EXT10`, `EXT11`, `EXT12`, `PL01`–`PL03` guards, `RowVersion` + `vn_commandsequence` concurrency latch, and `Scoped Internal Writer` impersonation.
+- [x] **M3 — Transactional C# Extensibility:** Signed `.NET Framework 4.6.2` plug-in assembly (`VNEXT.CRM.Plugins.dll`, `103/103` xUnit tests) implementing locked `EXT10`/`EXT11`/`EXT12` Custom APIs (`33/33` non-customizable metadata components), `PL01`–`PL03` broad guards (`80` synchronous SDK steps with verified `PreImage`s & `F-02` BPF boundary), `RowVersion` + `vn_commandsequence` concurrency latch, `Scoped Internal Writer` (`SR03`, `28` least-privilege rights), 6 live-wired supported client web resources, and curated `EXT10`/`EXT11`/`EXT12` transactional showcase records.
 - [ ] **M4 — Rich UI & Hosted Code App:** Deployed `DealHealthPanel` PCF control (`PCF01`) and hosted two-screen Sales Rep Workbench Code App (`CA01` Today / `CA02` Qualify).
 - [ ] **M5 — Cloud Flows & Commercial Approval:** `EXT13` (`Submit`, `RecordDecision`, `Cancel`) and 4 solution-aware flows (`WF00-Notify`, `WF01`, `WF02`, `WF04`) with real Approvals connector integration.
 - [ ] **M6 — Copilot Studio Agents:** Published Rep and Manager agents with authenticated end-user Dataverse tools (`AF01`, `AF03`, `AF04`) and prompt-injection/DNC safeguards.
@@ -128,7 +128,8 @@ VNEXTInternshipCRM/
 │   ├── M0_Engineering_Readiness.md
 │   ├── M1_Data_Foundation.md
 │   ├── M2_Model_Driven_CRM.md
-│   └── DATA_INVENTORY.md           # Master record inventory (Accounts, Contacts, Leads, Products, Personas)
+│   ├── M3_Transactional_CRM.md     # M3 C# Custom APIs, 80 SDK steps, SR03 writer & verification
+│   └── DATA_INVENTORY.md           # Master live record inventory (Accounts, Contacts, Leads, Opps, Lines, BPFs, Products, Personas)
 ├── scripts/                        # PAC CLI export, unpack, pack, and solution-checker scripts
 │   └── sync-solution.ps1
 ├── solutions/
@@ -151,6 +152,8 @@ VNEXTInternshipCRM/
 | `vn_MaxDiscount`      | Decimal |    `30` | Maximum permitted discount percentage (`30.00%`) on any Opportunity Line         |
 | `vn_StaleDays`        | Decimal |    `14` | UTC days without explicit business progress before an Open deal is flagged Stale |
 | `vn_EscalationDays`   | Decimal |     `7` | UTC days overdue before open work escalates to the owner's Manager               |
+
+*(In addition to the five fixed policy variables above, `VNEXTInternshipCRM` includes the per-environment `String` definition `vn_InternalWriterUserId` for the least-privilege `SR03` Scoped Internal Writer—a non-interactive Dataverse Application User backed by a zero-secret Entra ID App Registration under Power Platform Admin Center `Application users`, consuming zero paid seats; environment-specific values are bound per target environment and never hard-coded in source.)*
 
 ### Reproducible CLI Commands
 

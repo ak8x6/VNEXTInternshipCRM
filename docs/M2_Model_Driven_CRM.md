@@ -112,12 +112,12 @@ To ensure smooth runtime execution in the Unified Interface (UCI), chart renderi
 
 ### Technical Service Principals (§6.1, §6.2 & §7.4)
 
-1. **Scoped Internal Writer (`SR03`):**  
-   - Dedicated technical identity used within the C# synchronous plug-in pipeline via `CreateOrganizationService(configuredUserId)`.  
-   - Granted least-privilege Create/Write access to `vn_approvalrequest` and `vn_opportunitysalesprocess`, ensuring end-users never hold direct write privileges to approval history or BPF tracking rows.
-2. **Automation Worker (`WF04`):**  
-   - Dedicated service user identity whose GUID is provisioned in environment variable `vn_AutomationWorkerId`.  
-   - Utilized exclusively by Cloud Flow `WF04` to invoke `vn_ManageDealApproval(Action = 'RecordDecision')` upon receipt of an authenticated Power Automate Approvals outcome.
+1. **Scoped Internal Writer (`SR03` — Provisioned in M3):**  
+   - Dedicated **non-interactive Dataverse Application User** (backed by a zero-secret Entra ID App Registration and managed under **Power Platform Admin Center → Settings → Users + permissions → `Application users`**, not under interactive `Users`, consuming zero E3 licenses).  
+   - Referenced dynamically via Environment Variable `vn_InternalWriterUserId` inside the C# synchronous plug-in pipeline via `CreateOrganizationService(configuredUserId)` with least-privilege `VNEXT Internal CRM Writer` permissions (`vn_approvalrequest`, `vn_opportunitysalesprocess`, guarded `vn_opportunity` pointer writes) so business users remain strictly Read-Only on approvals and BPF instances.
+2. **Automation Worker (`WF04` — Scoped to M5 per §8.4 / §8.6):**  
+   - Dedicated service identity whose GUID will be provisioned in M5 inside environment variable `vn_AutomationWorkerId`.  
+   - Utilized exclusively by Cloud Flow `WF04` in M5 to invoke `vn_ManageDealApproval(Action = 'RecordDecision')` upon receipt of an authenticated Power Automate Approvals outcome.
 
 ---
 
@@ -127,7 +127,7 @@ Six dedicated test personas represent the business organization in verification.
 
 > [!NOTE]
 > **Tenant Authentication Context:**  
-> ONLY the Platform Admin holds an interactive Entra ID license seat, while all 6 `SR01` personas below are non-interactive stub `systemuser` records verified via Dataverse security APIs (`RetrievePrincipalAccess`, `RetrieveUserPrivileges`, and `MSCRMCallerID`) per §§8.1, 8.3, and 10. Real tenant UPNs are maintained locally in gitignored `readme_local.md`.
+> All 6 `SR01` personas below are **enabled Microsoft Entra ID users** provisioned with **Office 365 E3 (`ENTERPRISEPACK`)** licenses and bound 1-to-1 to their Dataverse `systemuser` records (`azureactivedirectoryobjectid`). Role and Business Unit isolation in M2/M3 was verified via Dataverse security APIs (`RetrievePrincipalAccess`, `RetrieveUserPrivileges`, and `MSCRMCallerID`) per §§6.1, 8.3, and 8.4. Real tenant UPNs and Entra Object IDs are maintained locally in gitignored `readme_local.md` (passwords are never stored in repository files and are managed/reset in Microsoft 365 Admin Center).
 
 | Persona Label | Business Unit | Assigned Security Role | Redacted UPN | `systemuser` GUID | Native Manager (`parentsystemuserid`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
