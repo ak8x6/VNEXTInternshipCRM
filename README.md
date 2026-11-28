@@ -1,6 +1,6 @@
 # Enterprise B2B Sales CRM — Microsoft Power Platform & C# Server Extensibility
 
-**Author:** Ahmad Kassem — [GitHub](https://github.com/ak8x6) | [LinkedIn](www.linkedin.com/in/ak8x6)  
+**Author:** Ahmad Kassem — [GitHub](https://github.com/ak8x6) | [LinkedIn](https://www.linkedin.com/in/ak8x6)  
 **Solution Name:** `VNEXTInternshipCRM` | **Publisher Prefix:** `vn` | **Base Currency:** `USD` (§1.1, §8.1) | **Time Zone Policy:** `UTC`  
 **Tech Stack:** Microsoft Dataverse · C# (.NET Framework 4.6.2 Plug-ins & Custom APIs) · TypeScript / React (PCF & Power Apps Code Apps) · Model-Driven Power Apps · Power Automate · Microsoft Copilot Studio · Power BI (DAX & Row-Level Security) · Power Platform CLI (`pac`)
 
