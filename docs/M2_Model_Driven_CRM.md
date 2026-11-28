@@ -127,7 +127,7 @@ Six dedicated test personas represent the business organization in verification.
 
 > [!NOTE]
 > **Tenant Authentication Context:**  
-> All 6 `SR01` personas below are **enabled Microsoft Entra ID users** provisioned with **Office 365 E3 (`ENTERPRISEPACK`)** licenses and bound 1-to-1 to their Dataverse `systemuser` records (`azureactivedirectoryobjectid`). Role and Business Unit isolation in M2/M3 was verified via Dataverse security APIs (`RetrievePrincipalAccess`, `RetrieveUserPrivileges`, and `MSCRMCallerID`) per §§6.1, 8.3, and 8.4. Real tenant UPNs and Entra Object IDs are maintained locally in gitignored `readme_local.md` (passwords are never stored in repository files and are managed/reset in Microsoft 365 Admin Center).
+> All 6 `SR01` personas below are **enabled Microsoft Entra ID users** provisioned with **Office 365 E3 (`ENTERPRISEPACK`)**, **Microsoft Power Apps for Developer (`POWERAPPS_DEV`)**, and **Microsoft Power Automate Free (`FLOW_FREE`)** licenses, bound 1-to-1 to their Dataverse `systemuser` records (`azureactivedirectoryobjectid`), and **verified via live interactive browser sign-in** as well as Dataverse security APIs (`RetrievePrincipalAccess`, `RetrieveUserPrivileges`, and `MSCRMCallerID`) per §§6.1, 8.3, and 8.4. Real tenant UPNs and Entra Object IDs are maintained locally in gitignored `readme_local.md` (passwords are never stored in Git-tracked files).
 
 | Persona Label | Business Unit | Assigned Security Role | Redacted UPN | `systemuser` GUID | Native Manager (`parentsystemuserid`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
